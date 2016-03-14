@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour {
 
 	void Start(){
 		style = new GUIStyle ();
-		AddMenuItems ();
+		//AddMenuItems ();
 	}
 
 
@@ -33,17 +33,17 @@ public class MainMenu : MonoBehaviour {
 							Debug.Log ("pl1vspl2");
 						}
 						// open new scene
-					} else if (index == 1) {
+					}/* else if (index == 1) {
 						if (menu) {
 							Debug.Log ("pl1vscpu");
 						}
-						// open new scene
-					} else if (index == 2) {
+						// open new scene*/
+					 else if (index == 1) {
 						if (menu) {
 							DeleteUI ();
 							AddOptionItems ();
 						}
-					} else if (index == 3) {
+					} else if (index == 2) {
 						Application.Quit ();
 					}
 				}
@@ -53,7 +53,7 @@ public class MainMenu : MonoBehaviour {
 			musicVolume = GUI.HorizontalSlider (new Rect (Screen.width * 0.45f, Screen.height * 0.2f, Screen.width * 0.45f, Screen.height * 0.05f), musicVolume, 0, 100);
 			effectVolume = GUI.HorizontalSlider (new Rect (Screen.width * 0.45f, Screen.height * 0.39f, Screen.width * 0.45f, Screen.height * 0.05f), effectVolume, 0, 100);
 		}
-		if (GUI.Button (new Rect (Screen.width * 0.7f, Screen.height * 0.8f, Screen.width * 0.165f, Screen.height * 0.15f), "", style)) {
+	/*	if (GUI.Button (new Rect (Screen.width * 0.7f, Screen.height * 0.8f, Screen.width * 0.165f, Screen.height * 0.15f), ""/*, style)) {
 			if (menu) {
 
 			} else {
@@ -61,11 +61,12 @@ public class MainMenu : MonoBehaviour {
 				AddMenuItems ();
 				menu = true;
 			}
-		}
+		}*/
 	}
 
 	public void AddMenuItems(){
 		index = 0;
+		menu = true;
 		foreach (Texture item in menuItems) {
 			blankObject.GetComponent<MenuItemScript> ().index = index;
 			blankObject.GetComponent<MenuItemScript> ().options = false;
@@ -81,6 +82,7 @@ public class MainMenu : MonoBehaviour {
 	
 	public void AddOptionItems(){
 		index = 0;
+		options = true;
 		foreach (Texture optionItem in optionsItems) {
 			blankObject.GetComponent<MenuItemScript> ().index = index;
 			blankObject.GetComponent<MenuItemScript> ().options = true;

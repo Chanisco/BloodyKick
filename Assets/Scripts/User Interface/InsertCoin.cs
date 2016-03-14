@@ -7,6 +7,8 @@ public class InsertCoin : MonoBehaviour {
 	[SerializeField] float timer = 0;
 	[SerializeField] bool on = false;
 	public GameObject nextScreen;
+	public MainMenuCameraMovement camMovement;
+	private bool clicked = false;
 
 	void Start(){
 		gameObject.GetComponent<Renderer> ().enabled = false;
@@ -20,10 +22,13 @@ public class InsertCoin : MonoBehaviour {
 			timer = 0;
 			gameObject.GetComponent<Renderer> ().enabled = on;
 		}
-		if (Input.anyKeyDown) {
-			Destroy (GameObject.FindGameObjectWithTag ("Title"));
-			Destroy (gameObject);
-			Instantiate (nextScreen);
+		if (Input.anyKeyDown && !clicked) {
+			/*Destroy (GameObject.FindGameObjectWithTag ("Title"));
+			Destroy (gameObject);*/
+		//	Instantiate (nextScreen);
+			camMovement.MoveCam (1);
+			camMovement.menu = Instantiate (nextScreen).GetComponent<MainMenu> ();
+			clicked = true;
 		}
 	}
 }
