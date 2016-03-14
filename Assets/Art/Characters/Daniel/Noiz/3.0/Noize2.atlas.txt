@@ -1,0 +1,271 @@
+
+Noize2.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm Rechts Boven
+  rotate: false
+  xy: 323, 175
+  size: 182, 332
+  orig: 182, 332
+  offset: 0, 0
+  index: -1
+Been Rechts Onder
+  rotate: false
+  xy: 2, 4
+  size: 319, 503
+  orig: 319, 503
+  offset: 0, 0
+  index: -1
+Nek
+  rotate: true
+  xy: 323, 2
+  size: 99, 122
+  orig: 99, 122
+  offset: 0, 0
+  index: -1
+P1
+  rotate: true
+  xy: 447, 5
+  size: 96, 17
+  orig: 96, 17
+  offset: 0, 0
+  index: -1
+P2
+  rotate: true
+  xy: 466, 10
+  size: 91, 38
+  orig: 91, 38
+  offset: 0, 0
+  index: -1
+P7
+  rotate: true
+  xy: 323, 103
+  size: 70, 185
+  orig: 70, 185
+  offset: 0, 0
+  index: -1
+
+Noize22.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm Links Onder
+  rotate: false
+  xy: 233, 221
+  size: 269, 289
+  orig: 269, 289
+  offset: 0, 0
+  index: -1
+Been Links Onder
+  rotate: false
+  xy: 2, 35
+  size: 229, 475
+  orig: 229, 475
+  offset: 0, 0
+  index: -1
+Eye Brow
+  rotate: false
+  xy: 404, 22
+  size: 67, 35
+  orig: 67, 35
+  offset: 0, 0
+  index: -1
+Eye Lid
+  rotate: true
+  xy: 473, 4
+  size: 53, 34
+  orig: 53, 34
+  offset: 0, 0
+  index: -1
+Happy
+  rotate: false
+  xy: 404, 2
+  size: 34, 18
+  orig: 34, 18
+  offset: 0, 0
+  index: -1
+K6
+  rotate: true
+  xy: 233, 18
+  size: 89, 169
+  orig: 89, 169
+  offset: 0, 0
+  index: -1
+P3
+  rotate: false
+  xy: 404, 59
+  size: 87, 48
+  orig: 87, 48
+  offset: 0, 0
+  index: -1
+P6
+  rotate: true
+  xy: 233, 109
+  size: 110, 260
+  orig: 110, 260
+  offset: 0, 0
+  index: -1
+Sad
+  rotate: true
+  xy: 495, 183
+  size: 36, 13
+  orig: 36, 13
+  offset: 0, 0
+  index: -1
+Timid
+  rotate: true
+  xy: 495, 148
+  size: 33, 10
+  orig: 33, 10
+  offset: 0, 0
+  index: -1
+
+Noize23.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+P4
+  rotate: false
+  xy: 438, 337
+  size: 45, 133
+  orig: 45, 133
+  offset: 0, 0
+  index: -1
+P5
+  rotate: true
+  xy: 2, 2
+  size: 77, 205
+  orig: 77, 205
+  offset: 0, 0
+  index: -1
+Torso
+  rotate: false
+  xy: 2, 81
+  size: 434, 389
+  orig: 434, 389
+  offset: 0, 0
+  index: -1
+
+Noize24.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+K1
+  rotate: false
+  xy: 2, 2
+  size: 354, 440
+  orig: 354, 440
+  offset: 0, 0
+  index: -1
+
+Noize25.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Heup
+  rotate: true
+  xy: 216, 132
+  size: 295, 257
+  orig: 295, 257
+  offset: 0, 0
+  index: -1
+K4
+  rotate: false
+  xy: 2, 2
+  size: 212, 425
+  orig: 212, 425
+  offset: 0, 0
+  index: -1
+
+Noize26.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Hoofd
+  rotate: true
+  xy: 248, 78
+  size: 303, 247
+  orig: 303, 247
+  offset: 0, 0
+  index: -1
+K2
+  rotate: false
+  xy: 2, 2
+  size: 244, 379
+  orig: 244, 379
+  offset: 0, 0
+  index: -1
+
+Noize27.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Been Rechts Boven
+  rotate: false
+  xy: 2, 2
+  size: 350, 377
+  orig: 350, 377
+  offset: 0, 0
+  index: -1
+
+Noize28.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Been Links Boven
+  rotate: false
+  xy: 2, 168
+  size: 217, 342
+  orig: 217, 342
+  offset: 0, 0
+  index: -1
+K3
+  rotate: true
+  xy: 2, 2
+  size: 164, 353
+  orig: 164, 353
+  offset: 0, 0
+  index: -1
+K5
+  rotate: true
+  xy: 2, 2
+  size: 164, 353
+  orig: 164, 353
+  offset: 0, 0
+  index: -1
+Punch
+  rotate: false
+  xy: 221, 220
+  size: 244, 290
+  orig: 244, 290
+  offset: 0, 0
+  index: -1
+
+Noize29.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm Links Boven
+  rotate: false
+  xy: 232, 2
+  size: 173, 304
+  orig: 173, 304
+  offset: 0, 0
+  index: -1
+Arm Rechts Onder
+  rotate: false
+  xy: 2, 9
+  size: 228, 297
+  orig: 228, 297
+  offset: 0, 0
+  index: -1

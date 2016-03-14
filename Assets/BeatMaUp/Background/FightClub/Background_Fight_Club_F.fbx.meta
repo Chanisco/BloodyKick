@@ -1,0 +1,158 @@
+fileFormatVersion: 2
+guid: 936cda9a597094ab1ac40be513ed6d66
+timeCreated: 1456397348
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Ballen
+    100004: Bankjes
+    100006: BoksZakken
+    100008: Floor
+    100010: Floor1
+    100012: Gewichten
+    100014: Gewichten_1
+    100016: Gewichten_2
+    100018: Gewichten_3
+    100020: Gewichten_4
+    100022: Gewichten_Stand
+    100024: Matjes
+    100026: RIng
+    100028: Ring_B
+    100030: Ring_S
+    100032: Stand_Gewichten
+    100034: Tribune
+    400000: //RootNode
+    400002: Ballen
+    400004: Bankjes
+    400006: BoksZakken
+    400008: Floor
+    400010: Floor1
+    400012: Gewichten
+    400014: Gewichten_1
+    400016: Gewichten_2
+    400018: Gewichten_3
+    400020: Gewichten_4
+    400022: Gewichten_Stand
+    400024: Matjes
+    400026: RIng
+    400028: Ring_B
+    400030: Ring_S
+    400032: Stand_Gewichten
+    400034: Tribune
+    2300000: Ballen
+    2300002: Bankjes
+    2300004: BoksZakken
+    2300006: Floor
+    2300008: Floor1
+    2300010: Gewichten
+    2300012: Gewichten_1
+    2300014: Gewichten_2
+    2300016: Gewichten_3
+    2300018: Gewichten_4
+    2300020: Gewichten_Stand
+    2300022: Matjes
+    2300024: RIng
+    2300026: Ring_B
+    2300028: Ring_S
+    2300030: Stand_Gewichten
+    2300032: Tribune
+    3300000: Ballen
+    3300002: Bankjes
+    3300004: BoksZakken
+    3300006: Floor
+    3300008: Floor1
+    3300010: Gewichten
+    3300012: Gewichten_1
+    3300014: Gewichten_2
+    3300016: Gewichten_3
+    3300018: Gewichten_4
+    3300020: Gewichten_Stand
+    3300022: Matjes
+    3300024: RIng
+    3300026: Ring_B
+    3300028: Ring_S
+    3300030: Stand_Gewichten
+    3300032: Tribune
+    4300000: RIng
+    4300002: Floor
+    4300004: Tribune
+    4300006: Floor1
+    4300008: Gewichten
+    4300010: Stand_Gewichten
+    4300012: Gewichten_2
+    4300014: Gewichten_1
+    4300016: Gewichten_3
+    4300018: Gewichten_4
+    4300020: Gewichten_Stand
+    4300022: Matjes
+    4300024: BoksZakken
+    4300026: Ballen
+    4300028: Ring_B
+    4300030: Ring_S
+    4300032: Bankjes
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
