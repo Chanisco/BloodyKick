@@ -28,6 +28,7 @@ public class InsertCoin : MonoBehaviour {
 		//	Instantiate (nextScreen);
 			camMovement.MoveCam (1);
 			camMovement.menu = Instantiate (nextScreen).GetComponent<MainMenu> ();
+			camMovement.menu.AddOptionItems ();
 			clicked = true;
 		}
 	}

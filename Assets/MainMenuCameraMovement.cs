@@ -24,17 +24,19 @@ public class MainMenuCameraMovement : MonoBehaviour {
 		cam = Camera.main;
 		cam.transform.position = positions [startpos].position;
 		cam.transform.rotation = positions [startpos].rotation;
-		random = Random.Range (20, 100);
+		random = Random.Range (7, 40);
 	}
 
 	void Update(){
 		if (moving) {
-			position = Vector3.Lerp (position, targetLoc, 0.04f);
-			rotation = Quaternion.Lerp (rotation, targetRot, 0.04f);
+			position = Vector3.Lerp (position, targetLoc, 0.06f);
+			rotation = Quaternion.Lerp (rotation, targetRot, 0.06f);
 			cam.transform.position = position;
 			cam.transform.rotation = rotation;
-			if (Vector3.Distance(cam.transform.position,targetLoc)<3 && !menuAdded/* && cam.transform.rotation == targetRot*/) {
+			if (Vector3.Distance(cam.transform.position,targetLoc)<9 && !menuAdded/* && cam.transform.rotation == targetRot*/) {
 				menu.AddMenuItems ();
+				//menu.AddOptionItems ();
+				menu.menu = true;
 				menuAdded = true;
 			}
 			if (Vector3.Distance(cam.transform.position,targetLoc)<0.1f/* && cam.transform.rotation == targetRot*/) {
@@ -43,14 +45,14 @@ public class MainMenuCameraMovement : MonoBehaviour {
 		}
 		count++;
 		if (count>random) {
-			if (Random.Range (0, 100) < 30) {
+			if (Random.Range (0, 100) > 40) {
 				characater0.animator.PlayAnimation ("Punch");
 				count = 0;
 				random = Random.Range (20, 100);
 			} else {
 				characater0.animator.PlayAnimation ("Kick");
 				count = 0;
-				random = Random.Range (20, 100);
+				random = Random.Range (7, 40);
 			}
 		}
 	}

@@ -9,31 +9,32 @@ public class MenuItemScript : MonoBehaviour {
 	[SerializeField] bool placed = false;
 	public bool options = false;
 	[SerializeField] Vector3 loc;
-	[SerializeField] Vector3 backButtonLoc = new Vector3(5,3.7f,0);
-	[SerializeField] Vector3 offset = new Vector3(0,-2,0);
+	[SerializeField] Vector3 backButtonLoc;
+	[SerializeField] Vector3 offset;
 	[SerializeField] Vector3 drawScale;
 	[SerializeField] public float insertTime;
 
 	void Start(){
 		gameObject.GetComponent<Renderer> ().material.SetTexture ("_MainTex",image);
 		if (options) {
-			loc = new Vector3 (-4.2f, -3, 0);
-			drawScale = new Vector3 (-0.6f, 0.12f, 0.12f);
+			loc = new Vector3 (5.96f, 2.61f, 35.43f);
+			drawScale = new Vector3 (-0.6f, -0.12f, 0.12f);
 		} else {
 			loc = new Vector3 (0, 3, 0);
 			drawScale = new Vector3 (-1, 0.2f, -0.2f);
 		}
+		backButtonLoc = new Vector3 (12.4f, -4.1f, 30);
 	}
 
-	public void checkPlacement(){
+	/*public void checkPlacement(){
 		if (options) {
-			loc = new Vector3 (-4.2f, -3, 0);
-			drawScale = new Vector3 (-0.6f, 0.12f, 0.12f);
+			loc = new Vector3 (11.5f, 3, 37);
+			drawScale = new Vector3 (-0.6f, -0.12f, 0.12f);
 		} else {
 			loc = new Vector3 (0, -3, 0);
 			drawScale = new Vector3 (-1, 0.2f, -0.2f);
 		}
-	}
+	}*/
 
 	void Update(){
 		if (!placed) {
@@ -45,7 +46,7 @@ public class MenuItemScript : MonoBehaviour {
 				}
 			} else {
 				transform.position = Vector3.LerpUnclamped (transform.position, backButtonLoc, insertTime);
-				transform.localScale = new Vector3 (-0.3f, 0.15f, 0.15f);
+				transform.localScale = new Vector3 (-0.3f, -0.15f, 0.15f);
 				if (transform.position == backButtonLoc - (offset * index)) {
 					placed = true;
 				}

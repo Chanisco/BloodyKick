@@ -8,40 +8,50 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] Texture backButton;
 	[SerializeField] GameObject blankObject;
 	[SerializeField] int index = 0;
-	[SerializeField] Vector3 spawnLoc;
-	[SerializeField] bool menu = true;
+	[SerializePrivateVariables] Vector3 spawnLoc;
+	[SerializePrivateVariables] Vector3 optionsSpawnLoc;
+	[SerializePrivateVariables] Vector3 backbuttonSpawnLoc;
+	[SerializeField] public bool menu = false;
 	[SerializeField] bool options = false;
 	[SerializeField] GUIStyle style;
 	[SerializeField] float musicVolume=1;
-	[SerializeField]float effectVolume=1;
+	[SerializeField] float effectVolume=1;
 	[SerializeField] int difficulty;
+	[SerializeField] MainMenuCameraMovement cam;
 
 	void Start(){
 		style = new GUIStyle ();
-		//AddMenuItems ();
+		cam = Camera.main.GetComponent<MainMenuCameraMovement>();
+		spawnLoc = new Vector3 (0, 11, 0);
+		backbuttonSpawnLoc = new Vector3 (12.4f, -4.1f, 30);
+		menu = false;
+		options = false;
 	}
 
 
 	void OnGUI(){
 		index = 0;
 		if (menu) {
+			// makes a button for each menu texture you add to Texture[] menuItems, with index for spacing
 			foreach (Texture item in menuItems) {
-				if (GUI.Button (new Rect (Screen.width * 0.3f, Screen.height * (0.15f + (0.2f * index)), Screen.width * 0.4f, Screen.height * 0.15f), "", style)) {
+				if (GUI.Button (new Rect (Screen.width * 0.3f, Screen.height * (0.12f + (0.22f * index)), Screen.width * 0.4f, Screen.height * 0.15f), "", style)) {
 					if (index == 0) {
 						if (menu) {
 							Application.LoadLevel (1);
 							Debug.Log ("pl1vspl2");
 						}
-						// open new scene
+						// If AI is made
 					}/* else if (index == 1) {
 						if (menu) {
 							Debug.Log ("pl1vscpu");
-						}
-						// open new scene*/
+						}*/
 					 else if (index == 1) {
 						if (menu) {
-							DeleteUI ();
-							AddOptionItems ();
+							//DeleteUI ();
+							cam.MoveCam (2);
+							options = true;
+							menu = false;
+							//AddOptionItems ();
 						}
 					} else if (index == 2) {
 						Application.Quit ();
@@ -49,21 +59,20 @@ public class MainMenu : MonoBehaviour {
 				}
 				index++;
 			}
-		} else {
+		} else if (options){
 			musicVolume = GUI.HorizontalSlider (new Rect (Screen.width * 0.45f, Screen.height * 0.2f, Screen.width * 0.45f, Screen.height * 0.05f), musicVolume, 0, 100);
 			effectVolume = GUI.HorizontalSlider (new Rect (Screen.width * 0.45f, Screen.height * 0.39f, Screen.width * 0.45f, Screen.height * 0.05f), effectVolume, 0, 100);
-		}
-	/*	if (GUI.Button (new Rect (Screen.width * 0.7f, Screen.height * 0.8f, Screen.width * 0.165f, Screen.height * 0.15f), ""/*, style)) {
-			if (menu) {
-
-			} else {
-				DeleteUI ();
-				AddMenuItems ();
+			if (GUI.Button (new Rect (Screen.width * 0.7f, Screen.height * 0.8f, Screen.width * 0.165f, Screen.height * 0.15f), "", style)) {
+				//DeleteUI ();
+				//AddMenuItems ();
+				cam.MoveCam (1);
 				menu = true;
+				options = false;
 			}
-		}*/
+		}
 	}
 
+	// adds a menuitem for each texture in Texture[] menuItems, and sets up all parameters
 	public void AddMenuItems(){
 		index = 0;
 		menu = true;
@@ -72,30 +81,32 @@ public class MainMenu : MonoBehaviour {
 			blankObject.GetComponent<MenuItemScript> ().options = false;
 			blankObject.GetComponent<MenuItemScript> ().backButton = false;
 			blankObject.GetComponent<MenuItemScript> ().image = menuItems [index];
-			blankObject.GetComponent<MenuItemScript> ().checkPlacement ();
+			//blankObject.GetComponent<MenuItemScript> ().checkPlacement ();
 			blankObject.GetComponent<MenuItemScript> ().insertTime = 0.05f;
 			Instantiate (blankObject,spawnLoc,blankObject.transform.rotation);
 			index++;
 		}
 		index = 0;
 	}
-	
+
+	// adds a menuitem for each texture in Texture[] optionsItems, and sets up all parameters
 	public void AddOptionItems(){
 		index = 0;
-		options = true;
+		//options = true;
 		foreach (Texture optionItem in optionsItems) {
 			blankObject.GetComponent<MenuItemScript> ().index = index;
 			blankObject.GetComponent<MenuItemScript> ().options = true;
 			blankObject.GetComponent<MenuItemScript> ().backButton = false;
 			blankObject.GetComponent<MenuItemScript> ().image = optionsItems [index];
 			blankObject.GetComponent<MenuItemScript> ().insertTime = 0.05f;
-			Instantiate (blankObject, spawnLoc, blankObject.transform.rotation);
+			optionsSpawnLoc = new Vector3 (5.96f, 2.61f, 35.43f);
+			Instantiate (blankObject, optionsSpawnLoc, Quaternion.Euler(new Vector3(90,20,0)));
 			index++;
 		}
 		blankObject.GetComponent<MenuItemScript> ().image = backButton;
 		blankObject.GetComponent<MenuItemScript> ().backButton = true;
-		Instantiate (blankObject, spawnLoc, blankObject.transform.rotation);
-		menu = false;
+		Instantiate (blankObject, backbuttonSpawnLoc, Quaternion.Euler(new Vector3(69.215f,227.55f,176)));
+		//menu = false;
 		index = 0;
 	}
 	
