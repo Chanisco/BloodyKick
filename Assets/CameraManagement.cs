@@ -44,7 +44,7 @@ public class CameraManagement : MonoBehaviour {
         CheckCharacterPosition(player2X);
         ChangeCameraState();
         ChangeCameraPosition(cameraStance);
-        CameraShake(0.04f);
+         CameraShake(0.04f);
 
 
     }
@@ -52,7 +52,25 @@ public class CameraManagement : MonoBehaviour {
 
     public void ChangeCameraPosition(CameraState targetState)
     {
-
+        switch (targetState)
+        {
+            case CameraState.CENTER:
+                currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, 0, 0.1f), 0, -10);
+                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 50,0.1f);
+            break;
+            case CameraState.LEFT:
+                currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, -5, 0.1f), 0, -10);
+                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 70, 0.1f);
+            break;
+            case CameraState.RIGHT:
+                currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, 5, 0.1f),0,-10);
+                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 70, 0.1f);
+            break;
+            case CameraState.FULL:
+                currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, 0, 0.1f), 0, -10);
+                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 100, 0.1f);
+            break;
+        }
     }
 
     public void ChangeCameraState()
@@ -121,7 +139,7 @@ public class CameraManagement : MonoBehaviour {
         {
             shaking = false;
             shakeDuration = 0f;
-            camTransform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x,originalPos.x,0.5f), Mathf.SmoothStep(camTransform.localPosition.y, originalPos.y, 0.5f),originalPos.z);
+            //camTransform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x,originalPos.x,0.5f), Mathf.SmoothStep(camTransform.localPosition.y, originalPos.y, 0.5f),originalPos.z);
         }
     }
 
