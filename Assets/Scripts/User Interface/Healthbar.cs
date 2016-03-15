@@ -25,7 +25,7 @@ public class Healthbar : MonoBehaviour {
 	[SerializeField] public bool pl2wonTwice = false;
 	[SerializeField] private bool end = false;
 	[SerializeField] private bool finalRound = false;
-	[SerializePrivateVariables] int startTime;
+	[SerializePrivateVariables] public int startTime;
 
 	void Awake(){
 		style = new GUIStyle ();
@@ -67,6 +67,10 @@ public class Healthbar : MonoBehaviour {
 		Init (2);
 		startTime = (int)Time.time;
 		end = false;
+	}
+
+	public void PauseGame(bool state){
+		end = state;
 	}
 
 	void OnGUI(){

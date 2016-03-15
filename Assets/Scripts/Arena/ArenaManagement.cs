@@ -60,12 +60,14 @@ namespace Arena
 				Players [0].playerInformation.gameRunning = false;
 				Players [1].playerInformation.gameRunning = false;
 				gameRunning = false;
-				//yield return new WaitForSeconds (1);
-				/*if (!finalRound) {
-					NewRound ();
-				}*/
 			}
         }
+
+		public void PauseGame(bool state){
+			gameRunning = !state;
+			Players [0].playerInformation.gameRunning = !state;
+			Players [1].playerInformation.gameRunning = !state;
+		}
 
 		public void NewRound(){
 			foreach (PlayerData player in Players) {
@@ -80,7 +82,6 @@ namespace Arena
 
         void InstantiatePlayer()
         {
-			//foreach(Gameobject char in chosenCharacters){
             for (int i = 0;i < chosenCharacters.Count; i++)
             {
                 switch (i)
