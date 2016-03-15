@@ -66,6 +66,7 @@ public class Healthbar : MonoBehaviour {
 	public void NewRound(){
 		Init (2);
 		startTime = (int)Time.time;
+		end = false;
 	}
 
 	void OnGUI(){
