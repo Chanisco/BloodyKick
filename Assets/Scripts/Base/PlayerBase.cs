@@ -236,7 +236,7 @@ public class PlayerBase : MonoBehaviour
 
     public IEnumerator KnockBack(PositionAgainstPlayer targetPosition,int timesOfForce)
     {
-        Debug.Log("Bite me ===== " + timesOfForce);
+      //  Debug.Log("Bite some candy ===== " + timesOfForce);
         timesOfForce--;
         if (timesOfForce > 0)
         {
@@ -244,7 +244,7 @@ public class PlayerBase : MonoBehaviour
             {
                 transform.Translate(-0.2f, 0, 0);
                 yield return new WaitForEndOfFrame();
-                Debug.Log("Eat shit");
+                Debug.Log("Eat some candy");
                 StartCoroutine(KnockBack(targetPosition, timesOfForce));
             }
             else if (targetPosition == PositionAgainstPlayer.LeftOpponent)
