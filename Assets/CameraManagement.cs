@@ -68,7 +68,7 @@ public class CameraManagement : MonoBehaviour {
             break;
             case CameraState.FULL:
                 currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, 0, 0.1f), 0, -10);
-                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 100, 0.1f);
+                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 75, 0.1f);
             break;
         }
     }
