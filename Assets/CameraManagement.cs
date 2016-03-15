@@ -7,16 +7,16 @@ public class CameraManagement : MonoBehaviour {
     public static CameraManagement Instance;
     [SerializeField]
     public Camera currentCamera;
+    public CameraState cameraStance = CameraState.CENTER;
     private ArenaManagement arena;
-    private Vector3 player1X, player2X;
-    float Xpos,Ypos,Zpos;
+    private float player1X, player2X;
     Vector3 targetPos;
     [SerializeField] public Transform camTransform;
-    [SerializeField] public float shakeDuration = 0f;
+    [SerializeField] public float shakeDuration = 0.1f;
    
     [SerializeField] public float decreaseFactor = 1.0f;
     private bool shaking = false;
-
+    public bool InBox, Left, Right;
     Vector3 originalPos;
 
     void Awake()
@@ -31,90 +31,89 @@ public class CameraManagement : MonoBehaviour {
             arena = GetComponent<ArenaManagement>();
         }
         camTransform = currentCamera.transform;
-
-        Debug.Log(camTransform.localPosition);
         originalPos = camTransform.localPosition;
     }
 
     void Update()
     {
-       
-        Mathf.Clamp(Xpos, -30, 30);
-        player1X = new Vector3(arena.Players[0].playerInformation.transform.position.x,0,-10);
-        player2X = new Vector3(arena.Players[1].playerInformation.transform.position.x,0,-10);
-        targetPos = Vector3.Lerp(player1X, player2X, 0.5f);
-        Xpos = targetPos.x;
-        Ypos = targetPos.y;
-        Zpos = targetPos.z;
+        player1X = arena.Players[0].playerInformation.transform.position.x;
+        player2X = arena.Players[1].playerInformation.transform.position.x;
         
+        TurnBoolsOff();
+        CheckCharacterPosition(player1X);
+        CheckCharacterPosition(player2X);
+        ChangeCameraState();
+        ChangeCameraPosition(cameraStance);
+        CameraShake(0.04f);
 
-
-        AdjustCameraSize(Vector2.Distance(player1X, player2X));
-        if(shaking == false)
-        {
-            camTransform.localPosition = AdjustCameraPosition(new Vector3(Xpos, Ypos, Zpos), -30, 30);
-        }
 
     }
 
-    void AdjustCameraSize(float DistFromPlayers)
+
+    public void ChangeCameraPosition(CameraState targetState)
     {
-        //Debug.Log(DistFromPlayers);
-        if (DistFromPlayers < 15)
+
+    }
+
+    public void ChangeCameraState()
+    {
+        if (Left == true)
         {
-            currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 50, 0.1f);
+            if(Right == true)
+            {
+                cameraStance = CameraState.FULL;
+
+            }
+            else
+            {
+                cameraStance = CameraState.LEFT;
+            }
+        }
+        else if (Right == true)
+        {
+            cameraStance = CameraState.RIGHT;
+
+        }
+        else if (InBox == true)
+        {
+            cameraStance = CameraState.CENTER;
+        }   
+    }
+
+    public void CheckCharacterPosition(float PlayerXPos)
+    {
+        if (PlayerXPos < -8.5)
+        {
+            Left = true;
+        }
+        else if (PlayerXPos > 8.5)
+        {
+            Right = true;
         }
         else
         {
-            if (DistFromPlayers < 20)
-            {
-                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 50 + DistFromPlayers, 0.1f);
-            }
+            InBox = true;
         }
+
     }
 
-    Vector3 AdjustCameraPosition(Vector3 tPos,float MinX, float MaxX)
+    public void TurnBoolsOff()
     {
-        if(tPos.x < MinX)
-        {
-            return new Vector3(-30, tPos.y, tPos.z);
-        }
-        else if(tPos.x > MaxX)
-        {
-            return new Vector3(30, tPos.y, tPos.z);
-
-        }
-        else
-        {
-            return tPos;
-        }
-    }
-
-    void MoveCamera(Direction targetDir)
-    {
-        Vector2 cameraPos = currentCamera.transform.localPosition;
-        if (targetDir == Direction.LEFT)
-        {
-            if(cameraPos.x > -30)
-            {
-                currentCamera.transform.Translate(-15 * Time.deltaTime, 0, 0);
-            }
-        }
-        else if(targetDir == Direction.RIGHT)
-        {
-            if (cameraPos.x < 30)
-            {
-                currentCamera.transform.Translate(15 * Time.deltaTime, 0, 0);
-            }
-        }
+        Left = false;
+        Right = false;
+        InBox = false;
     }
 
     public void CameraShake(float intensity)
     {
         if (shakeDuration > 0)
         {
+            if(shaking == false)
+            {
+                originalPos = camTransform.localPosition;
+            }
             shaking = true;
-            camTransform.localPosition = originalPos + Random.insideUnitSphere * intensity;
+            camTransform.localPosition = camTransform.localPosition + Random.insideUnitSphere * intensity;
 
             shakeDuration -= Time.deltaTime * decreaseFactor;
         }
@@ -122,7 +121,7 @@ public class CameraManagement : MonoBehaviour {
         {
             shaking = false;
             shakeDuration = 0f;
-            camTransform.localPosition = originalPos;
+            camTransform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x,originalPos.x,0.5f), Mathf.SmoothStep(camTransform.localPosition.y, originalPos.y, 0.5f),originalPos.z);
         }
     }
 
@@ -148,8 +147,10 @@ public class CameraManagement : MonoBehaviour {
 
 }
 
-enum Direction
+public enum CameraState
 {
+    CENTER,
     LEFT,
-    RIGHT
+    RIGHT,
+    FULL
 }
