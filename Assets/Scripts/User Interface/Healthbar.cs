@@ -22,6 +22,7 @@ public class Healthbar : MonoBehaviour {
 	[SerializeField] public bool pl1won = false;
 	[SerializeField] public bool pl2won = false;
 	[SerializeField] private bool end = false;
+	[SerializePrivateVariables] int startTime;
 
 	void Awake(){
 		style = new GUIStyle ();
@@ -29,6 +30,7 @@ public class Healthbar : MonoBehaviour {
 		style.normal.textColor = Color.red;
 		style.fontSize = (100 * Screen.width)/1920;
 		winLose = GetComponent<WinLoseScreen> ();
+		startTime = (int)Time.time;
 	}
 
 	public void Init(int playerAmount){
@@ -71,7 +73,7 @@ public class Healthbar : MonoBehaviour {
 	void Update(){
 		if (!end) {
 			if (time > 0) {
-				time = 99 - (int)Time.time;
+				time = 99 - (int)Time.time + startTime;
 			} else {
 				winLose.EndGame (-1);
 				end = true;
