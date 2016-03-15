@@ -11,18 +11,24 @@ public class CharacterBehaviour : PlayerBase{
     {
         if (Alive() == true)
         {
-            if (attack() == "Light")
-            {
-                animator.PlayAnimation("Punch");
-                Hit(0.5f, 10, HitPosition.TOP);
-            }
-            else if (attack() == "Heavy")
-            {
-                animator.PlayAnimation("Kick");
-                Hit(0.5f, 10, HitPosition.TOP);
-            }
             LookAtOpponent();
-            BasicMovement();
+            if (animator.currentAnimation == CharacterAnimationsStates.Idle)
+            {
+                if (attack() == "Light")
+                {
+                    animator.PlayAnimation("Punch");
+                    Hit(0.5f, 10, HitPosition.TOP);
+                }
+                else if (attack() == "Heavy")
+                {
+                    animator.PlayAnimation("Kick");
+                    Hit(0.5f, 10, HitPosition.TOP);
+                }
+            }
+            if (animator.currentAnimation != CharacterAnimationsStates.Hit)
+            {
+                BasicMovement();
+            }
         }
       
     }

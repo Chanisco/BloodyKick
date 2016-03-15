@@ -8,14 +8,17 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] public List<FoundObject> Intuition = new List<FoundObject>();
     [SerializeField] public float lifePoints = 100;
     [SerializeField] public PlayerCommands playerCommands;
+
     private Vector3 originalSize;
 	[SerializeField] public bool gameRunning = true;
     private bool blocking;
 
     public CharacterAnimation animator;
+    public PositionAgainstPlayer playerDirection;
 
-    enum PositionAgainstPlayer
+    public enum PositionAgainstPlayer
     {
+        Undefined,
         LeftOpponent,
         RightOpponent
     }
@@ -126,10 +129,12 @@ public class PlayerBase : MonoBehaviour
             Vector2 o = this.opponent.position;
             if (t.x > o.x)
             {
+                playerDirection = PositionAgainstPlayer.LeftOpponent;
                 transform.localScale = new Vector2(-originalSize.x, originalSize.y);
             }
             else
             {
+                playerDirection = PositionAgainstPlayer.RightOpponent;
                 transform.localScale = new Vector2(originalSize.x, originalSize.y);
             }
         }
@@ -151,7 +156,8 @@ public class PlayerBase : MonoBehaviour
             if (col.transform.tag == "Damage" && gameRunning)
             {
                 animator.PlayAnimation("Hit");
-                CameraManagement.Instance.StartCoroutine("CameraBounce",0.1f);
+                CameraManagement.Instance.shakeDuration = 0.04f;
+                StartCoroutine(KnockBack(playerDirection,5));
                 lifePoints = lifePoints - col.gameObject.GetComponent<Hitbox>().damage;
             }
         }
@@ -225,6 +231,32 @@ public class PlayerBase : MonoBehaviour
         else
         {
             return "Idle";
+        }
+    }
+
+    public IEnumerator KnockBack(PositionAgainstPlayer targetPosition,int timesOfForce)
+    {
+        Debug.Log("Bite me ===== " + timesOfForce);
+        timesOfForce--;
+        if (timesOfForce > 0)
+        {
+            if (targetPosition == PositionAgainstPlayer.RightOpponent)
+            {
+                transform.Translate(-0.2f, 0, 0);
+                yield return new WaitForEndOfFrame();
+                Debug.Log("Eat shit");
+                StartCoroutine(KnockBack(targetPosition, timesOfForce));
+            }
+            else if (targetPosition == PositionAgainstPlayer.LeftOpponent)
+            {
+                transform.Translate(0.2f, 0, 0);
+                yield return new WaitForEndOfFrame();
+                StartCoroutine(KnockBack(targetPosition, timesOfForce));
+            }
+        }
+        else
+        {
+            yield break;
         }
     }
 }

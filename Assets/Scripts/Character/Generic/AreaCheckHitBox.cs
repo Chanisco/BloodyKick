@@ -27,10 +27,10 @@ public class AreaCheckHitBox : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+       /* if (col.gameObject.tag == "Player")
         {
             ownPlayer.opponent = null;
-        }
+        }*/
 
         if (col.gameObject.tag == "Item")
         {
