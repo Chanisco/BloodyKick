@@ -13,6 +13,7 @@ namespace Arena
         [SerializeField]
         Healthbar healthBar;
 		[SerializeField] private bool gameRunning=true;
+		[SerializeField] private bool finalRound = false;
 
         [SerializeField]
         public Vector2 Player1Pos, Player2Pos;
@@ -59,8 +60,23 @@ namespace Arena
 				Players [0].playerInformation.gameRunning = false;
 				Players [1].playerInformation.gameRunning = false;
 				gameRunning = false;
+				//yield return new WaitForSeconds (1);
+				/*if (!finalRound) {
+					NewRound ();
+				}*/
 			}
         }
+
+		public void NewRound(){
+			foreach (PlayerData player in Players) {
+				Destroy (player.playerInformation.gameObject);
+			}
+			Players.Clear ();
+			InstantiatePlayer ();
+			gameRunning = true;
+			Players [0].playerInformation.gameRunning = true;
+			Players [1].playerInformation.gameRunning = true;
+		}
 
         void InstantiatePlayer()
         {

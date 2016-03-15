@@ -10,11 +10,19 @@ public class WinLoseScreen : MonoBehaviour {
 			debug = "Tie game!";
 		} else if (loser == 0) {
 			debug = "Pl2 wins!";
-			GetComponent<Healthbar> ().pl2won = true;
+			if (GetComponent<Healthbar> ().pl2won == false) {
+				GetComponent<Healthbar> ().pl2won = true;
+			} else {
+				GetComponent<Healthbar> ().pl2wonTwice = true;
+			}
 		} else if (loser == 1) {
 			debug = "Pl1 wins!";
-			GetComponent<Healthbar> ().pl1won = true;
+			if (GetComponent<Healthbar> ().pl1won == false) {
+				GetComponent<Healthbar> ().pl1won = true;
+			} else {
+				GetComponent<Healthbar> ().pl1wonTwice = true;
+			}
 		}
-		Debug.Log (debug);
+	//	Debug.Log (debug);
 	}
 }

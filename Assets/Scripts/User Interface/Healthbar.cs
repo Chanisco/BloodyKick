@@ -21,7 +21,10 @@ public class Healthbar : MonoBehaviour {
 	[SerializeField] string add0string = "";
 	[SerializeField] public bool pl1won = false;
 	[SerializeField] public bool pl2won = false;
+	[SerializeField] public bool pl1wonTwice = false;
+	[SerializeField] public bool pl2wonTwice = false;
 	[SerializeField] private bool end = false;
+	[SerializeField] private bool finalRound = false;
 	[SerializePrivateVariables] int startTime;
 
 	void Awake(){
@@ -46,9 +49,23 @@ public class Healthbar : MonoBehaviour {
 			playerHealth [playerNumber] = 0;
 			arena.Players [0].playerInformation.animator.TurnAnimationOn ("Idle");
 			arena.Players [1].playerInformation.animator.TurnAnimationOn ("Idle");
-			winLose.EndGame (playerNumber);
 			end = true;
+			//yield return new WaitForSeconds (1);
+			if (playerNumber == 0 && pl2won) {
+				Debug.Log ("PL1 WINS!");
+			} else if (playerNumber == 1 && pl1won) {
+				Debug.Log ("PL2 WINS!");
+			} else {
+				NewRound ();
+				arena.NewRound();
+			}
+			winLose.EndGame (playerNumber);
 		}
+	}
+
+	public void NewRound(){
+		Init (2);
+		startTime = (int)Time.time;
 	}
 
 	void OnGUI(){
@@ -64,9 +81,15 @@ public class Healthbar : MonoBehaviour {
 		GUI.TextField (new Rect (Screen.width * 0.475f, Screen.height * 0.05f, Screen.width * 0.06f, Screen.height * 0.05f), ""+add0string+time, style);
 		if (pl1won) {
 			GUI.DrawTexture (new Rect (Screen.width*0.05f,Screen.width*-0.078f, Screen.width * 0.47f,Screen.height * 0.47f), roundWon, ScaleMode.ScaleToFit);
+			if (pl1wonTwice) {
+				GUI.DrawTexture (new Rect (Screen.width*0.00f,Screen.width*-0.078f, Screen.width * 0.47f,Screen.height * 0.47f), roundWon, ScaleMode.ScaleToFit);
+			}
 		}
 		if (pl2won) {
 			GUI.DrawTexture (new Rect (Screen.width*0.165f, Screen.width*-0.078f, Screen.width * 0.47f, Screen.height * 0.47f), roundWon, ScaleMode.ScaleToFit);
+			if (pl2wonTwice) {
+				GUI.DrawTexture (new Rect (Screen.width*0.215f, Screen.width*-0.078f, Screen.width * 0.47f, Screen.height * 0.47f), roundWon, ScaleMode.ScaleToFit);
+			}
 		}
 	}
 
@@ -76,7 +99,6 @@ public class Healthbar : MonoBehaviour {
 				time = 99 - (int)Time.time + startTime;
 			} else {
 				winLose.EndGame (-1);
-				end = true;
 				arena.Players [0].playerInformation.gameRunning = false;
 				arena.Players [1].playerInformation.gameRunning = false;
 				arena.Players [0].playerInformation.animator.TurnAnimationOn ("Idle");
