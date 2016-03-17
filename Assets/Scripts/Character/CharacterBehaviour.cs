@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using ControllList;
 
 public class CharacterBehaviour : PlayerBase{
-    [SerializeField] private GameObject AreaCheckHitBox;
     [SerializeField] private HitboxElement AttackHitbox;
 
 

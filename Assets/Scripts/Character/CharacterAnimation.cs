@@ -83,10 +83,11 @@ public class CharacterAnimation : MonoBehaviour {
         SetAnimationState(targetAnimation);
         locked = true;
     }
-    private void ConditionsOff()
+    public void ConditionsOff()
     {
         TurnAnimationOff("Movement");
-        TurnAnimationOff("Block");
+        TurnAnimationOff("HighBlock");
+        TurnAnimationOff("LowBlock");
     }
 }
 public enum CharacterAnimationsStates

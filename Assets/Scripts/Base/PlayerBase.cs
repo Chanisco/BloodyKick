@@ -107,8 +107,6 @@ public class PlayerBase : MonoBehaviour
             
            if (Input.GetKeyDown(playerCommands.up))
             {
-                //JumpCommand();
-                Debug.Log("Bite me");
                 topState = true;
             }
 
@@ -206,12 +204,20 @@ public class PlayerBase : MonoBehaviour
         if(activation == true)
         {
             blocking = true;
-            animator.TurnAnimationOn("Block");
+            if (topState == true)
+            {
+                animator.TurnAnimationOn("HighBlock");
+            }
+            else
+            {
+                animator.TurnAnimationOn("LowBlock");
+
+            }
         }
         else
         {
             blocking = false;
-            animator.TurnAnimationOff("Block");
+            animator.ConditionsOff();
         }
     }
     public string attack()
@@ -258,7 +264,6 @@ public class PlayerBase : MonoBehaviour
 
     public IEnumerator KnockBack(PositionAgainstPlayer targetPosition,int timesOfForce)
     {
-      //  Debug.Log("Bite some candy ===== " + timesOfForce);
         timesOfForce--;
         if (timesOfForce > 0)
         {
