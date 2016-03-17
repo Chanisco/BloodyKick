@@ -30,23 +30,22 @@ public class CharacterAnimation : MonoBehaviour {
         {
             case "Hit":
                 currentAnimation = CharacterAnimationsStates.Hit;
-                break;
+            break;
             case "Death":
                 currentAnimation = CharacterAnimationsStates.Death;
-                break;
-            case "Kick":
-                currentAnimation = CharacterAnimationsStates.Kick;
-                break;
-            case "Punch":
-                currentAnimation = CharacterAnimationsStates.Punch;
-                break;
+            break;
             case "Movement":
                 currentAnimation = CharacterAnimationsStates.Walk;
-                break;
+            break;
             case "Block":
                 currentAnimation = CharacterAnimationsStates.Block;
-                break;
+            break;
+            case "Dodge":
+                currentAnimation = CharacterAnimationsStates.Dodge;
+            break;
         }
+
+        currentAnimation = CharacterAnimationsStates.Attack;
     }
     public void TurnAnimationOn(string targetbool)
     {
@@ -83,18 +82,19 @@ public class CharacterAnimation : MonoBehaviour {
         SetAnimationState(targetAnimation);
         locked = true;
     }
-    private void ConditionsOff()
+    public void ConditionsOff()
     {
         TurnAnimationOff("Movement");
-        TurnAnimationOff("Block");
+        TurnAnimationOff("HighBlock");
+        TurnAnimationOff("LowBlock");
     }
 }
 public enum CharacterAnimationsStates
 {
     Idle,
     Walk,
-    Punch,
-    Kick,
+    Attack,
+    Dodge,
     Hit,
     Death,
     Block
