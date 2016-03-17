@@ -7,38 +7,56 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] Texture[] optionsItems;
 	[SerializeField] Texture backButton;
 	[SerializeField] GameObject blankObject;
-	[SerializeField] int index = 0;
+	[SerializePrivateVariables] int index = 0;
 	[SerializePrivateVariables] Vector3 spawnLoc;
 	[SerializePrivateVariables] Vector3 optionsSpawnLoc;
 	[SerializePrivateVariables] Vector3 backbuttonSpawnLoc;
-	[SerializeField] public bool menu = false;
-	[SerializeField] bool options = false;
-	[SerializeField] bool cSelect = false;
-	[SerializeField] GUIStyle style;
+	[SerializePrivateVariables] public bool menu = false;
+	[SerializePrivateVariables] bool options = false;
+	[SerializePrivateVariables] bool cSelect = false;
+	[SerializePrivateVariables] GUIStyle style;
 	[SerializeField] float musicVolume=1;
 	[SerializeField] float effectVolume=1;
-	[SerializeField] private float offset=0.2f;
+	[SerializePrivateVariables] float offset=0.2f;
 	[SerializeField] int difficulty;
 //	[SerializeField] Texture[] characters;
 	[SerializeField] MainMenuCameraMovement cam;
 	[SerializeField] GameObject[] characters;
 	[SerializeField] Texture UI;
+	[SerializeField] Texture Gym;
+	[SerializePrivateVariables] Texture usingArena;
 	[SerializeField] private int choise1 = 0;
 	[SerializeField] private int choise2 = 1;
 	[SerializeField] private int count = 0;
 	[SerializeField] float random;
-	[SerializeField] GameObject chara;
-	[SerializeField] GameObject charb;
-
+	[SerializePrivateVariables] GameObject chara;
+	[SerializePrivateVariables] GameObject charb;
+	[SerializeField] Texture arrowNotSelected;
+	[SerializeField] Texture arrowSelected;
+	[SerializeField] Texture arrowNotSelectedR;
+	[SerializeField] Texture arrowSelectedR;
+	[SerializePrivateVariables] Texture usingarrowL;
+	[SerializePrivateVariables] Texture usingarrowR;
+	[SerializePrivateVariables] Texture usingarrowRL;
+	[SerializePrivateVariables] Texture usingarrowRR;
+	[SerializePrivateVariables] Texture usingarrowArena;
+	[SerializePrivateVariables] Texture usingarrowArenaR;
 
 	void Start(){
 		style = new GUIStyle ();
 		cam = Camera.main.GetComponent<MainMenuCameraMovement>();
 		spawnLoc = new Vector3 (0, 11, 0);
 		backbuttonSpawnLoc = new Vector3 (12.4f, -4.1f, 30);
-		random = Random.Range (60, 300);
+		random = Random.Range (200, 400);
 		menu = false;
 		options = false;
+		usingArena = Gym;
+		usingarrowL = arrowNotSelected;
+		usingarrowR = arrowNotSelectedR;
+		usingarrowRL = arrowNotSelected;
+		usingarrowRR = arrowNotSelectedR;
+		usingarrowArena = arrowNotSelected;
+		usingarrowArenaR = arrowNotSelectedR;
 		SetCharacters ();
 	}
 
@@ -80,6 +98,7 @@ public class MainMenu : MonoBehaviour {
 				options = false;
 			}
 		} else if (cSelect && !cam.moving) {
+			CheckMousePos ();
 			count++;
 			if (count>random) {
 				if (Random.Range (0, 100) > 40) {
@@ -89,7 +108,7 @@ public class MainMenu : MonoBehaviour {
 						charb.GetComponent<CharacterBehaviour> ().animator.PlayAnimation ("Punch");
 					}
 					count = 0;
-					random = Random.Range (60, 300);
+					random = Random.Range (200, 400);
 				} else {
 					if (Random.Range (0, 100) > 50) {
 						chara.GetComponent<CharacterBehaviour> ().animator.PlayAnimation ("Kick");
@@ -97,10 +116,59 @@ public class MainMenu : MonoBehaviour {
 						charb.GetComponent<CharacterBehaviour> ().animator.PlayAnimation ("Kick");
 					}
 					count = 0;
-					random = Random.Range (60, 300);
+					random = Random.Range (200, 400);
 				}
 			}
 			GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),UI);
+			GUI.DrawTexture(new Rect(Screen.width*0.4f,Screen.height*0.3f,Screen.width*0.2f,Screen.width*0.113f),usingArena);
+			if (GUI.Button (new Rect (Screen.width * 0.06f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowL,style)) {
+
+			}
+			if (GUI.Button (new Rect (Screen.width * 0.3f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowR,style)) {
+
+			}
+			if (GUI.Button (new Rect (Screen.width * 0.65f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowRL,style)) {
+
+			}
+			if (GUI.Button (new Rect (Screen.width * 0.89f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowRR,style)) {
+
+			}
+			if (GUI.Button (new Rect (Screen.width * 0.37f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArena,style)) {
+
+			}
+			if (GUI.Button (new Rect (Screen.width * 0.61f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArenaR,style)) {
+
+			}
+		}
+	}
+
+	void CheckMousePos(){
+		usingarrowL = arrowNotSelected;
+		usingarrowR = arrowNotSelectedR;
+		usingarrowRL = arrowNotSelected;
+		usingarrowRR = arrowNotSelectedR;
+		usingarrowArena = arrowNotSelected;
+		usingarrowArenaR = arrowNotSelectedR;
+		if (Input.mousePosition.y > Screen.height * 0.35f && Input.mousePosition.y < Screen.height * 0.4f) {
+			if (Input.mousePosition.x > Screen.width * 0.06f && Input.mousePosition.x < Screen.width * 0.08f) {
+				usingarrowL = arrowSelected;
+			}
+			if (Input.mousePosition.x > Screen.width * 0.3f && Input.mousePosition.x < Screen.width * 0.32f) {
+				usingarrowR = arrowSelectedR;
+			}
+			if (Input.mousePosition.x > Screen.width * 0.65f && Input.mousePosition.x < Screen.width * 0.67f) {
+				usingarrowRL = arrowSelected;
+			}
+			if (Input.mousePosition.x > Screen.width * 0.89f && Input.mousePosition.x < Screen.width * 0.91f) {
+				usingarrowRR = arrowSelectedR;
+			}
+		} else if (Input.mousePosition.y > Screen.height * 0.57f && Input.mousePosition.y < Screen.height * 0.62f) {
+			if (Input.mousePosition.x > Screen.width * 0.37f && Input.mousePosition.x < Screen.width * 0.39f) {
+				usingarrowArena = arrowSelected;
+			}
+			if (Input.mousePosition.x > Screen.width * 0.61f && Input.mousePosition.x < Screen.width * 0.63f) {
+				usingarrowArenaR = arrowSelectedR;
+			}
 		}
 	}
 

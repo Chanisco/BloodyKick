@@ -8,7 +8,6 @@ public class Healthbar : MonoBehaviour {
 	[SerializeField] WinLoseScreen winLose;
 	[SerializeField] public Arena.ArenaManagement arena;
 	[SerializeField] Texture healthBarFrontLeft;
-	[SerializeField] Texture healthBarFrontRight;
 	[SerializeField] public Texture characterIcon0;
 	[SerializeField] public Texture characterIcon1;
 	[SerializeField] Texture healthBarBack;
@@ -74,14 +73,18 @@ public class Healthbar : MonoBehaviour {
 	}
 
 	void OnGUI(){
-		GUI.DrawTexture (new Rect (Screen.width * 0.455f, -Screen.height * 0.047f, Screen.width * -(0.00325f*showHealth[0]), Screen.height * 0.25f), healthBarBack, ScaleMode.ScaleAndCrop);
-		GUI.DrawTexture (new Rect (Screen.width * 0.545f, -Screen.height * 0.047f, Screen.width * (0.00325f*showHealth[1]), Screen.height * 0.25f), healthBarBack, ScaleMode.ScaleAndCrop);
+		//GUI.Lab (new Rect (Screen.width * 0.455f, -Screen.height * 0.047f, Screen.width * -(0.00325f*showHealth[0]), Screen.height * 0.25f), healthBarBack, ScaleMode.ScaleAndCrop);
+	//	GUI.DrawTexture (new Rect (Screen.width * 0.455f, -Screen.height * 0.047f, Screen.width * -(0.00325f*showHealth[0]), Screen.height * 0.25f), healthBarBack, ScaleMode.ScaleAndCrop);
+	//	GUI.DrawTexture (new Rect (Screen.width * 0.545f, -Screen.height * 0.047f, Screen.width * (0.00325f*showHealth[1]), Screen.height * 0.25f), healthBarBack, ScaleMode.ScaleAndCrop);
 
-		GUI.DrawTexture (new Rect (Screen.width * 0.014f, Screen.height * 0.013f, Screen.width * 0.1f, Screen.width * 0.1f), characterIcon0, ScaleMode.ScaleToFit);
-		GUI.DrawTextureWithTexCoords(new Rect(Screen.width * 0.985f, Screen.height * 0.013f, Screen.width * -0.1f, Screen.width * 0.1f), characterIcon1, new Rect(0, 0, 1, 1));
+	//	GUI.DrawTexture (new Rect (Screen.width * 0.014f, Screen.height * 0.013f, Screen.width * 0.1f, Screen.width * 0.1f), characterIcon0, ScaleMode.ScaleToFit);
+	//	GUI.DrawTextureWithTexCoords(new Rect(Screen.width * 0.985f, Screen.height * 0.013f, Screen.width * -0.1f, Screen.width * 0.1f), characterIcon1, new Rect(0, 0, 1, 1));
 
+		//GUI.Label (new Rect (0, Screen.width * -0.006f, Screen.width * 0.47f, Screen.width * 0.1234f), healthBarFrontLeft, style);
+		//GUI.DrawTexture(new Rect (0, Screen.width * -0.006f, Screen.width * 0.47f, Screen.width * 0.1234f), healthBarFrontLeft);
 		GUI.DrawTextureWithTexCoords (new Rect (0,Screen.width*-0.006f, Screen.width * 0.47f,Screen.width * 0.1234f), healthBarFrontLeft, new Rect(0, 0, 1, 1));
-		GUI.DrawTextureWithTexCoords (new Rect (Screen.width*0.53f, Screen.width*-0.006f, Screen.width * 0.47f, Screen.width * 0.1234f), healthBarFrontLeft, new Rect(0, 0, -1, 1));
+		//GUI.DrawTextureWithTexCoords (new Rect (Screen.width*1,Screen.width*-0.006f, Screen.width * -0.47f,Screen.width * 0.8f), healthBarFrontLeft, new Rect(0, 0, -1, 1));
+		GUI.DrawTextureWithTexCoords (new Rect (Screen.width*0.53f, Screen.width*-0.006f, Screen.width * 0.47f, Screen.width * 0.1234f), healthBarFrontLeft, new Rect(1, 0, -1, 1));
 
 		GUI.TextField (new Rect (Screen.width * 0.475f, Screen.height * 0.05f, Screen.width * 0.06f, Screen.height * 0.05f), ""+add0string+time, style);
 		if (pl1won) {
