@@ -1,0 +1,250 @@
+
+John.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm Rechts Boven
+  rotate: true
+  xy: 347, 328
+  size: 121, 273
+  orig: 121, 273
+  offset: 0, 0
+  index: -1
+D2
+  rotate: true
+  xy: 788, 561
+  size: 459, 33
+  orig: 459, 33
+  offset: 0, 0
+  index: -1
+D4
+  rotate: false
+  xy: 337, 8
+  size: 385, 56
+  orig: 385, 56
+  offset: 0, 0
+  index: -1
+Eye Brow
+  rotate: false
+  xy: 724, 36
+  size: 55, 28
+  orig: 55, 28
+  offset: 0, 0
+  index: -1
+Eye Lid
+  rotate: true
+  xy: 781, 24
+  size: 40, 26
+  orig: 40, 26
+  offset: 0, 0
+  index: -1
+K1
+  rotate: false
+  xy: 347, 451
+  size: 439, 569
+  orig: 439, 569
+  offset: 0, 0
+  index: -1
+K2
+  rotate: true
+  xy: 337, 66
+  size: 254, 487
+  orig: 254, 487
+  offset: 0, 0
+  index: -1
+K3
+  rotate: false
+  xy: 826, 442
+  size: 193, 578
+  orig: 193, 578
+  offset: 0, 0
+  index: -1
+K5
+  rotate: false
+  xy: 826, 442
+  size: 193, 578
+  orig: 193, 578
+  offset: 0, 0
+  index: -1
+K4
+  rotate: false
+  xy: 2, 322
+  size: 343, 698
+  orig: 343, 698
+  offset: 0, 0
+  index: -1
+P1
+  rotate: false
+  xy: 2, 20
+  size: 148, 20
+  orig: 148, 20
+  offset: 0, 0
+  index: -1
+P2
+  rotate: false
+  xy: 622, 322
+  size: 123, 52
+  orig: 123, 52
+  offset: 0, 0
+  index: -1
+P3
+  rotate: false
+  xy: 622, 376
+  size: 162, 73
+  orig: 162, 73
+  offset: 0, 0
+  index: -1
+P5
+  rotate: false
+  xy: 826, 2
+  size: 143, 438
+  orig: 143, 438
+  offset: 0, 0
+  index: -1
+Sad
+  rotate: false
+  xy: 724, 23
+  size: 33, 11
+  orig: 33, 11
+  offset: 0, 0
+  index: -1
+Timid
+  rotate: true
+  xy: 759, 7
+  size: 27, 8
+  orig: 27, 8
+  offset: 0, 0
+  index: -1
+Torso
+  rotate: true
+  xy: 2, 42
+  size: 278, 333
+  orig: 278, 333
+  offset: 0, 0
+  index: -1
+
+John2.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm Links Boven
+  rotate: false
+  xy: 683, 112
+  size: 119, 250
+  orig: 119, 250
+  offset: 0, 0
+  index: -1
+Arm Links Onder
+  rotate: false
+  xy: 248, 86
+  size: 221, 224
+  orig: 221, 224
+  offset: 0, 0
+  index: -1
+Arm Rechts Onder
+  rotate: false
+  xy: 753, 524
+  size: 188, 244
+  orig: 188, 244
+  offset: 0, 0
+  index: -1
+Been Links Boven
+  rotate: false
+  xy: 248, 312
+  size: 166, 281
+  orig: 166, 281
+  offset: 0, 0
+  index: -1
+Been Links Onder
+  rotate: false
+  xy: 2, 89
+  size: 190, 390
+  orig: 190, 390
+  offset: 0, 0
+  index: -1
+Been Rechts Boven
+  rotate: true
+  xy: 458, 517
+  size: 251, 293
+  orig: 251, 293
+  offset: 0, 0
+  index: -1
+Been Rechts Onder
+  rotate: false
+  xy: 210, 595
+  size: 246, 420
+  orig: 246, 420
+  offset: 0, 0
+  index: -1
+D1
+  rotate: false
+  xy: 458, 770
+  size: 493, 83
+  orig: 493, 83
+  offset: 0, 0
+  index: -1
+D3
+  rotate: true
+  xy: 194, 90
+  size: 389, 52
+  orig: 389, 52
+  offset: 0, 0
+  index: -1
+Heup
+  rotate: true
+  xy: 471, 128
+  size: 234, 210
+  orig: 234, 210
+  offset: 0, 0
+  index: -1
+Hoofd
+  rotate: false
+  xy: 804, 4
+  size: 168, 223
+  orig: 168, 223
+  offset: 0, 0
+  index: -1
+K6
+  rotate: true
+  xy: 416, 364
+  size: 151, 288
+  orig: 151, 288
+  offset: 0, 0
+  index: -1
+Nek
+  rotate: true
+  xy: 2, 2
+  size: 85, 100
+  orig: 85, 100
+  offset: 0, 0
+  index: -1
+P4
+  rotate: false
+  xy: 915, 233
+  size: 88, 289
+  orig: 88, 289
+  offset: 0, 0
+  index: -1
+P6
+  rotate: true
+  xy: 458, 855
+  size: 160, 486
+  orig: 160, 486
+  offset: 0, 0
+  index: -1
+P7
+  rotate: false
+  xy: 2, 481
+  size: 206, 534
+  orig: 206, 534
+  offset: 0, 0
+  index: -1
+Punch
+  rotate: true
+  xy: 804, 229
+  size: 293, 109
+  orig: 293, 109
+  offset: 0, 0
+  index: -1

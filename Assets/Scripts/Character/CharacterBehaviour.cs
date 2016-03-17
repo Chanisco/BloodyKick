@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using ControllList;
 
 public class CharacterBehaviour : PlayerBase{
     [SerializeField] private GameObject AreaCheckHitBox;
@@ -14,15 +15,41 @@ public class CharacterBehaviour : PlayerBase{
             LookAtOpponent();
             if (animator.currentAnimation == CharacterAnimationsStates.Idle)
             {
-                if (attack() == "Light")
+                if (attack() == ControllsLibrary.HIGHKICK)
                 {
-                    animator.PlayAnimation("Punch");
+                    animator.PlayAnimation(ControllsLibrary.HIGHKICK);
                     Hit(0.5f, 10, HitPosition.TOP);
                 }
-                else if (attack() == "Heavy")
+                if (attack() == ControllsLibrary.HIGHPUNCHLEFT)
                 {
-                    animator.PlayAnimation("Kick");
+                    animator.PlayAnimation(ControllsLibrary.HIGHPUNCHLEFT);
                     Hit(0.5f, 10, HitPosition.TOP);
+                }
+                if (attack() == ControllsLibrary.HIGHPUNCHRIGHT)
+                {
+                    animator.PlayAnimation(ControllsLibrary.HIGHPUNCHRIGHT);
+                    Hit(0.5f, 10, HitPosition.TOP);
+                }
+
+                if (attack() == ControllsLibrary.LOWKICK)
+                {
+                    animator.PlayAnimation(ControllsLibrary.LOWKICK);
+                    Hit(0.5f, 10, HitPosition.BOT);
+                }
+                if (attack() == ControllsLibrary.LOWKNEE)
+                {
+                    animator.PlayAnimation(ControllsLibrary.LOWKNEE);
+                    Hit(0.5f, 10, HitPosition.BOT);
+                }
+                if (attack() == ControllsLibrary.LOWPUNCHLEFT)
+                {
+                    animator.PlayAnimation(ControllsLibrary.LOWPUNCHLEFT);
+                    Hit(0.5f, 10, HitPosition.BOT);
+                }
+                if (attack() == ControllsLibrary.LOWPUNCHRIGHT)
+                {
+                    animator.PlayAnimation(ControllsLibrary.LOWPUNCHRIGHT);
+                    Hit(0.5f, 10, HitPosition.BOT);
                 }
             }
             if (animator.currentAnimation != CharacterAnimationsStates.Hit)
