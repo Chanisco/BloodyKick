@@ -31,6 +31,8 @@ namespace Arena
 
         public void StartTheFight()
         {
+			
+
             InstantiatePlayer();
 
         }

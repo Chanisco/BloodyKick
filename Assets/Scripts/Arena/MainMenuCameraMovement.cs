@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MainMenuCameraMovement : MonoBehaviour {
 
-	private bool moving = false;
+	public bool moving = false;
 	private Camera cam;
 	public int startpos;
 	public Transform[] positions;
@@ -16,15 +16,12 @@ public class MainMenuCameraMovement : MonoBehaviour {
 	public PlayerBase characater0;
 	private float random;
 	private float count=0;
-	//	private Vector3 startLoc;
-//	private Quaternion startRot;
-	//private float speed = 0.05f;
 
 	void Start(){
 		cam = Camera.main;
 		cam.transform.position = positions [startpos].position;
 		cam.transform.rotation = positions [startpos].rotation;
-		random = Random.Range (7, 40);
+		random = Random.Range (10, 40);
 	}
 
 	void Update(){
@@ -35,7 +32,6 @@ public class MainMenuCameraMovement : MonoBehaviour {
 			cam.transform.rotation = rotation;
 			if (Vector3.Distance(cam.transform.position,targetLoc)<9 && !menuAdded/* && cam.transform.rotation == targetRot*/) {
 				menu.AddMenuItems ();
-				//menu.AddOptionItems ();
 				menu.menu = true;
 				menuAdded = true;
 			}
@@ -48,11 +44,11 @@ public class MainMenuCameraMovement : MonoBehaviour {
 			if (Random.Range (0, 100) > 40) {
 				characater0.animator.PlayAnimation ("Punch");
 				count = 0;
-				random = Random.Range (20, 100);
+				random = Random.Range (10, 100);
 			} else {
 				characater0.animator.PlayAnimation ("Kick");
 				count = 0;
-				random = Random.Range (7, 40);
+				random = Random.Range (10, 40);
 			}
 		}
 	}
