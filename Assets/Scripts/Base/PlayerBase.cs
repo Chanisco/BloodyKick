@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using ControllList;
 using Arena;
 
 public class PlayerBase : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] public PlayerCommands playerCommands;
 
     private Vector3 originalSize;
+    public bool topState;
 	[SerializeField] public bool gameRunning = true;
     private bool blocking;
 
@@ -102,10 +104,18 @@ public class PlayerBase : MonoBehaviour
                 }
             }
 
-
-            if (Input.GetKeyDown(playerCommands.up))
+            
+           if (Input.GetKeyDown(playerCommands.up))
             {
-                JumpCommand();
+                //JumpCommand();
+                Debug.Log("Bite me");
+                topState = true;
+            }
+
+            if (Input.GetKeyUp(playerCommands.up))
+            {
+                topState = false;
+
             }
 
             if (Input.GetKey(playerCommands.down))
@@ -210,16 +220,28 @@ public class PlayerBase : MonoBehaviour
         {
             if (gameRunning)
             {
-                if (Input.GetKeyDown(playerCommands.lightAttack))
+                if (topState)
                 {
-                    return "Light";
-                }
-                else if (Input.GetKeyDown(playerCommands.heavyAttack))
-                {
-                    return "Heavy";
+                    if (Input.GetKeyDown(playerCommands.punchAttack))
+                    {
+                        return ControllList.ControllsLibrary.HIGHPUNCHLEFT;
+                    }
+                    if (Input.GetKeyDown(playerCommands.kickAttack))
+                    {
+                        return ControllList.ControllsLibrary.HIGHKICK;
+                    }
+                    return "Idle";
                 }
                 else
                 {
+                    if (Input.GetKeyDown(playerCommands.punchAttack))
+                    {
+                        return ControllList.ControllsLibrary.LOWPUNCHLEFT;
+                    }
+                    if (Input.GetKeyDown(playerCommands.kickAttack))
+                    {
+                        return ControllList.ControllsLibrary.LOWKICK;
+                    }
                     return "Idle";
                 }
             }

@@ -27,8 +27,8 @@ public class PlayerCommands
     public KeyCode up;
     public KeyCode down;
 
-    public KeyCode lightAttack;
-    public KeyCode heavyAttack;
+    public KeyCode punchAttack;
+    public KeyCode kickAttack;
 
     public PlayerCommands(KeyCode Left, KeyCode Right, KeyCode Up,KeyCode Down, KeyCode LightAttack,KeyCode HeavyAttack)
     {
@@ -37,8 +37,8 @@ public class PlayerCommands
         this.up = Up;
         this.down = Down;
 
-        this.lightAttack = LightAttack;
-        this.heavyAttack = HeavyAttack;
+        this.punchAttack = LightAttack;
+        this.kickAttack = HeavyAttack;
     }
 
 }
