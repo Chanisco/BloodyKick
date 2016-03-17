@@ -14,6 +14,7 @@ public class PlayerBase : MonoBehaviour
     public bool topState;
 	[SerializeField] public bool gameRunning = true;
     private bool blocking;
+    private int knockbackTimer;
 
     public CharacterAnimation animator;
     public PositionAgainstPlayer playerDirection;
@@ -82,11 +83,20 @@ public class PlayerBase : MonoBehaviour
             {
                 if (Input.GetKey(playerCommands.left))
                 {
-                    animator.TurnAnimationOn("Movement");
-                    transform.Translate(-1 * speed, 0, 0);
-                    if (opponent == null)
+                    if (animator.currentAnimation == CharacterAnimationsStates.Walk && playerDirection == PositionAgainstPlayer.RightOpponent)
                     {
-                        transform.localScale = new Vector2(-originalSize.x, originalSize.y);
+                        StartCoroutine(KnockBack(PositionAgainstPlayer.RightOpponent, 3));
+                        animator.PlayAnimation("Dodge");
+
+                    }
+                    else
+                    {
+                        animator.TurnAnimationOn("Movement");
+                        transform.Translate(-1 * speed, 0, 0);
+                        if (opponent == null)
+                        {
+                            transform.localScale = new Vector2(-originalSize.x, originalSize.y);
+                        }
                     }
                 }
                 else if (Input.GetKey(playerCommands.right))
@@ -179,13 +189,6 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    private void JumpCommand()
-    {
-        if (OnPlatform)
-        {
-            ownRigidbody.velocity = new Vector3(0, 5, 0);
-        }
-    }
     public bool Alive()
     {
         if(lifePoints > 0)
@@ -286,5 +289,7 @@ public class PlayerBase : MonoBehaviour
             yield break;
         }
     }
+
+    
 }
 
