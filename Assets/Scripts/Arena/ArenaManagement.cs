@@ -89,7 +89,7 @@ namespace Arena
                 switch (i)
                 {
                     case 0:
-                        GameObject Player1 = Instantiate(chosenCharacters[i], new Vector3(-5, -4, 0.05f), Quaternion.identity) as GameObject;
+                        GameObject Player1 = Instantiate(chosenCharacters[i], new Vector3(-5, -4, 0.15f), Quaternion.identity) as GameObject;
                         Player1.name = chosenCharacters[i].name + i;
                         Player1.transform.parent = transform;
                         PlayerBase Player1Base = Player1.GetComponent<PlayerBase>();

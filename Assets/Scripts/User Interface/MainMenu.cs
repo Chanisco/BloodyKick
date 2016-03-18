@@ -23,8 +23,9 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] MainMenuCameraMovement cam;
 	[SerializeField] GameObject[] characters;
 	[SerializeField] Texture UI;
-	[SerializeField] Texture Gym;
-	[SerializePrivateVariables] Texture usingArena;
+//	[SerializeField] Texture Gym;
+	[SerializeField] Texture[] arenaTextures;
+	//[SerializePrivateVariables] Texture usingArena;
 	[SerializeField] private int choise1 = 0;
 	[SerializeField] private int choise2 = 1;
 	[SerializeField] private int count = 0;
@@ -35,6 +36,7 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] Texture arrowSelected;
 	[SerializeField] Texture arrowNotSelectedR;
 	[SerializeField] Texture arrowSelectedR;
+	[SerializePrivateVariables] int arenaSelected = 0;
 	[SerializePrivateVariables] Texture usingarrowL;
 	[SerializePrivateVariables] Texture usingarrowR;
 	[SerializePrivateVariables] Texture usingarrowRL;
@@ -50,7 +52,7 @@ public class MainMenu : MonoBehaviour {
 		random = Random.Range (200, 400);
 		menu = false;
 		options = false;
-		usingArena = Gym;
+//		usingArena = Gym;
 		usingarrowL = arrowNotSelected;
 		usingarrowR = arrowNotSelectedR;
 		usingarrowRL = arrowNotSelected;
@@ -120,7 +122,7 @@ public class MainMenu : MonoBehaviour {
 				}
 			}
 			GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),UI);
-			GUI.DrawTexture(new Rect(Screen.width*0.4f,Screen.height*0.3f,Screen.width*0.2f,Screen.width*0.113f),usingArena);
+			GUI.DrawTexture(new Rect(Screen.width*0.4f,Screen.height*0.3f,Screen.width*0.2f,Screen.width*0.113f),arenaTextures[arenaSelected]);
 			if (GUI.Button (new Rect (Screen.width * 0.06f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowL,style)) {
 
 			}
@@ -134,10 +136,18 @@ public class MainMenu : MonoBehaviour {
 
 			}
 			if (GUI.Button (new Rect (Screen.width * 0.37f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArena,style)) {
-
+				arenaSelected--;
+				if (arenaSelected == -1) {
+					arenaSelected = 1;
+				}
+				Debug.Log ("" + arenaSelected);
 			}
 			if (GUI.Button (new Rect (Screen.width * 0.61f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArenaR,style)) {
-
+				arenaSelected++;
+				if (arenaSelected == 2) {
+					arenaSelected = 0;
+				}
+				Debug.Log ("" + arenaSelected);
 			}
 		}
 	}
