@@ -1,0 +1,133 @@
+fileFormatVersion: 2
+guid: 7e1390f290b354a959be0b218da131fb
+timeCreated: 1458242005
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BigBlock
+    100002: Blue_Container
+    100004: Bouncers
+    100006: Crain
+    100008: //RootNode
+    100010: ladder
+    100012: leggers
+    100014: LittleBlock
+    100016: Paal
+    100018: Pier
+    100020: Red_Container
+    100022: Schip
+    100024: Yellow_Container
+    400000: BigBlock
+    400002: Blue_Container
+    400004: Bouncers
+    400006: Crain
+    400008: //RootNode
+    400010: ladder
+    400012: leggers
+    400014: LittleBlock
+    400016: Paal
+    400018: Pier
+    400020: Red_Container
+    400022: Schip
+    400024: Yellow_Container
+    2300000: BigBlock
+    2300002: Blue_Container
+    2300004: Bouncers
+    2300006: Crain
+    2300008: ladder
+    2300010: leggers
+    2300012: LittleBlock
+    2300014: Paal
+    2300016: Pier
+    2300018: Red_Container
+    2300020: Schip
+    2300022: Yellow_Container
+    3300000: BigBlock
+    3300002: Blue_Container
+    3300004: Bouncers
+    3300006: Crain
+    3300008: ladder
+    3300010: leggers
+    3300012: LittleBlock
+    3300014: Paal
+    3300016: Pier
+    3300018: Red_Container
+    3300020: Schip
+    3300022: Yellow_Container
+    4300000: Pier
+    4300002: BigBlock
+    4300004: LittleBlock
+    4300006: Schip
+    4300008: Paal
+    4300010: leggers
+    4300012: Crain
+    4300014: Bouncers
+    4300016: ladder
+    4300018: Blue_Container
+    4300020: Red_Container
+    4300022: Yellow_Container
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
