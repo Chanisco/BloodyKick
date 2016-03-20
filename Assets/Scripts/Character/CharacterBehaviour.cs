@@ -30,6 +30,7 @@ public class CharacterBehaviour : PlayerBase{
                     Hit(0.5f, 10, HitPosition.TOP);
                 }
 
+
                 if (attack() == ControllsLibrary.LOWKICK)
                 {
                     animator.PlayAnimation(ControllsLibrary.LOWKICK);
@@ -50,6 +51,7 @@ public class CharacterBehaviour : PlayerBase{
                     animator.PlayAnimation(ControllsLibrary.LOWPUNCHRIGHT);
                     Hit(0.5f, 10, HitPosition.BOT);
                 }
+
             }
             if (animator.currentAnimation != CharacterAnimationsStates.Hit)
             {

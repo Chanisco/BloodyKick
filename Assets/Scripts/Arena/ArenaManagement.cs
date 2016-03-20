@@ -106,7 +106,10 @@ namespace Arena
                         Player2Base.playerCommands = PlayerControllBase.Player2Settings();
                         Players.Add(new PlayerData(i, CharacterEnum.Mila, true, Player2Base));
 
-                    break;
+                        Players[0].playerInformation.opponent = Players[1].playerInformation.transform;
+                        Players[1].playerInformation.opponent = Players[0].playerInformation.transform;
+
+                        break;
 
                 }
 
