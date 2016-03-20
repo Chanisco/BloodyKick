@@ -83,15 +83,24 @@ public class PlayerBase : MonoBehaviour
             {
                 if (Input.GetKey(playerCommands.left))
                 {
-                    if (animator.currentAnimation == CharacterAnimationsStates.Walk && playerDirection == PositionAgainstPlayer.RightOpponent)
+                    if (Input.GetKeyDown(playerCommands.left))
                     {
-                        StartCoroutine(KnockBack(PositionAgainstPlayer.RightOpponent, 3));
-                        animator.PlayAnimation("Dodge");
+                        if (animator.currentAnimation != CharacterAnimationsStates.Walk)
+                        {
+                            animator.TurnAnimationOn("Movement");
 
+                        }
+                        else
+                        {
+                            if (playerDirection == PositionAgainstPlayer.RightOpponent)
+                            {
+                                StartCoroutine(KnockBack(PositionAgainstPlayer.RightOpponent, 10));
+                                animator.PlayAnimation("Dodge");
+                            }
+                        }
                     }
                     else
                     {
-                        animator.TurnAnimationOn("Movement");
                         transform.Translate(-1 * speed, 0, 0);
                         if (opponent == null)
                         {
@@ -101,11 +110,32 @@ public class PlayerBase : MonoBehaviour
                 }
                 else if (Input.GetKey(playerCommands.right))
                 {
-                    animator.TurnAnimationOn("Movement");
-                    transform.Translate(1 * speed, 0, 0);
-                    if (opponent == null)
+                    if (Input.GetKey(playerCommands.right))
                     {
-                        transform.localScale = new Vector2(originalSize.x, originalSize.y);
+                        if (Input.GetKeyDown(playerCommands.right))
+                        {
+                            if (animator.currentAnimation != CharacterAnimationsStates.Walk)
+                            {
+                                animator.TurnAnimationOn("Movement");
+
+                            }
+                            else
+                            {
+                                if (playerDirection == PositionAgainstPlayer.LeftOpponent)
+                                {
+                                    StartCoroutine(KnockBack(PositionAgainstPlayer.LeftOpponent, 10));
+                                    animator.PlayAnimation("Dodge");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            transform.Translate(1 * speed, 0, 0);
+                            if (opponent == null)
+                            {
+                                transform.localScale = new Vector2(-originalSize.x, originalSize.y);
+                            }
+                        }
                     }
                 }
                 else
@@ -139,8 +169,7 @@ public class PlayerBase : MonoBehaviour
     }
 
     public virtual void LookAtOpponent()
-    {
-        
+    { 
         if (opponent != null)
         {
             Vector2 t = this.transform.position;

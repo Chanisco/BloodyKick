@@ -44,8 +44,7 @@ public class CharacterAnimation : MonoBehaviour {
                 currentAnimation = CharacterAnimationsStates.Dodge;
             break;
         }
-
-        currentAnimation = CharacterAnimationsStates.Attack;
+        
     }
     public void TurnAnimationOn(string targetbool)
     {
