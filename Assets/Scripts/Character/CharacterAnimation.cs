@@ -77,7 +77,7 @@ public class CharacterAnimation : MonoBehaviour {
     }
     public void LockAnimationWithAnimation(string targetAnimation)
     {
-        animator.Play(targetAnimation);
+        animator.SetTrigger(targetAnimation);
         SetAnimationState(targetAnimation);
         locked = true;
     }

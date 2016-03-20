@@ -9,7 +9,7 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] public List<FoundObject> Intuition = new List<FoundObject>();
     [SerializeField] public float lifePoints = 100;
     [SerializeField] public PlayerCommands playerCommands;
-    private int comboCount;
+    private int comboOpportunity;
 
     private Vector3 originalSize;
     public bool topState;
@@ -295,6 +295,7 @@ public class PlayerBase : MonoBehaviour
                 {
                     if (Input.GetKeyDown(playerCommands.punchAttack))
                     {
+                        StartCoroutine(OpeningToCombo());
                         return ControllList.ControllsLibrary.HIGHPUNCHLEFT;
                     }
                     if (Input.GetKeyDown(playerCommands.kickAttack))
@@ -307,7 +308,24 @@ public class PlayerBase : MonoBehaviour
                 {
                     if (Input.GetKeyDown(playerCommands.punchAttack))
                     {
-                        return ControllList.ControllsLibrary.LOWPUNCHLEFT;
+                        StartCoroutine(OpeningToCombo());
+                        if (comboOpportunity > 0)
+                        {
+                            if(comboOpportunity == 1)
+                            {
+                                return ControllList.ControllsLibrary.LOWPUNCHRIGHT;
+
+                            }
+                            else if(comboOpportunity > 1)
+                            {
+                                return ControllList.ControllsLibrary.LOWKICK;
+                            }
+                        }
+                        else
+                        {
+
+                            return ControllList.ControllsLibrary.LOWPUNCHLEFT;
+                        }
                     }
                     if (Input.GetKeyDown(playerCommands.kickAttack))
                     {
@@ -336,7 +354,6 @@ public class PlayerBase : MonoBehaviour
             {
                 transform.Translate(-0.2f, 0, 0);
                 yield return new WaitForEndOfFrame();
-                Debug.Log("Eat some candy");
                 StartCoroutine(KnockBack(targetPosition, timesOfForce));
             }
             else if (targetPosition == PositionAgainstPlayer.LeftOpponent)
@@ -352,9 +369,12 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    public IEnumerator ComboCounter()
+    public IEnumerator OpeningToCombo()
     {
-
+        comboOpportunity += 1;
+        Debug.Log(comboOpportunity);
+        yield return new WaitForSeconds(0.1f);
+        comboOpportunity = 0;
     }
     
 }
