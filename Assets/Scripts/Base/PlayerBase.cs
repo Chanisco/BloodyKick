@@ -293,22 +293,46 @@ public class PlayerBase : MonoBehaviour
             {
                 if (topState)
                 {
-                    if (Input.GetKeyDown(playerCommands.punchAttack))
+                    /*if (Input.GetKeyDown(playerCommands.punchAttack))
                     {
-                        StartCoroutine(OpeningToCombo());
                         return ControllList.ControllsLibrary.HIGHPUNCHLEFT;
                     }
                     if (Input.GetKeyDown(playerCommands.kickAttack))
                     {
                         return ControllList.ControllsLibrary.HIGHKICK;
                     }
+                    return "Idle";*/
+                    if (Input.GetKeyDown(playerCommands.punchAttack))
+                    {
+                        if (comboOpportunity > 0)
+                        {
+                            if (comboOpportunity == 1)
+                            {
+                                return ControllList.ControllsLibrary.HIGHPUNCHLEFT;
+
+                            }
+                            else if (comboOpportunity > 1)
+                            {
+                                return ControllList.ControllsLibrary.HIGHKICK;
+                            }
+                        }
+                        else
+                        {
+
+                            return ControllList.ControllsLibrary.HIGHPUNCHLEFT;
+                        }
+                    }
+                    if (Input.GetKeyDown(playerCommands.kickAttack))
+                    {
+                        return ControllList.ControllsLibrary.HIGHKICK;
+                    }
                     return "Idle";
+
                 }
                 else
                 {
                     if (Input.GetKeyDown(playerCommands.punchAttack))
                     {
-                        StartCoroutine(OpeningToCombo());
                         if (comboOpportunity > 0)
                         {
                             if(comboOpportunity == 1)

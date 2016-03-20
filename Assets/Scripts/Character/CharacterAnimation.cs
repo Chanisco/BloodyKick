@@ -73,7 +73,7 @@ public class CharacterAnimation : MonoBehaviour {
             return;
         }
         SetAnimationState(targetAnimation);
-        animator.Play(targetAnimation);
+        animator.SetTrigger(targetAnimation);
     }
     public void LockAnimationWithAnimation(string targetAnimation)
     {

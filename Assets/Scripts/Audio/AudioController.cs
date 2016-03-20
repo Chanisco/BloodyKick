@@ -17,6 +17,10 @@ public class AudioController : MonoBehaviour {
         DontDestroyOnLoad(transform.gameObject);
         Instance = this;
         ownAudioSource = GetComponent<AudioSource>();
+        if (ownAudioSource.clip == null)
+        {
+            ChangeBackgroundMusic("Main Menu");
+        }
     }
 
     public void CallSound(string targetTrack)
@@ -29,6 +33,16 @@ public class AudioController : MonoBehaviour {
             }
         }
     }
+    public void CallAnnouncerSound(string targetTrack)
+    {
+        for (int i = 0; i < SFXLibrary.Count; i++)
+        {
+            if (SFXLibrary[i].nameOfTrack == targetTrack)
+            {
+                AudioSource.PlayClipAtPoint(SFXLibrary[i].track, Vector3.zero);
+            }
+        }
+    }
     public void ChangeBackgroundMusic(string targetTrack)
     {
         for (int i = 0; i < IntroLibrary.Count; i++)
@@ -36,6 +50,7 @@ public class AudioController : MonoBehaviour {
             if (IntroLibrary[i].nameOfTrack == targetTrack)
             {
                 ownAudioSource.clip = IntroLibrary[i].track;
+                ownAudioSource.Play();
             }
         }
     }
@@ -53,3 +68,4 @@ public class AudioBundle
         this.track          = Track;
     }
 }
+
