@@ -9,6 +9,7 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] public List<FoundObject> Intuition = new List<FoundObject>();
     [SerializeField] public float lifePoints = 100;
     [SerializeField] public PlayerCommands playerCommands;
+    private int comboCount;
 
     private Vector3 originalSize;
     public bool topState;
@@ -168,6 +169,11 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Character Looks at assigned opponent
+    /// It was written so if we get multiple opponents we could look at the closest
+    /// (This idea got scrept)
+    /// </summary>
     public virtual void LookAtOpponent()
     { 
         if (opponent != null)
@@ -187,6 +193,12 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The Collition that makes sure that we hit the invisible ground of the battle field
+    /// This was writen so that the player could jump
+    /// **--IDEA SCRAPTED--**
+    /// </summary>
+    /// <param name="col"></param>
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.transform.tag == "Platform")
@@ -195,7 +207,25 @@ public class PlayerBase : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// The Collition that makes sure that we could leave the invisible ground of the battle field
+    /// This was writen so that the player could jump
+    /// **--IDEA SCRAPTED--**
+    /// </summary>
+    /// <param name="col"></param>
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.transform.tag == "Platform")
+        {
+            OnPlatform = false;
+        }
+    }
 
+    /// <summary>
+    /// Collition Trigger to show that you hit the opponent
+    /// This function also calls the camera to shacke, Life to go down and the player to knock back
+    /// </summary>
+    /// <param name="col"></param>
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (blocking == false)
@@ -210,14 +240,11 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D col)
-    {
-        if (col.transform.tag == "Platform")
-        {
-            OnPlatform = false;
-        }
-    }
-
+  
+    /// <summary>
+    /// Script that shows if the player has health left to live.
+    /// </summary>
+    /// <returns>Returns boolean if he's still alive</returns>
     public bool Alive()
     {
         if(lifePoints > 0)
@@ -231,6 +258,10 @@ public class PlayerBase : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Script that blocks so he can't receive damage anymore
+    /// </summary>
+    /// <param name="activation">The boolean that calls this option</param>
     private void block(bool activation)
     {
         if(activation == true)
@@ -253,11 +284,12 @@ public class PlayerBase : MonoBehaviour
             animator.ConditionsOff();
         }
     }
+
     public string attack()
     {
-        if (animator.currentAnimation == CharacterAnimationsStates.Idle)
+        if (gameRunning)
         {
-            if (gameRunning)
+            if (animator.currentAnimation == CharacterAnimationsStates.Idle)
             {
                 if (topState)
                 {
@@ -320,6 +352,10 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public IEnumerator ComboCounter()
+    {
+
+    }
     
 }
 
