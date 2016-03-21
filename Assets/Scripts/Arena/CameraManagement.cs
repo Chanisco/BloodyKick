@@ -18,9 +18,11 @@ public class CameraManagement : MonoBehaviour {
     private bool shaking = false;
     public bool InBox, Left, Right;
     Vector3 originalPos;
+    public CameraVars ownCameraPosition;
 
     void Awake()
     {
+        //Fightclub = -5 -5 50 70 75
         Instance = this;
         if(currentCamera == null)
         {
@@ -56,19 +58,19 @@ public class CameraManagement : MonoBehaviour {
         {
             case CameraState.CENTER:
                 currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, 0, 0.1f), 0, -10);
-                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 50,0.1f);
+                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, ownCameraPosition.startSize,0.1f);
             break;
             case CameraState.LEFT:
-                currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, -5, 0.1f), 0, -10);
-                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 70, 0.1f);
+                currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, ownCameraPosition.min, 0.1f), 0, -10);
+                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, ownCameraPosition.cornerSize, 0.1f);
             break;
             case CameraState.RIGHT:
-                currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, 5, 0.1f),0,-10);
-                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 70, 0.1f);
+                currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, ownCameraPosition.max, 0.1f),0,-10);
+                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, ownCameraPosition.cornerSize, 0.1f);
             break;
             case CameraState.FULL:
                 currentCamera.transform.localPosition = new Vector3(Mathf.SmoothStep(camTransform.localPosition.x, 0, 0.1f), 0, -10);
-                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, 75, 0.1f);
+                currentCamera.fieldOfView = Mathf.SmoothStep(currentCamera.fieldOfView, ownCameraPosition.fullSize, 0.1f);
             break;
         }
     }
@@ -165,6 +167,25 @@ public class CameraManagement : MonoBehaviour {
 
 }
 
+[System.Serializable]
+public class CameraVars
+{
+    public float min;
+    public float max;
+    public float startSize;
+    public float cornerSize;
+    public float fullSize;
+
+    public CameraVars(float Min,float Max, float StartSize,float CornerSize,float FullSize)
+    {
+        this.min        = Min;
+        this.max        = Max;
+
+        this.startSize  = StartSize;
+        this.cornerSize = CornerSize;
+        this.fullSize   = FullSize;
+    }
+}
 public enum CameraState
 {
     CENTER,
