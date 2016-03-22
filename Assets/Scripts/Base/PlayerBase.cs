@@ -11,6 +11,8 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] public PlayerCommands playerCommands;
 	[SerializeField] GameObject particleHigh;
 	[SerializeField] GameObject particleLow;
+    private int comboOpportunity;
+
     private Vector3 originalSize;
     public bool topState;
 	[SerializeField] public bool gameRunning = true;
@@ -19,6 +21,7 @@ public class PlayerBase : MonoBehaviour
 
     public CharacterAnimation animator;
     public PositionAgainstPlayer playerDirection;
+    private Vector2 borderPos;
 
     public enum PositionAgainstPlayer
     {
@@ -37,6 +40,12 @@ public class PlayerBase : MonoBehaviour
     void Awake()
     {
         originalSize = transform.localScale;
+        borderPos = ArenaManagement.Instance.borderPositions;
+    }
+
+    void Start()
+    {
+
     }
 
     public void FindObject(FoundObject target)
@@ -84,29 +93,63 @@ public class PlayerBase : MonoBehaviour
             {
                 if (Input.GetKey(playerCommands.left))
                 {
-                    if (animator.currentAnimation == CharacterAnimationsStates.Walk && playerDirection == PositionAgainstPlayer.RightOpponent)
+                    if (transform.localPosition.x > borderPos.x)
                     {
-                        StartCoroutine(KnockBack(PositionAgainstPlayer.RightOpponent, 3));
-                        animator.PlayAnimation("Dodge");
-
-                    }
-                    else
-                    {
-                        animator.TurnAnimationOn("Movement");
-                        transform.Translate(-1 * speed, 0, 0);
-                        if (opponent == null)
+                        if (Input.GetKeyDown(playerCommands.left))
                         {
-                            transform.localScale = new Vector2(-originalSize.x, originalSize.y);
+                            if (animator.currentAnimation != CharacterAnimationsStates.Walk)
+                            {
+                                animator.TurnAnimationOn("Movement");
+
+                            }
+                            else
+                            {
+                                if (playerDirection == PositionAgainstPlayer.RightOpponent)
+                                {
+                                    StartCoroutine(KnockBack(PositionAgainstPlayer.RightOpponent, 10));
+                                    animator.PlayAnimation("Dodge");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            transform.Translate(-1 * speed, 0, 0);
+                            if (opponent == null)
+                            {
+                                transform.localScale = new Vector2(-originalSize.x, originalSize.y);
+                            }
                         }
                     }
                 }
                 else if (Input.GetKey(playerCommands.right))
                 {
-                    animator.TurnAnimationOn("Movement");
-                    transform.Translate(1 * speed, 0, 0);
-                    if (opponent == null)
+                    Debug.Log(transform.localPosition.x + " " + borderPos.y);
+                    if (transform.localPosition.x < borderPos.y)
                     {
-                        transform.localScale = new Vector2(originalSize.x, originalSize.y);
+                        if (Input.GetKeyDown(playerCommands.right))
+                        {
+                            if (animator.currentAnimation != CharacterAnimationsStates.Walk)
+                            {
+                                animator.TurnAnimationOn("Movement");
+
+                            }
+                            else
+                            {
+                                if (playerDirection == PositionAgainstPlayer.LeftOpponent)
+                                {
+                                    StartCoroutine(KnockBack(PositionAgainstPlayer.LeftOpponent, 10));
+                                    animator.PlayAnimation("Dodge");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            transform.Translate(1 * speed, 0, 0);
+                            if (opponent == null)
+                            {
+                                transform.localScale = new Vector2(-originalSize.x, originalSize.y);
+                            }
+                        }
                     }
                 }
                 else
@@ -139,9 +182,13 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Character Looks at assigned opponent
+    /// It was written so if we get multiple opponents we could look at the closest
+    /// (This idea got scrept)
+    /// </summary>
     public virtual void LookAtOpponent()
-    {
-        
+    { 
         if (opponent != null)
         {
             Vector2 t = this.transform.position;
@@ -159,6 +206,12 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// The Collition that makes sure that we hit the invisible ground of the battle field
+    /// This was writen so that the player could jump
+    /// **--IDEA SCRAPTED--**
+    /// </summary>
+    /// <param name="col"></param>
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.transform.tag == "Platform")
@@ -167,7 +220,25 @@ public class PlayerBase : MonoBehaviour
         }
 
     }
+    /// <summary>
+    /// The Collition that makes sure that we could leave the invisible ground of the battle field
+    /// This was writen so that the player could jump
+    /// **--IDEA SCRAPTED--**
+    /// </summary>
+    /// <param name="col"></param>
+    private void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.transform.tag == "Platform")
+        {
+            OnPlatform = false;
+        }
+    }
 
+    /// <summary>
+    /// Collition Trigger to show that you hit the opponent
+    /// This function also calls the camera to shacke, Life to go down and the player to knock back
+    /// </summary>
+    /// <param name="col"></param>
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (blocking == false)
@@ -200,14 +271,11 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit2D(Collision2D col)
-    {
-        if (col.transform.tag == "Platform")
-        {
-            OnPlatform = false;
-        }
-    }
-
+  
+    /// <summary>
+    /// Script that shows if the player has health left to live.
+    /// </summary>
+    /// <returns>Returns boolean if he's still alive</returns>
     public bool Alive()
     {
         if(lifePoints > 0)
@@ -221,6 +289,10 @@ public class PlayerBase : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Script that blocks so he can't receive damage anymore
+    /// </summary>
+    /// <param name="activation">The boolean that calls this option</param>
     private void block(bool activation)
     {
         if(activation == true)
@@ -232,6 +304,7 @@ public class PlayerBase : MonoBehaviour
             }
             else
             {
+
                 animator.TurnAnimationOn("LowBlock");
 
             }
@@ -242,15 +315,16 @@ public class PlayerBase : MonoBehaviour
             animator.ConditionsOff();
         }
     }
+
     public string attack()
     {
-        if (animator.currentAnimation == CharacterAnimationsStates.Idle)
+        if (gameRunning)
         {
-            if (gameRunning)
+            if (animator.currentAnimation == CharacterAnimationsStates.Idle)
             {
                 if (topState)
                 {
-                    if (Input.GetKeyDown(playerCommands.punchAttack))
+                    /*if (Input.GetKeyDown(playerCommands.punchAttack))
                     {
                         return ControllList.ControllsLibrary.HIGHPUNCHLEFT;
                     }
@@ -258,13 +332,55 @@ public class PlayerBase : MonoBehaviour
                     {
                         return ControllList.ControllsLibrary.HIGHKICK;
                     }
+                    return "Idle";*/
+                    if (Input.GetKeyDown(playerCommands.punchAttack))
+                    {
+                        if (comboOpportunity > 0)
+                        {
+                            if (comboOpportunity == 1)
+                            {
+                                return ControllList.ControllsLibrary.HIGHPUNCHLEFT;
+
+                            }
+                            else if (comboOpportunity > 1)
+                            {
+                                return ControllList.ControllsLibrary.HIGHKICK;
+                            }
+                        }
+                        else
+                        {
+
+                            return ControllList.ControllsLibrary.HIGHPUNCHLEFT;
+                        }
+                    }
+                    if (Input.GetKeyDown(playerCommands.kickAttack))
+                    {
+                        return ControllList.ControllsLibrary.HIGHKICK;
+                    }
                     return "Idle";
+
                 }
                 else
                 {
                     if (Input.GetKeyDown(playerCommands.punchAttack))
                     {
-                        return ControllList.ControllsLibrary.LOWPUNCHLEFT;
+                        if (comboOpportunity > 0)
+                        {
+                            if(comboOpportunity == 1)
+                            {
+                                return ControllList.ControllsLibrary.LOWPUNCHRIGHT;
+
+                            }
+                            else if(comboOpportunity > 1)
+                            {
+                                return ControllList.ControllsLibrary.LOWKICK;
+                            }
+                        }
+                        else
+                        {
+
+                            return ControllList.ControllsLibrary.LOWPUNCHLEFT;
+                        }
                     }
                     if (Input.GetKeyDown(playerCommands.kickAttack))
                     {
@@ -308,6 +424,19 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    public IEnumerator OpeningToCombo()
+    {
+        comboOpportunity += 1;
+        Debug.Log(comboOpportunity);
+        yield return new WaitForSeconds(0.1f);
+        comboOpportunity = 0;
+    }
     
 }
 
+
+public enum Gender
+{
+    MALE,
+    FEMALE
+}

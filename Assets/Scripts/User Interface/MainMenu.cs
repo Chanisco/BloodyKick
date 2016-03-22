@@ -16,8 +16,6 @@ public class MainMenu : MonoBehaviour {
 	[SerializePrivateVariables] bool options = false;
 	[SerializePrivateVariables] bool cSelect = false;
 	[SerializePrivateVariables] GUIStyle style;
-	[SerializeField] float musicVolume=1;
-	[SerializeField] float effectVolume=1;
 	[SerializePrivateVariables] float offset=0.2f;
 	[SerializeField] int difficulty;
 	[SerializeField] MainMenuCameraMovement cam;

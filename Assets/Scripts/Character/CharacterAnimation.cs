@@ -43,9 +43,11 @@ public class CharacterAnimation : MonoBehaviour {
             case "Dodge":
                 currentAnimation = CharacterAnimationsStates.Dodge;
             break;
+            default:
+                currentAnimation = CharacterAnimationsStates.Attack;
+            break;
         }
-
-        currentAnimation = CharacterAnimationsStates.Attack;
+        
     }
     public void TurnAnimationOn(string targetbool)
     {
@@ -74,11 +76,11 @@ public class CharacterAnimation : MonoBehaviour {
             return;
         }
         SetAnimationState(targetAnimation);
-        animator.Play(targetAnimation);
+        animator.SetTrigger(targetAnimation);
     }
     public void LockAnimationWithAnimation(string targetAnimation)
     {
-        animator.Play(targetAnimation);
+        animator.SetTrigger(targetAnimation);
         SetAnimationState(targetAnimation);
         locked = true;
     }

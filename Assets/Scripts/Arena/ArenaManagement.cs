@@ -17,6 +17,15 @@ namespace Arena
 		[SerializePrivateVariables] bool finalRound = false;
         [SerializeField] public Vector2 Player1Pos, Player2Pos;
 		[SerializeField] Texture[] screens;
+        public List<PlayerData> Players = new List<PlayerData>();
+        public List<GameObject> chosenCharacters = new List<GameObject>();
+        [SerializeField]
+        Healthbar healthBar;
+		[SerializeField] private bool gameRunning=true;
+		[SerializeField] private bool finalRound = false;
+
+        [SerializeField]
+        public Vector2 borderPositions;
         
         public void InsertPlayer(CharacterEnum character, PlayerBase targetplayer)
         {
@@ -127,7 +136,10 @@ namespace Arena
                         Player2Base.playerCommands = PlayerControllBase.Player2Settings();
                         Players.Add(new PlayerData(i, CharacterEnum.Mila, true, Player2Base));
 
-                    break;
+                        Players[0].playerInformation.opponent = Players[1].playerInformation.transform;
+                        Players[1].playerInformation.opponent = Players[0].playerInformation.transform;
+
+                        break;
 
                 }
 

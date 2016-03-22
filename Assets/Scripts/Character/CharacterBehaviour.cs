@@ -5,7 +5,14 @@ using ControllList;
 
 public class CharacterBehaviour : PlayerBase{
     [SerializeField] private HitboxElement AttackHitbox;
+    private AudioController AudioControll;
+    public Gender gender;
 
+    void Start()
+    {
+        AudioControll = AudioController.Instance;
+
+    }
 
     void Update()
     {
@@ -17,39 +24,48 @@ public class CharacterBehaviour : PlayerBase{
                 if (attack() == ControllsLibrary.HIGHKICK)
                 {
                     animator.PlayAnimation(ControllsLibrary.HIGHKICK);
+                    AudioControll.CallMaleSound("Attack " + gender + " " + Random.Range(0, 9).ToString());
                     Hit(0.5f, 10, HitPosition.TOP);
                 }
                 if (attack() == ControllsLibrary.HIGHPUNCHLEFT)
                 {
                     animator.PlayAnimation(ControllsLibrary.HIGHPUNCHLEFT);
+                    AudioControll.CallMaleSound("Attack " + gender + " " + Random.Range(0, 9).ToString());
                     Hit(0.5f, 10, HitPosition.TOP);
                 }
                 if (attack() == ControllsLibrary.HIGHPUNCHRIGHT)
                 {
                     animator.PlayAnimation(ControllsLibrary.HIGHPUNCHRIGHT);
+                    AudioControll.CallMaleSound("Attack " + gender + " " + Random.Range(0, 9).ToString());
                     Hit(0.5f, 10, HitPosition.TOP);
                 }
+
 
                 if (attack() == ControllsLibrary.LOWKICK)
                 {
                     animator.PlayAnimation(ControllsLibrary.LOWKICK);
+                    AudioControll.CallMaleSound("Attack " + gender + " " + Random.Range(0, 9).ToString());
                     Hit(0.5f, 10, HitPosition.BOT);
                 }
                 if (attack() == ControllsLibrary.LOWKNEE)
                 {
                     animator.PlayAnimation(ControllsLibrary.LOWKNEE);
+                    AudioControll.CallMaleSound("Attack " + gender + " " + Random.Range(0, 9).ToString());
                     Hit(0.5f, 10, HitPosition.BOT);
                 }
                 if (attack() == ControllsLibrary.LOWPUNCHLEFT)
                 {
                     animator.PlayAnimation(ControllsLibrary.LOWPUNCHLEFT);
                     Hit(0.5f, 10, HitPosition.BOT);
+                    AudioControll.CallMaleSound("Attack " + gender + " " + Random.Range(0, 9).ToString());
                 }
                 if (attack() == ControllsLibrary.LOWPUNCHRIGHT)
                 {
                     animator.PlayAnimation(ControllsLibrary.LOWPUNCHRIGHT);
+                    AudioControll.CallMaleSound("Attack " + gender + " " + Random.Range(0, 9).ToString());
                     Hit(0.5f, 10, HitPosition.BOT);
                 }
+
             }
             if (animator.currentAnimation != CharacterAnimationsStates.Hit)
             {
