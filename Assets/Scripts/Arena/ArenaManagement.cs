@@ -15,13 +15,19 @@ namespace Arena
         public List<PlayerData> Players = new List<PlayerData>();
         public List<GameObject> chosenCharacters = new List<GameObject>();
         [SerializeField]
-        Healthbar healthBar;
+        public Healthbar healthBar;
 		[SerializeField] public bool gameRunning=true;
 		[SerializeField] public bool finalRound = false;
 
         [SerializeField]
         public Vector2 borderPositions;
-        
+
+
+        void Awake()
+        {
+            Instance = this;
+        }
+
         public void InsertPlayer(CharacterEnum character, PlayerBase targetplayer)
         {
             Players.Add(new PlayerData(Players.Count,character,true,targetplayer));
@@ -53,13 +59,9 @@ namespace Arena
 			index = 0;
 			PauseGame (false);
 			healthBar.PauseGame (false);
-			escMenu.active = true;
+			//escMenu.active = true;
 		}
 
-        void Awake()
-        {
-            Instance = this;
-        }
         void Start()
         {
             StartTheFight();

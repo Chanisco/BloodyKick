@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class AudioController : MonoBehaviour {
-    
+public class AudioController : MonoBehaviour
+{
+
     public static AudioController Instance;
 
     public List<AudioBundle> maleSFXLibrary;
@@ -21,7 +22,16 @@ public class AudioController : MonoBehaviour {
         ownAudioSource = GetComponent<AudioSource>();
         if (ownAudioSource.clip == null)
         {
-           // ChangeBackgroundMusic("Main Menu");
+            // ChangeBackgroundMusic("Main Menu");
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PlaySound(SFXSounds.BUTTON);
+           
         }
     }
 
@@ -49,14 +59,15 @@ public class AudioController : MonoBehaviour {
 
     public void CallAnnouncerSound(string targetTrack)
     {
-        for (int i = 0; i < maleSFXLibrary.Count; i++)
+        for (int i = 0; i < AnnouncerLibrary.Count; i++)
         {
-            if (maleSFXLibrary[i].nameOfTrack == targetTrack)
+            if (AnnouncerLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(maleSFXLibrary[i].track, Vector3.zero);
+                AudioSource.PlayClipAtPoint(AnnouncerLibrary[i].track, Vector3.zero);
             }
         }
     }
+
     public void ChangeBackgroundMusic(string targetTrack)
     {
         for (int i = 0; i < IntroLibrary.Count; i++)
@@ -69,27 +80,39 @@ public class AudioController : MonoBehaviour {
         }
     }
 
-    public void PlaySound(SoundType targetType,Gender targetGender,SoundEffect targetEffect)
+    public void CallSFXSound(string targetTrack)
+    {
+        for (int i = 0; i < SFXLibrary.Count; i++)
+        {
+            if (SFXLibrary[i].nameOfTrack == targetTrack)
+            {
+                ownAudioSource.clip = SFXLibrary[i].track;
+                ownAudioSource.Play();
+            }
+        }
+    }
+
+    public void PlaySound(Gender targetGender, SoundEffect targetEffect)
     {
         if (targetGender == Gender.FEMALE)
         {
             switch (targetEffect)
             {
                 case SoundEffect.ATTACK:
-                    CallFemaleSound("Attack " + Random.Range(0,8));
-                break;
+                    CallFemaleSound("Attack " + Random.Range(0, 8));
+                    break;
                 case SoundEffect.BLOCK:
                     CallFemaleSound("Block " + Random.Range(0, 8));
 
-                break;
+                    break;
                 case SoundEffect.DEATH:
                     CallFemaleSound("Death " + Random.Range(0, 6));
 
-                break;
+                    break;
                 case SoundEffect.HIT:
                     CallFemaleSound("Hit " + Random.Range(0, 7));
 
-                break;
+                    break;
             }
         }
         else if (targetGender == Gender.MALE)
@@ -116,48 +139,59 @@ public class AudioController : MonoBehaviour {
         }
     }
 
-    public void PlaySound(SoundType targetType, AnnouncerSounds targetSound)
+    public void PlaySound(AnnouncerSounds targetSound)
     {
         switch (targetSound)
         {
             case AnnouncerSounds.CENA:
                 CallAnnouncerSound("Cena");
-            break;
+                break;
             case AnnouncerSounds.JOHN:
                 CallAnnouncerSound("John");
-            break;
+                break;
             case AnnouncerSounds.CHOOSEYOURCHARACTER:
                 CallAnnouncerSound("Choose Your Character");
-            break;
+                break;
             case AnnouncerSounds.FIGHT:
                 CallAnnouncerSound("Fight");
-            break;
+                break;
             case AnnouncerSounds.LOSE:
                 CallAnnouncerSound("Lose");
-            break;
+                break;
             case AnnouncerSounds.ROUND1:
                 CallAnnouncerSound("Round 1");
-            break;
+                break;
             case AnnouncerSounds.ROUND2:
                 CallAnnouncerSound("Round 2");
-            break;
+                break;
             case AnnouncerSounds.ROUND3:
                 CallAnnouncerSound("Round 3");
-            break;
+                break;
             case AnnouncerSounds.TIMEUP:
                 CallAnnouncerSound("Time up");
-            break;
+                break;
             case AnnouncerSounds.WIN:
                 CallAnnouncerSound("Win");
-            break;
+                break;
             case AnnouncerSounds.WINNER:
                 CallAnnouncerSound("Winner");
-            break;
+                break;
         }
     }
 
+    public void PlaySound(SFXSounds targetSound)
+    {
+        switch (targetSound)
+        {
+            case SFXSounds.BLOODSPLATTER:
+                CallSFXSound("Blood Splatter " + Random.Range(0, 3));
+                break;
+            case SFXSounds.BUTTON:
+                CallSFXSound("Button");
+                break;
+        }
+    }
 }
-
 [System.Serializable]
 public class AudioBundle
 {
@@ -199,4 +233,10 @@ public enum AnnouncerSounds
     TIMEUP,
     WIN,
     WINNER
+}
+
+public enum SFXSounds
+{
+    BLOODSPLATTER,
+    BUTTON
 }

@@ -39,14 +39,11 @@ public class PlayerBase : MonoBehaviour
 
     void Awake()
     {
-        originalSize = transform.localScale;
-		Debug.Log (this.gameObject);
         borderPos = ArenaManagement.Instance.borderPositions;
+        originalSize = transform.localScale;
     }
-
     void Start()
-    {
-
+    {   
     }
 
     public void FindObject(FoundObject target)
@@ -124,7 +121,6 @@ public class PlayerBase : MonoBehaviour
                 }
                 else if (Input.GetKey(playerCommands.right))
                 {
-                    Debug.Log(transform.localPosition.x + " " + borderPos.y);
                     if (transform.localPosition.x < borderPos.y)
                     {
                         if (Input.GetKeyDown(playerCommands.right))
@@ -244,14 +240,15 @@ public class PlayerBase : MonoBehaviour
     {
         if (blocking == false)
         {
+            Debug.Log("Bite me");
             if (col.transform.tag == "Damage" && gameRunning)
             {
-				if (col.GetComponent<Hitbox> ().hitArea == HitPosition.BOT) {
+                animator.PlayAnimation("Hit");
+                if (col.GetComponent<Hitbox> ().hitArea == HitPosition.BOT) {
 					if (transform.localScale.x == 0.5f) {
 						Debug.Log ("Bot0.5" + col.GetComponentInParent<PlayerBase>().name);
 						particleLow.transform.rotation = Quaternion.Euler (new Vector3 (0, 270, 90));
 					} else if (transform.localScale.x == -0.5f) {
-						Debug.Log ("Bot-0.5"+col.GetComponentInParent<PlayerBase>().name);
 						particleLow.transform.rotation = Quaternion.Euler (new Vector3 (0, 90, 90));
 					}
 					particleLow.GetComponent<ParticleSystem>().Emit (30 + (int)((100-lifePoints)/5));
@@ -325,18 +322,24 @@ public class PlayerBase : MonoBehaviour
             {
                 if (topState)
                 {
-                    /*if (Input.GetKeyDown(playerCommands.punchAttack))
+                    if (Input.GetKeyDown(playerCommands.punchAttack))
                     {
                         return ControllList.ControllsLibrary.HIGHPUNCHLEFT;
                     }
-                    if (Input.GetKeyDown(playerCommands.kickAttack))
+                    else if (Input.GetKeyDown(playerCommands.kickAttack))
                     {
                         return ControllList.ControllsLibrary.HIGHKICK;
                     }
-                    return "Idle";*/
-                    if (Input.GetKeyDown(playerCommands.punchAttack))
+                    else if (Input.GetKeyDown(playerCommands.kneeAttack))
                     {
-                        if (comboOpportunity > 0)
+                        return ControllList.ControllsLibrary.LOWKNEE;
+                    }
+                    else
+                    {
+                        return "Idle";
+                    }
+                    #region //Commented
+                    /* if (comboOpportunity > 0)
                         {
                             if (comboOpportunity == 1)
                             {
@@ -386,8 +389,27 @@ public class PlayerBase : MonoBehaviour
                     if (Input.GetKeyDown(playerCommands.kickAttack))
                     {
                         return ControllList.ControllsLibrary.LOWKICK;
+                    }*/
+                    #endregion
+                }
+                else
+                {
+                    if (Input.GetKeyDown(playerCommands.punchAttack))
+                    {
+                        return ControllList.ControllsLibrary.LOWPUNCHLEFT;
                     }
-                    return "Idle";
+                    else if (Input.GetKeyDown(playerCommands.kickAttack))
+                    {
+                        return ControllList.ControllsLibrary.LOWKICK;
+                    }
+                    else if (Input.GetKeyDown(playerCommands.kneeAttack))
+                    {
+                        return ControllList.ControllsLibrary.LOWKNEE;
+                    }
+                    else
+                    {
+                        return "Idle";
+                    }
                 }
             }
             else
@@ -424,15 +446,16 @@ public class PlayerBase : MonoBehaviour
             yield break;
         }
     }
+    #region //COMMENTED
+    /*  public IEnumerator OpeningToCombo()
+      {
+          comboOpportunity += 1;
+          Debug.Log(comboOpportunity);
+          yield return new WaitForSeconds(0.1f);
+          comboOpportunity = 0;
+      }*/
+    #endregion
 
-    public IEnumerator OpeningToCombo()
-    {
-        comboOpportunity += 1;
-        Debug.Log(comboOpportunity);
-        yield return new WaitForSeconds(0.1f);
-        comboOpportunity = 0;
-    }
-    
 }
 
 
