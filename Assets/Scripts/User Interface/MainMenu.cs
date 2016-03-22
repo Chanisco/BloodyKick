@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] Texture[] menuItems;
 	[SerializeField] Texture backButton;
 	[SerializeField] GameObject blankObject;
+	[SerializeField] Texture[] characterFrames;
 	[SerializePrivateVariables] int index = 0;
 	[SerializePrivateVariables] Vector3 spawnLoc;
 	[SerializePrivateVariables] Vector3 optionsSpawnLoc;
@@ -38,10 +39,10 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] Texture arrowSelectedR;
 	[SerializeField] Font karate;
 	[SerializePrivateVariables] int arenaSelected = 0;
-	[SerializePrivateVariables] Texture usingarrowL;
+/*	[SerializePrivateVariables] Texture usingarrowL;
 	[SerializePrivateVariables] Texture usingarrowR;
 	[SerializePrivateVariables] Texture usingarrowRL;
-	[SerializePrivateVariables] Texture usingarrowRR;
+	[SerializePrivateVariables] Texture usingarrowRR;*/
 	[SerializePrivateVariables] Texture usingarrowArena;
 	[SerializePrivateVariables] Texture usingarrowArenaR;
 
@@ -55,10 +56,6 @@ public class MainMenu : MonoBehaviour {
 		random = Random.Range (200, 400);
 		menu = false;
 		options = false;
-		usingarrowL = arrowNotSelected;
-		usingarrowR = arrowNotSelectedR;
-		usingarrowRL = arrowNotSelected;
-		usingarrowRR = arrowNotSelectedR;
 		usingarrowArena = arrowNotSelected;
 		usingarrowArenaR = arrowNotSelectedR;
 		chara = GameObject.FindGameObjectWithTag ("Chara").GetComponent<CharacterAnimation> ();
@@ -127,7 +124,6 @@ public class MainMenu : MonoBehaviour {
 				controls = false;
 			}
 		} else if (cSelect && !cam.moving) {
-			CheckMousePos ();
 			count++;
 			if (count > random) {
 				if (Random.Range (0, 100) > 40) {
@@ -150,7 +146,8 @@ public class MainMenu : MonoBehaviour {
 			}
 			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), UI);
 			GUI.DrawTexture (new Rect (Screen.width * 0.35f, Screen.height * 0.24f, Screen.width * 0.3f, Screen.width * 0.1695f), arenaTextures [arenaSelected]);
-			if (GUI.Button (new Rect (Screen.width * 0.06f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowL, style)) {
+			CheckMousePos ();
+		/*if (GUI.Button (new Rect (Screen.width * 0.06f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowL, style)) {
 
 			}
 			if (GUI.Button (new Rect (Screen.width * 0.3f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowR, style)) {
@@ -161,7 +158,7 @@ public class MainMenu : MonoBehaviour {
 			}
 			if (GUI.Button (new Rect (Screen.width * 0.89f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowRR, style)) {
 
-			}
+			}*/
 			if (GUI.Button (new Rect (Screen.width * 0.325f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArena, style)) {
 				arenaSelected--;
 				if (arenaSelected == -1) {
@@ -192,13 +189,9 @@ public class MainMenu : MonoBehaviour {
 	/// Checks the mouse position.
 	/// </summary>
 	void CheckMousePos(){
-		usingarrowL = arrowNotSelected;
-		usingarrowR = arrowNotSelectedR;
-		usingarrowRL = arrowNotSelected;
-		usingarrowRR = arrowNotSelectedR;
 		usingarrowArena = arrowNotSelected;
 		usingarrowArenaR = arrowNotSelectedR;
-		if (Input.mousePosition.y > Screen.height * 0.35f && Input.mousePosition.y < Screen.height * 0.4f) {
+		/*if (Input.mousePosition.y > Screen.height * 0.35f && Input.mousePosition.y < Screen.height * 0.4f) {
 			if (Input.mousePosition.x > Screen.width * 0.06f && Input.mousePosition.x < Screen.width * 0.08f) {
 				usingarrowL = arrowSelected;
 			}
@@ -211,7 +204,7 @@ public class MainMenu : MonoBehaviour {
 			if (Input.mousePosition.x > Screen.width * 0.89f && Input.mousePosition.x < Screen.width * 0.91f) {
 				usingarrowRR = arrowSelectedR;
 			}
-		} else if (Input.mousePosition.y > Screen.height * 0.57f && Input.mousePosition.y < Screen.height * 0.62f) {
+		} else */if (Input.mousePosition.y > Screen.height * 0.57f && Input.mousePosition.y < Screen.height * 0.62f) {
 			if (Input.mousePosition.x > Screen.width * 0.325f && Input.mousePosition.x < Screen.width * 0.345f) {
 				usingarrowArena = arrowSelected;
 			}
@@ -219,7 +212,34 @@ public class MainMenu : MonoBehaviour {
 				usingarrowArenaR = arrowSelectedR;
 			}
 		} else if (Input.mousePosition.y > Screen.height * 0.81f) {
-//			Debug.Log ("height" + Input.mousePosition.y);
+			if (Input.mousePosition.x < Screen.width * 0.5f) {
+			//	Debug.Log (""+  ((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)));
+				/*if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.235f &&
+					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.335f ) {
+							Debug.Log ("1");
+				}else */if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.335f &&
+					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.435f ) {
+							Debug.Log ("1");
+					GUI.DrawTexture (new Rect (Screen.width * 0.335f, Screen.height*0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [0], ScaleMode.StretchToFill);
+				}else if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.435f &&
+					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.535f ) {
+							Debug.Log ("2");
+				}
+			} else {
+				//Debug.Log (""+  ((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)));
+				if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.5f &&
+					((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.56f ) {
+							Debug.Log ("2");
+				}else if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.56f &&
+					((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.66f ) {
+							Debug.Log ("3");
+				}/*else if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.66f &&
+					((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.76f ) {
+							Debug.Log ("5");
+				}*/
+
+			}
+
 		}
 	}
 
