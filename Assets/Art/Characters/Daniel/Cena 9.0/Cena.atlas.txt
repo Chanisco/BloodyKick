@@ -1,0 +1,373 @@
+
+Cena.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Been Rechts Onder
+  rotate: false
+  xy: 618, 495
+  size: 283, 523
+  orig: 283, 523
+  offset: 0, 0
+  index: -1
+D1
+  rotate: false
+  xy: 2, 2
+  size: 643, 55
+  orig: 643, 55
+  offset: 0, 0
+  index: -1
+D4
+  rotate: true
+  xy: 903, 353
+  size: 665, 96
+  orig: 665, 96
+  offset: 0, 0
+  index: -1
+K4
+  rotate: true
+  xy: 2, 59
+  size: 343, 699
+  orig: 343, 699
+  offset: 0, 0
+  index: -1
+K6
+  rotate: false
+  xy: 865, 62
+  size: 151, 289
+  orig: 151, 289
+  offset: 0, 0
+  index: -1
+P1
+  rotate: true
+  xy: 1001, 869
+  size: 149, 20
+  orig: 149, 20
+  offset: 0, 0
+  index: -1
+P2
+  rotate: false
+  xy: 865, 8
+  size: 124, 52
+  orig: 124, 52
+  offset: 0, 0
+  index: -1
+P6
+  rotate: false
+  xy: 703, 6
+  size: 160, 487
+  orig: 160, 487
+  offset: 0, 0
+  index: -1
+Sad
+  rotate: false
+  xy: 647, 34
+  size: 44, 23
+  orig: 44, 23
+  offset: 0, 0
+  index: -1
+Timid
+  rotate: false
+  xy: 618, 477
+  size: 41, 16
+  orig: 41, 16
+  offset: 0, 0
+  index: -1
+spawn-01
+  rotate: false
+  xy: 2, 404
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena2.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm Links Boven
+  rotate: false
+  xy: 901, 494
+  size: 119, 248
+  orig: 119, 248
+  offset: 0, 0
+  index: -1
+Arm Links Onder
+  rotate: true
+  xy: 672, 429
+  size: 313, 227
+  orig: 313, 227
+  offset: 0, 0
+  index: -1
+Arm Rechts Boven
+  rotate: false
+  xy: 750, 29
+  size: 265, 161
+  orig: 265, 161
+  offset: 0, 0
+  index: -1
+Been Links Boven
+  rotate: false
+  xy: 2, 20
+  size: 187, 379
+  orig: 187, 379
+  offset: 0, 0
+  index: -1
+Been Rechts Boven
+  rotate: true
+  xy: 672, 744
+  size: 271, 333
+  orig: 271, 333
+  offset: 0, 0
+  index: -1
+D3
+  rotate: true
+  xy: 618, 429
+  size: 586, 52
+  orig: 586, 52
+  offset: 0, 0
+  index: -1
+Heup
+  rotate: false
+  xy: 454, 2
+  size: 294, 188
+  orig: 294, 188
+  offset: 0, 0
+  index: -1
+Hoofd
+  rotate: false
+  xy: 191, 27
+  size: 261, 372
+  orig: 261, 372
+  offset: 0, 0
+  index: -1
+P7
+  rotate: true
+  xy: 454, 192
+  size: 207, 535
+  orig: 207, 535
+  offset: 0, 0
+  index: -1
+spawn-02
+  rotate: false
+  xy: 2, 401
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena3.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arm Rechts Onder
+  rotate: false
+  xy: 309, 92
+  size: 117, 301
+  orig: 117, 301
+  offset: 0, 0
+  index: -1
+Been Links Onder
+  rotate: true
+  xy: 540, 121
+  size: 272, 461
+  orig: 272, 461
+  offset: 0, 0
+  index: -1
+K3
+  rotate: false
+  xy: 618, 431
+  size: 193, 578
+  orig: 193, 578
+  offset: 0, 0
+  index: -1
+K5
+  rotate: false
+  xy: 813, 431
+  size: 193, 578
+  orig: 193, 578
+  offset: 0, 0
+  index: -1
+Nek
+  rotate: false
+  xy: 601, 14
+  size: 131, 105
+  orig: 131, 105
+  offset: 0, 0
+  index: -1
+P3
+  rotate: false
+  xy: 734, 46
+  size: 163, 73
+  orig: 163, 73
+  offset: 0, 0
+  index: -1
+P4
+  rotate: true
+  xy: 309, 2
+  size: 88, 290
+  orig: 88, 290
+  offset: 0, 0
+  index: -1
+Punch
+  rotate: false
+  xy: 428, 95
+  size: 110, 298
+  orig: 110, 298
+  offset: 0, 0
+  index: -1
+Torso
+  rotate: false
+  xy: 2, 32
+  size: 305, 361
+  orig: 305, 361
+  offset: 0, 0
+  index: -1
+spawn-03
+  rotate: false
+  xy: 2, 395
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena4.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+D2
+  rotate: true
+  xy: 618, 444
+  size: 574, 72
+  orig: 574, 72
+  offset: 0, 0
+  index: -1
+K1
+  rotate: true
+  xy: 2, 148
+  size: 254, 487
+  orig: 254, 487
+  offset: 0, 0
+  index: -1
+P5
+  rotate: true
+  xy: 2, 2
+  size: 144, 439
+  orig: 144, 439
+  offset: 0, 0
+  index: -1
+spawn-04
+  rotate: false
+  xy: 2, 404
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena5.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spawn-05
+  rotate: false
+  xy: 2, 2
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena6.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spawn-06
+  rotate: false
+  xy: 2, 2
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena7.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spawn-07
+  rotate: false
+  xy: 2, 2
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena8.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spawn-08
+  rotate: false
+  xy: 2, 2
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena9.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spawn-09
+  rotate: false
+  xy: 2, 2
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena10.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spawn-10
+  rotate: false
+  xy: 2, 2
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena11.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spawn-11
+  rotate: false
+  xy: 2, 2
+  size: 614, 614
+  orig: 614, 614
+  offset: 0, 0
+  index: -1
+
+Cena12.png
+size: 512,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+K2
+  rotate: false
+  xy: 2, 2
+  size: 439, 570
+  orig: 439, 570
+  offset: 0, 0
+  index: -1

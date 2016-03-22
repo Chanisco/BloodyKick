@@ -21,7 +21,13 @@ namespace Arena
 
         [SerializeField]
         public Vector2 borderPositions;
-        
+
+
+        void Awake()
+        {
+            Instance = this;
+        }
+
         public void InsertPlayer(CharacterEnum character, PlayerBase targetplayer)
         {
             Players.Add(new PlayerData(Players.Count,character,true,targetplayer));
@@ -56,10 +62,6 @@ namespace Arena
 			//escMenu.active = true;
 		}
 
-        void Awake()
-        {
-            Instance = this;
-        }
         void Start()
         {
             StartTheFight();
