@@ -6,7 +6,7 @@ using ControllList;
 public class CharacterBehaviour : PlayerBase{
     [SerializeField] private HitboxElement AttackHitbox;
     private AudioController AudioControll;
-    public Gender gender;
+    [SerializeField] private Gender gender;
 
     void Start()
     {
@@ -14,6 +14,9 @@ public class CharacterBehaviour : PlayerBase{
 
     }
 
+    /// <summary>
+    /// The Animations for the Character after the button is pressed to attack
+    /// </summary>
     void Update()
     {
         if (Alive() == true)
@@ -75,6 +78,12 @@ public class CharacterBehaviour : PlayerBase{
       
     }
     
+    /// <summary>
+    /// The function that calls the hitbox and gives an it a power and time to stay awake
+    /// </summary>
+    /// <param name="Lifetime">Time to stay awake</param>
+    /// <param name="Damage">Damage to do</param>
+    /// <param name="HitArea">The Direction to hit somebody (It can be countered when blocked)</param>
     void Hit(float Lifetime,float Damage,HitPosition HitArea)
     {
         AttackHitbox.hitboxClass.hitArea = HitArea;

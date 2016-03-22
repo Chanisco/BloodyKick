@@ -22,17 +22,11 @@ public class PlayerBase : MonoBehaviour
     public CharacterAnimation animator;
     public PositionAgainstPlayer playerDirection;
     private Vector2 borderPos;
-
-    public enum PositionAgainstPlayer
-    {
-        Undefined,
-        LeftOpponent,
-        RightOpponent
-    }
-
     private float speed = 0.1f;
 
     private bool OnPlatform = false;
+
+
 
     [SerializeField] private Rigidbody2D ownRigidbody;
     [SerializeField] public Transform opponent;
@@ -42,10 +36,12 @@ public class PlayerBase : MonoBehaviour
         borderPos = ArenaManagement.Instance.borderPositions;
         originalSize = transform.localScale;
     }
-    void Start()
-    {   
-    }
 
+    /// <summary>
+    /// Function that finds the objects on the field and manages the list
+    /// (This idea got scrept)
+    /// </summary>
+    /// <param name="target"></param>
     public void FindObject(FoundObject target)
     {
         if (Intuition.Count == 0)
@@ -68,7 +64,11 @@ public class PlayerBase : MonoBehaviour
             }
         }
     }
-
+    /// <summary>
+    /// Function that sees whenever an object is on the field that you can use   
+    /// (This idea got scrept)
+    /// </summary>
+    /// <param name="target"></param>
     public void LoseObject(FoundObject target)
     {
         for (int i = 0;i < Intuition.Count;i++)
@@ -82,7 +82,9 @@ public class PlayerBase : MonoBehaviour
     }
     
 
-    //Commands
+    /// <summary>
+    /// The Movements Including Walking,Blocking and Dodging
+    /// </summary>
     public virtual void BasicMovement()
     {
 		if (gameRunning == true)
@@ -240,7 +242,6 @@ public class PlayerBase : MonoBehaviour
     {
         if (blocking == false)
         {
-            Debug.Log("Bite me");
             if (col.transform.tag == "Damage" && gameRunning)
             {
                 animator.PlayAnimation("Hit");
@@ -314,6 +315,10 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// String That keeps track what button what attack does
+    /// </summary>
+    /// <returns>Attack string</returns>
     public string attack()
     {
         if (gameRunning)
@@ -422,7 +427,12 @@ public class PlayerBase : MonoBehaviour
             return "Idle";
         }
     }
-
+    /// <summary>
+    /// The Minor Knockback you get from attacks and dodges
+    /// </summary>
+    /// <param name="targetPosition">The position you're standing</param>
+    /// <param name="timesOfForce">Amount of times the force of 1 gets added to you</param>
+    /// <returns></returns>
     public IEnumerator KnockBack(PositionAgainstPlayer targetPosition,int timesOfForce)
     {
         timesOfForce--;
@@ -458,9 +468,17 @@ public class PlayerBase : MonoBehaviour
 
 }
 
-
+#region Enums
 public enum Gender
 {
     MALE,
     FEMALE
 }
+
+public enum PositionAgainstPlayer
+{
+    Undefined,
+    LeftOpponent,
+    RightOpponent
+}
+#endregion

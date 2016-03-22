@@ -38,8 +38,8 @@ public class CameraManagement : MonoBehaviour {
 
     void Update()
     {
-        player1X = arena.Players[0].playerInformation.transform.position.x;
-        player2X = arena.Players[1].playerInformation.transform.position.x;
+        player1X = arena.players[0].playerInformation.transform.position.x;
+        player2X = arena.players[1].playerInformation.transform.position.x;
         
         TurnBoolsOff();
         CheckCharacterPosition(player1X);

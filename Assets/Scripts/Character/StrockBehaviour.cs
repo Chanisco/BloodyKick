@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿//** IDEA SCRAPT **\\
+using UnityEngine;
 using System.Collections;
 
 public class StrockBehaviour : MonoBehaviour {

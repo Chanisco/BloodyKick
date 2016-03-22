@@ -3,17 +3,16 @@ using System.Collections;
 
 public class StartScreenAnimator : MonoBehaviour {
 
-	[SerializePrivateVariables] bool animating = false;
-	[SerializePrivateVariables] Texture bottom;
-	[SerializePrivateVariables] Texture top;
-	[SerializePrivateVariables] float timer = 0;
-	[SerializePrivateVariables] Vector2 startPos;
-	[SerializePrivateVariables] Vector2 EndPos;
-	[SerializePrivateVariables] Vector2 usingPos;
-	[SerializePrivateVariables] Vector2 usingScale;
-	[SerializePrivateVariables] float startDistance;
-	[SerializePrivateVariables] float distance;
-	[SerializePrivateVariables] float speed = 0;
+	bool animating = false;
+	Texture bottom;
+	Texture top;
+	Vector2 startPos;
+	Vector2 EndPos;
+	Vector2 usingPos;
+	Vector2 usingScale;
+	float startDistance;
+	float distance;
+	float speed = 0;
 	[SerializeField] float scale;
 
 	void Start(){
@@ -47,6 +46,5 @@ public class StartScreenAnimator : MonoBehaviour {
 		EndPos = new Vector2 (1 - startPos.x-0.04f, startPos.y);
 		startDistance = EndPos.x - startPos.x;
 		usingPos = startPos;
-		timer = 0;
 	}
 }

@@ -9,10 +9,10 @@ public class MenuItemScript : MonoBehaviour {
 	public float insertTime;
 	public bool options = false;
 	public bool placed = false;
-	[SerializePrivateVariables] Vector3 loc;
-	[SerializePrivateVariables] Vector3 backButtonLoc;
-	[SerializePrivateVariables] Vector3 offset;
-	[SerializePrivateVariables] Vector3 drawScale;
+	 Vector3 loc;
+	 Vector3 backButtonLoc;
+	 Vector3 offset;
+	 Vector3 drawScale;
 
 	void Start(){
 		gameObject.GetComponent<Renderer> ().material.SetTexture ("_MainTex",image);
@@ -28,10 +28,10 @@ public class MenuItemScript : MonoBehaviour {
 		backButtonLoc = new Vector3 (12.4f, -4.1f, 30);
 	}
 
-	void Update(){
-		///<summary>
-		/// slides the menuitem into place
-		/// </summary>
+    ///<summary>
+    /// slides the menuitem into place
+    /// </summary>
+    void Update(){
 		if (!placed) {
 			if (!backButton) {
 				transform.position = Vector3.LerpUnclamped (transform.position, loc + (offset * index), insertTime);

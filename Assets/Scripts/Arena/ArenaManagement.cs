@@ -8,11 +8,12 @@ namespace Arena
     public class ArenaManagement : MonoBehaviour
     {
         public static ArenaManagement Instance;
-        [SerializeField] public int AmountOfPlayers;
+
+        [SerializeField] public int amountOfPlayers;
 		[SerializeField] Esc_Menu escMenu;
 		[SerializeField] StartScreenAnimator screensAnimator;
 		[SerializeField] Texture[] screens;
-        public List<PlayerData> Players = new List<PlayerData>();
+        public List<PlayerData> players = new List<PlayerData>();
         public List<GameObject> chosenCharacters = new List<GameObject>();
         [SerializeField] public Healthbar healthBar;
 		[SerializeField] public bool gameRunning=true;
@@ -30,7 +31,7 @@ namespace Arena
             StartTheFight();
             healthBar.Init(2);
         }
-
+        #region //COMMENTED
         /*public void InsertPlayer(PlayerBase targetplayer)
         {
             Players.Add(new PlayerData(Players.Count, true,targetplayer));
@@ -40,16 +41,23 @@ namespace Arena
         {
             Players.Add(new PlayerData(Players.Count, false,targetplayer));
         }*/
+        #endregion
 
-
+        /// <summary>
+        /// When the game starts you instansiate the chosen players
+        /// </summary>
         public void StartTheFight()
         {
             chosenCharacters.Add(ArenaController.Instance.PlayerObjects[0]);
             chosenCharacters.Add(ArenaController.Instance.PlayerObjects[1]);
             InstantiatePlayer();
-			StartCoroutine (CountDown ());
+			StartCoroutine (CountDown());
         }
 
+        /// <summary>
+        /// Short Countdown that starts the match
+        /// </summary>
+        /// <returns>Start the match</returns>
 		IEnumerator CountDown(){
 			PauseGame (true);
 			healthBar.PauseGame (true);
@@ -64,11 +72,13 @@ namespace Arena
 			index = 0;
 			PauseGame (false);
 			healthBar.PauseGame (false);
-			//escMenu.active = true;
+			escMenu.active = true;
 		}
 
       
-
+        /// <summary>
+        /// The manager that keeps track of things
+        /// </summary>
         void Update()
         {
             Application.targetFrameRate = 60;
@@ -77,39 +87,46 @@ namespace Arena
 			}
         }
 
+        /// <summary>
+        /// The function that keeps track of who is still alive
+        /// </summary>
         void CheckOnHealth()
         {
-            healthBar.ChangeHealth(0, Players[0].playerInformation.lifePoints);
-            healthBar.ChangeHealth(1, Players[1].playerInformation.lifePoints);
-			if (Players [0].playerInformation.lifePoints <= 0 || Players [1].playerInformation.lifePoints<=0) {
-				Players [0].playerInformation.gameRunning = false;
-				Players [1].playerInformation.gameRunning = false;
+            healthBar.ChangeHealth(0, players[0].playerInformation.lifePoints);
+            healthBar.ChangeHealth(1, players[1].playerInformation.lifePoints);
+			if (players [0].playerInformation.lifePoints <= 0 || players [1].playerInformation.lifePoints<=0) {
+				players [0].playerInformation.gameRunning = false;
+				players [1].playerInformation.gameRunning = false;
 				gameRunning = false;
 			}
         }
-
-		IEnumerator waitForSec(int sec){
-			yield return new WaitForSeconds (1);
-		}
-
+        
+        /// <summary>
+        /// The pop up that pauses the game
+        /// </summary>
+        /// <param name="state">is the game on pause?</param>
 		public void PauseGame(bool state){
 			gameRunning = !state;
-			Players [0].playerInformation.gameRunning = !state;
-			Players [1].playerInformation.gameRunning = !state;
+			players [0].playerInformation.gameRunning = !state;
+			players [1].playerInformation.gameRunning = !state;
 		}
-
+        /// <summary>
+        /// Function that starts a new round
+        /// </summary>
 		public void NewRound(){
-			foreach (PlayerData player in Players) {
+			foreach (PlayerData player in players) {
 				Destroy (player.playerInformation.gameObject);
 			}
-			Players.Clear ();
+			players.Clear ();
 			healthBar.ChangeHealth(0, 100);
 			healthBar.ChangeHealth(1, 100);
 			healthBar.time = 99;
 			StartTheFight ();
 			healthBar.startTime = (int)Time.time+4;
 		}
-
+        /// <summary>
+        /// Function that checks the player and then instansiates it
+        /// </summary>
         void InstantiatePlayer()
         {
             for (int i = 0;i < chosenCharacters.Count; i++)
@@ -122,7 +139,7 @@ namespace Arena
                         Player1.transform.parent = transform;
                         PlayerBase Player1Base = Player1.GetComponent<PlayerBase>();
                         Player1Base.playerCommands = PlayerControllBase.Player1Settings();
-                        Players.Add(new PlayerData(i,true, Player1Base));
+                        players.Add(new PlayerData(i,true, Player1Base));
 
                     break;
 				case 1:
@@ -132,10 +149,10 @@ namespace Arena
 						Player2.transform.localScale = new Vector3 (-Player2.transform.localScale.x, Player2.transform.localScale.y, Player2.transform.localScale.z);
                         PlayerBase Player2Base = Player2.GetComponent<PlayerBase>();
                         Player2Base.playerCommands = PlayerControllBase.Player2Settings();
-                        Players.Add(new PlayerData(i, true, Player2Base));
+                        players.Add(new PlayerData(i, true, Player2Base));
 
-                        Players[0].playerInformation.opponent = Players[1].playerInformation.transform;
-                        Players[1].playerInformation.opponent = Players[0].playerInformation.transform;
+                        players[0].playerInformation.opponent = players[1].playerInformation.transform;
+                        players[1].playerInformation.opponent = players[0].playerInformation.transform;
 
                         break;
 
@@ -147,7 +164,9 @@ namespace Arena
     }
 
 
-
+    /// <summary>
+    /// The Class that shows the MUSTS for all characters on the field
+    /// </summary>
     [System.Serializable]
     public class PlayerData
     {

@@ -18,12 +18,20 @@ public class ArenaController : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         Instance = this;
     }
-
+    
+    /// <summary>
+    /// Player 1 and 2 are called
+    /// </summary>
     void Start()
     {
         InsertPlayers(Player1);
         InsertPlayers(Player2);
     }
+
+    /// <summary>
+    /// Insert the chosen Character to the main PlayersObjects
+    /// </summary>
+    /// <param name="targetCharacter">TargetCharacter</param>
     public void InsertPlayers(CharacterEnum targetCharacter)
     {
         switch (targetCharacter)
@@ -36,7 +44,9 @@ public class ArenaController : MonoBehaviour {
             break;
         }
     }
-
+    /// <summary>
+    /// Clears the playerobject list
+    /// </summary>
     public void ClearPlayerObjectList()
     {
         PlayerObjects.Clear();

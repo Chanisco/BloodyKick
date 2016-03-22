@@ -28,11 +28,11 @@ public class Healthbar : MonoBehaviour {
 	[SerializeField] private bool finalRound = false;
 	[SerializeField] float animationSpeed;
 	[SerializeField] public int startTime;
-	[SerializePrivateVariables] string add0string = "";
-	[SerializePrivateVariables] GUIStyle style;
-	[SerializePrivateVariables] float heartIndex = 0;
-	[SerializePrivateVariables] float counter = 0;
-	[SerializePrivateVariables] Vector2 heartOffset = Vector2.zero;
+	string add0string = "";
+	GUIStyle style;
+	float heartIndex = 0;
+	float counter = 0;
+	Vector2 heartOffset = Vector2.zero;
 
 	void Awake(){
 		style = new GUIStyle ();
@@ -53,8 +53,8 @@ public class Healthbar : MonoBehaviour {
 		playerHealth [playerNumber] = health;
 		if (playerHealth [playerNumber] <= 0) {
 			playerHealth [playerNumber] = 0;
-			arena.Players [0].playerInformation.animator.TurnAnimationOn ("Idle");
-			arena.Players [1].playerInformation.animator.TurnAnimationOn ("Idle");
+			arena.players [0].playerInformation.animator.TurnAnimationOn ("Idle");
+			arena.players [1].playerInformation.animator.TurnAnimationOn ("Idle");
 			arena.gameRunning = false;
 			end = true;
 			//Debug.Log ("Check"+player);
@@ -100,9 +100,9 @@ public class Healthbar : MonoBehaviour {
 		GUI.DrawTexture (new Rect (Screen.width * 0.08f, Screen.height * 0.1195f, Screen.width * 0.84f, Screen.height*0.055f), nameHolder, ScaleMode.StretchToFill);
 		style.font = karate;
 		style.alignment = TextAnchor.MiddleLeft;
-		GUI.TextField (new Rect (Screen.width * 0.09f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.Players [0].playerInformation.gameObject.name, style);
+		GUI.TextField (new Rect (Screen.width * 0.09f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.players [0].playerInformation.gameObject.name, style);
 		style.alignment = TextAnchor.MiddleRight;
-		GUI.TextField (new Rect (Screen.width * 0.7f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.Players [1].playerInformation.gameObject.name, style);
+		GUI.TextField (new Rect (Screen.width * 0.7f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.players [1].playerInformation.gameObject.name, style);
 
 		GUI.DrawTexture (new Rect (Screen.width * 0.444f, Screen.height * 0.052f, Screen.width * -0.4f, Screen.height * 0.068f), healthBarBack, ScaleMode.ScaleToFit);
 		GUI.DrawTexture (new Rect (Screen.width * 0.556f, Screen.height * 0.052f, Screen.width * 0.4f, Screen.height * 0.068f), healthBarBack, ScaleMode.ScaleToFit);
@@ -163,10 +163,10 @@ public class Healthbar : MonoBehaviour {
 				time = 99 - (int)Time.time + startTime;
 			} else {
 				winLose.EndGame (-1);
-				arena.Players [0].playerInformation.gameRunning = false;
-				arena.Players [1].playerInformation.gameRunning = false;
-				arena.Players [0].playerInformation.animator.TurnAnimationOn ("Idle");
-				arena.Players [1].playerInformation.animator.TurnAnimationOn ("Idle");
+				arena.players [0].playerInformation.gameRunning = false;
+				arena.players [1].playerInformation.gameRunning = false;
+				arena.players [0].playerInformation.animator.TurnAnimationOn ("Idle");
+				arena.players [1].playerInformation.animator.TurnAnimationOn ("Idle");
 			}
 			if (time < 10) {
 				add0string = "0";
