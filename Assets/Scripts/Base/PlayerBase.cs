@@ -247,7 +247,7 @@ public class PlayerBase : MonoBehaviour
                 animator.PlayAnimation("Hit");
                 if (col.GetComponent<Hitbox> ().hitArea == HitPosition.BOT) {
 					if (transform.localScale.x == 0.5f) {
-						Debug.Log ("Bot0.5" + col.GetComponentInParent<PlayerBase>().name);
+//						Debug.Log ("Bot0.5" + col.GetComponentInParent<PlayerBase>().name);
 						particleLow.transform.rotation = Quaternion.Euler (new Vector3 (0, 270, 90));
 					} else if (transform.localScale.x == -0.5f) {
 						particleLow.transform.rotation = Quaternion.Euler (new Vector3 (0, 90, 90));
@@ -255,10 +255,10 @@ public class PlayerBase : MonoBehaviour
 					particleLow.GetComponent<ParticleSystem>().Emit (30 + (int)((100-lifePoints)/5));
 				} else if (col.GetComponent<Hitbox> ().hitArea == HitPosition.TOP) {
 					if (transform.localScale.x == 0.5f) {
-						Debug.Log ("High0.5"+col.gameObject.transform.name);
+				//		Debug.Log ("High0.5"+col.gameObject.transform.name);
 						particleHigh.transform.rotation = Quaternion.Euler (new Vector3 (0, 270, 90));
 					} else if (transform.localScale.x == -0.5f) {
-						Debug.Log ("High-0.5"+col.gameObject.transform.name);
+				//		Debug.Log ("High-0.5"+col.gameObject.transform.name);
 						particleHigh.transform.rotation = Quaternion.Euler (new Vector3 (0, 90, 90));
 					}
 					particleHigh.GetComponent<ParticleSystem>().Emit (30 + (int)((100-lifePoints)/5));

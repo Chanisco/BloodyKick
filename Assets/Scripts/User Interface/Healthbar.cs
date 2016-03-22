@@ -66,6 +66,7 @@ public class Healthbar : MonoBehaviour {
 				else{
 					pl1wonTwice = true;
 					Debug.Log ("PL1 WINS!");
+					StartCoroutine (EndGame ());
 				}
 			} else if (playerNumber == 0) {
 				if (!pl2won) {
@@ -75,6 +76,7 @@ public class Healthbar : MonoBehaviour {
 				else{
 					pl2wonTwice = true;
 					Debug.Log ("PL2 WINS!");
+					StartCoroutine (EndGame ());
 				}
 			}
 		}
@@ -85,6 +87,12 @@ public class Healthbar : MonoBehaviour {
 		NewRound ();
 		arena.NewRound();
 	}
+
+	IEnumerator EndGame(){
+		yield return new WaitForSeconds (1);
+		Application.LoadLevel (0);
+	}
+
 	public void NewRound(){
 		Init (2);
 		startTime = (int)Time.time;
