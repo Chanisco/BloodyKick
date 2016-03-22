@@ -15,7 +15,7 @@ namespace Arena
         public List<PlayerData> Players = new List<PlayerData>();
         public List<GameObject> chosenCharacters = new List<GameObject>();
         [SerializeField]
-        Healthbar healthBar;
+        public Healthbar healthBar;
 		[SerializeField] public bool gameRunning=true;
 		[SerializeField] public bool finalRound = false;
 
@@ -53,7 +53,7 @@ namespace Arena
 			index = 0;
 			PauseGame (false);
 			healthBar.PauseGame (false);
-			escMenu.active = true;
+			//escMenu.active = true;
 		}
 
         void Awake()
