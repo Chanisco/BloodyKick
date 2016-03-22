@@ -26,6 +26,7 @@ public class ArenaController : MonoBehaviour {
     /// </summary>
     public void ChoosePlayer()
     {
+        ClearPlayerObjectList();
 		InsertPlayers(Player1);
         InsertPlayers(Player2);
     }

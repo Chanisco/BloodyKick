@@ -245,6 +245,7 @@ public class PlayerBase : MonoBehaviour
             if (col.transform.tag == "Damage" && gameRunning)
             {
                 animator.PlayAnimation("Hit");
+                StartCoroutine(KnockBack(playerDirection, 5));
                 if (col.GetComponent<Hitbox> ().hitArea == HitPosition.BOT) {
 					if (transform.localScale.x == 0.5f) {
 //						Debug.Log ("Bot0.5" + col.GetComponentInParent<PlayerBase>().name);
@@ -264,7 +265,6 @@ public class PlayerBase : MonoBehaviour
 					particleHigh.GetComponent<ParticleSystem>().Emit (30 + (int)((100-lifePoints)/5));
 				}
                 CameraManagement.Instance.shakeDuration = 0.04f;
-                StartCoroutine(KnockBack(playerDirection,5));
                 lifePoints = lifePoints - col.gameObject.GetComponent<Hitbox>().damage;
             }
         }
