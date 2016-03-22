@@ -8,15 +8,15 @@ namespace Arena
     {
         public static ArenaManagement Instance;
         [SerializeField] public int AmountOfPlayers;
-        public List<PlayerData> Players = new List<PlayerData>();
-        public List<GameObject> chosenCharacters = new List<GameObject>();
-        [SerializeField]
-        Healthbar healthBar;
-		[SerializeField] private bool gameRunning=true;
-		[SerializeField] private bool finalRound = false;
-
-        [SerializeField]
-        public Vector2 Player1Pos, Player2Pos;
+		public List<PlayerData> Players = new List<PlayerData>();
+		[SerializeField] List<GameObject> chosenCharacters = new List<GameObject>();
+        [SerializeField] Healthbar healthBar;
+		[SerializeField] Esc_Menu escMenu;
+		[SerializeField] StartScreenAnimator screensAnimator;
+		[SerializePrivateVariables] public bool gameRunning= true;
+		[SerializePrivateVariables] bool finalRound = false;
+        [SerializeField] public Vector2 Player1Pos, Player2Pos;
+		[SerializeField] Texture[] screens;
         
         public void InsertPlayer(CharacterEnum character, PlayerBase targetplayer)
         {
@@ -31,11 +31,27 @@ namespace Arena
 
         public void StartTheFight()
         {
-			
-
-            InstantiatePlayer();
-
+			InstantiatePlayer();
+			StartCoroutine (CountDown ());
         }
+
+		IEnumerator CountDown(){
+			PauseGame (true);
+			healthBar.PauseGame (true);
+			int index = 0;
+			foreach (Texture img in screens) {
+				if(index%2 == 0) {
+					screensAnimator.AnimateScreen (screens[index], screens[index+1]);
+					yield return new WaitForSeconds (1);
+				}
+				index++;
+			}
+			index = 0;
+			PauseGame (false);
+			healthBar.PauseGame (false);
+			escMenu.active = true;
+		}
+
         void Awake()
         {
             Instance = this;
@@ -65,6 +81,10 @@ namespace Arena
 			}
         }
 
+		IEnumerator waitForSec(int sec){
+			yield return new WaitForSeconds (1);
+		}
+
 		public void PauseGame(bool state){
 			gameRunning = !state;
 			Players [0].playerInformation.gameRunning = !state;
@@ -76,10 +96,11 @@ namespace Arena
 				Destroy (player.playerInformation.gameObject);
 			}
 			Players.Clear ();
-			InstantiatePlayer ();
-			gameRunning = true;
-			Players [0].playerInformation.gameRunning = true;
-			Players [1].playerInformation.gameRunning = true;
+			healthBar.ChangeHealth(0, 100);
+			healthBar.ChangeHealth(1, 100);
+			healthBar.time = 99;
+			StartTheFight ();
+			healthBar.startTime = (int)Time.time+4;
 		}
 
         void InstantiatePlayer()

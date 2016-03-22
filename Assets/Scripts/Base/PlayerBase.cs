@@ -9,7 +9,8 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] public List<FoundObject> Intuition = new List<FoundObject>();
     [SerializeField] public float lifePoints = 100;
     [SerializeField] public PlayerCommands playerCommands;
-
+	[SerializeField] GameObject particleHigh;
+	[SerializeField] GameObject particleLow;
     private Vector3 originalSize;
     public bool topState;
 	[SerializeField] public bool gameRunning = true;
@@ -173,7 +174,25 @@ public class PlayerBase : MonoBehaviour
         {
             if (col.transform.tag == "Damage" && gameRunning)
             {
-                animator.PlayAnimation("Hit");
+				if (col.GetComponent<Hitbox> ().hitArea == HitPosition.BOT) {
+					if (transform.localScale.x == 0.5f) {
+						Debug.Log ("Bot0.5" + col.GetComponentInParent<PlayerBase>().name);
+						particleLow.transform.rotation = Quaternion.Euler (new Vector3 (0, 270, 90));
+					} else if (transform.localScale.x == -0.5f) {
+						Debug.Log ("Bot-0.5"+col.GetComponentInParent<PlayerBase>().name);
+						particleLow.transform.rotation = Quaternion.Euler (new Vector3 (0, 90, 90));
+					}
+					particleLow.GetComponent<ParticleSystem>().Emit (30 + (int)((100-lifePoints)/5));
+				} else if (col.GetComponent<Hitbox> ().hitArea == HitPosition.TOP) {
+					if (transform.localScale.x == 0.5f) {
+						Debug.Log ("High0.5"+col.gameObject.transform.name);
+						particleHigh.transform.rotation = Quaternion.Euler (new Vector3 (0, 270, 90));
+					} else if (transform.localScale.x == -0.5f) {
+						Debug.Log ("High-0.5"+col.gameObject.transform.name);
+						particleHigh.transform.rotation = Quaternion.Euler (new Vector3 (0, 90, 90));
+					}
+					particleHigh.GetComponent<ParticleSystem>().Emit (30 + (int)((100-lifePoints)/5));
+				}
                 CameraManagement.Instance.shakeDuration = 0.04f;
                 StartCoroutine(KnockBack(playerDirection,5));
                 lifePoints = lifePoints - col.gameObject.GetComponent<Hitbox>().damage;
@@ -274,7 +293,6 @@ public class PlayerBase : MonoBehaviour
             {
                 transform.Translate(-0.2f, 0, 0);
                 yield return new WaitForEndOfFrame();
-                Debug.Log("Eat some candy");
                 StartCoroutine(KnockBack(targetPosition, timesOfForce));
             }
             else if (targetPosition == PositionAgainstPlayer.LeftOpponent)

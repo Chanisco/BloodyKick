@@ -9,9 +9,10 @@ public class Esc_Menu : MonoBehaviour {
 	[SerializeField] private float openTime;
 	[SerializeField] private float closeTime;
 	[SerializeField] Texture escMenu;
+	public bool active = false;
 
 	void Update(){
-		if (Input.GetKeyDown (KeyCode.Escape)) {
+		if (active && Input.GetKeyDown (KeyCode.Escape)) {
 			if (!opened) {
 				OpenMenu (true);
 			} else {

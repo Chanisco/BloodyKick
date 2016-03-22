@@ -5,21 +5,21 @@ using System.Collections.Generic;
 public class Healthbar : MonoBehaviour {
 	
 	public List<float> playerHealth;
+	public int time = 10;
 	[SerializeField] WinLoseScreen winLose;
 	[SerializeField] public Arena.ArenaManagement arena;
 	[SerializeField] Texture healthBarFront;
 	[SerializeField] Texture healthBarRed;
 	[SerializeField] Texture heart;
-	/*[SerializeField] public Texture characterIcon0;
-	[SerializeField] public Texture characterIcon1;*/
 	[SerializeField] Texture healthBarBack;
 	[SerializeField] Texture roundWon;
+	[SerializeField] Texture roundNotWon;
+	[SerializeField] Texture timeDisplay;
+	[SerializeField] Texture nameHolder;
 	[SerializeField] List<float> showHealth;
 	[SerializeField] float dropSpeed;
-	[SerializeField] int time = 10;
-	[SerializeField] GUIStyle style;
-	[SerializeField] Font font;
-	[SerializeField] string add0string = "";
+	[SerializeField] Font karate;
+	[SerializeField] Font shanghai;
 	[SerializeField] public bool pl1won = false;
 	[SerializeField] public bool pl2won = false;
 	[SerializeField] public bool pl1wonTwice = false;
@@ -28,17 +28,18 @@ public class Healthbar : MonoBehaviour {
 	[SerializeField] private bool finalRound = false;
 	[SerializeField] float animationSpeed;
 	[SerializeField] public int startTime;
+	[SerializePrivateVariables] string add0string = "";
+	[SerializePrivateVariables] GUIStyle style;
 	[SerializePrivateVariables] float heartIndex = 0;
 	[SerializePrivateVariables] float counter = 0;
 	[SerializePrivateVariables] Vector2 heartOffset = Vector2.zero;
 
 	void Awake(){
 		style = new GUIStyle ();
-		style.font = font;
-		style.normal.textColor = Color.red;
-		style.fontSize = (100 * Screen.width)/1920;
+		style.normal.textColor = Color.black;
+		style.fontSize = (60 * Screen.width)/1920;
 		winLose = GetComponent<WinLoseScreen> ();
-		startTime = (int)Time.time;
+		startTime = (int)Time.time +4;
 	}
 
 	public void Init(int playerAmount){
@@ -54,20 +55,36 @@ public class Healthbar : MonoBehaviour {
 			playerHealth [playerNumber] = 0;
 			arena.Players [0].playerInformation.animator.TurnAnimationOn ("Idle");
 			arena.Players [1].playerInformation.animator.TurnAnimationOn ("Idle");
+			arena.gameRunning = false;
 			end = true;
-			//yield return new WaitForSeconds (1);
-			if (playerNumber == 0 && pl2won) {
-				Debug.Log ("PL1 WINS!");
-			} else if (playerNumber == 1 && pl1won) {
-				Debug.Log ("PL2 WINS!");
-			} else {
-				NewRound ();
-				arena.NewRound();
+			//Debug.Log ("Check"+player);
+			if (playerNumber == 1) {
+				if (!pl1won) {
+					pl1won = true;
+					StartCoroutine (NewRoundDelay());
+				}
+				else{
+					pl1wonTwice = true;
+					Debug.Log ("PL1 WINS!");
+				}
+			} else if (playerNumber == 0) {
+				if (!pl2won) {
+					pl2won = true;
+					StartCoroutine (NewRoundDelay());
+				}
+				else{
+					pl2wonTwice = true;
+					Debug.Log ("PL2 WINS!");
+				}
 			}
-			winLose.EndGame (playerNumber);
 		}
 	}
 
+	IEnumerator NewRoundDelay(){
+		yield return new WaitForSeconds (1);
+		NewRound ();
+		arena.NewRound();
+	}
 	public void NewRound(){
 		Init (2);
 		startTime = (int)Time.time;
@@ -79,8 +96,16 @@ public class Healthbar : MonoBehaviour {
 	}
 
 	void OnGUI(){
-		GUI.DrawTexture (new Rect (Screen.width * 0.445f, Screen.height * 0.052f, Screen.width * -0.4f, Screen.height * 0.068f), healthBarBack, ScaleMode.ScaleToFit);
-		GUI.DrawTexture (new Rect (Screen.width * 0.555f, Screen.height * 0.052f, Screen.width * 0.4f, Screen.height * 0.068f), healthBarBack, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (new Rect (Screen.width * 0.45f, Screen.height * 0.0418f, Screen.width * 0.1f, Screen.width * 0.054348f), timeDisplay, ScaleMode.StretchToFill);
+		GUI.DrawTexture (new Rect (Screen.width * 0.08f, Screen.height * 0.1195f, Screen.width * 0.84f, Screen.height*0.055f), nameHolder, ScaleMode.StretchToFill);
+		style.font = karate;
+		style.alignment = TextAnchor.MiddleLeft;
+		GUI.TextField (new Rect (Screen.width * 0.09f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.Players [0].playerInformation.gameObject.name, style);
+		style.alignment = TextAnchor.MiddleRight;
+		GUI.TextField (new Rect (Screen.width * 0.7f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.Players [1].playerInformation.gameObject.name, style);
+
+		GUI.DrawTexture (new Rect (Screen.width * 0.444f, Screen.height * 0.052f, Screen.width * -0.4f, Screen.height * 0.068f), healthBarBack, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (new Rect (Screen.width * 0.556f, Screen.height * 0.052f, Screen.width * 0.4f, Screen.height * 0.068f), healthBarBack, ScaleMode.ScaleToFit);
 
 		GUI.DrawTexture (new Rect (Screen.width * 0.045f, Screen.height * 0.052f, Screen.width * (0.004f*showHealth[0]), Screen.height * 0.068f), healthBarRed, ScaleMode.StretchToFill);
 		GUI.DrawTexture (new Rect (Screen.width * 0.955f, Screen.height * 0.052f, Screen.width * -(0.004f*showHealth[1]), Screen.height * 0.068f), healthBarRed, ScaleMode.StretchToFill);
@@ -90,19 +115,32 @@ public class Healthbar : MonoBehaviour {
 
 		GUI.DrawTextureWithTexCoords (new Rect (Screen.width * 0.0f, Screen.height * -0.085f, Screen.width * 0.12f, Screen.height * 0.28f), heart, new Rect(heartOffset.x*0.1666667f, heartOffset.y*0.2f, 0.1666667f, 0.2f));
 		GUI.DrawTextureWithTexCoords (new Rect (Screen.width * 0.88f, Screen.height * -0.085f, Screen.width * 0.12f, Screen.height * 0.28f), heart, new Rect((heartOffset.x+1)*0.1666667f, heartOffset.y*0.2f, -0.1666667f, 0.2f));
+		style.font = shanghai;
+		style.alignment = TextAnchor.MiddleCenter;
+		GUI.TextField (new Rect (Screen.width * 0.4725f, Screen.height * 0.065f, Screen.width * 0.05f, Screen.height * 0.05f), ""+add0string+time, style);
 
-		GUI.TextField (new Rect (Screen.width * 0.475f, Screen.height * 0.05f, Screen.width * 0.05f, Screen.height * 0.05f), ""+add0string+time, style);
 		if (pl1won) {
-			GUI.DrawTexture (new Rect (Screen.width*0.05f,Screen.width*-0.078f, Screen.width * 0.47f,Screen.height * 0.47f), roundWon, ScaleMode.ScaleToFit);
+			GUI.DrawTexture (new Rect (Screen.width * 0.4f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundWon, ScaleMode.ScaleToFit);
 			if (pl1wonTwice) {
-				GUI.DrawTexture (new Rect (Screen.width*0.00f,Screen.width*-0.078f, Screen.width * 0.47f,Screen.height * 0.47f), roundWon, ScaleMode.ScaleToFit);
+				GUI.DrawTexture (new Rect (Screen.width * 0.35f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundWon, ScaleMode.ScaleToFit);
+			} else {
+				GUI.DrawTexture (new Rect (Screen.width * 0.35f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundNotWon, ScaleMode.ScaleToFit);
 			}
+		} else {
+			GUI.DrawTexture (new Rect (Screen.width * 0.4f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundNotWon, ScaleMode.ScaleToFit);
+			GUI.DrawTexture (new Rect (Screen.width * 0.35f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundNotWon, ScaleMode.ScaleToFit);
 		}
+
 		if (pl2won) {
-			GUI.DrawTexture (new Rect (Screen.width*0.165f, Screen.width*-0.078f, Screen.width * 0.47f, Screen.height * 0.47f), roundWon, ScaleMode.ScaleToFit);
+			GUI.DrawTexture (new Rect (Screen.width * 0.555f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundWon, ScaleMode.ScaleToFit);
 			if (pl2wonTwice) {
-				GUI.DrawTexture (new Rect (Screen.width*0.215f, Screen.width*-0.078f, Screen.width * 0.47f, Screen.height * 0.47f), roundWon, ScaleMode.ScaleToFit);
+				GUI.DrawTexture (new Rect (Screen.width * 0.605f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundWon, ScaleMode.ScaleToFit);
+			} else {
+				GUI.DrawTexture (new Rect (Screen.width * 0.605f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundNotWon, ScaleMode.ScaleToFit);
 			}
+		} else {
+			GUI.DrawTexture (new Rect (Screen.width * 0.555f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundNotWon, ScaleMode.ScaleToFit);
+			GUI.DrawTexture (new Rect (Screen.width * 0.605f, Screen.height * 0.13f, Screen.width * 0.04f, Screen.width * 0.0226f), roundNotWon, ScaleMode.ScaleToFit);
 		}
 	}
 

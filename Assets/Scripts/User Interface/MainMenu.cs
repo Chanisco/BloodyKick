@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 
 public class MainMenu : MonoBehaviour {
@@ -19,13 +20,10 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] float effectVolume=1;
 	[SerializePrivateVariables] float offset=0.2f;
 	[SerializeField] int difficulty;
-//	[SerializeField] Texture[] characters;
 	[SerializeField] MainMenuCameraMovement cam;
 	[SerializeField] GameObject[] characters;
 	[SerializeField] Texture UI;
-//	[SerializeField] Texture Gym;
 	[SerializeField] Texture[] arenaTextures;
-	//[SerializePrivateVariables] Texture usingArena;
 	[SerializeField] private int choise1 = 0;
 	[SerializeField] private int choise2 = 1;
 	[SerializeField] private int count = 0;
@@ -67,15 +65,15 @@ public class MainMenu : MonoBehaviour {
 		index = 0;
 		if (menu) {
 			// makes a button for each menu texture you add to Texture[] menuItems, with index for spacing
+		//	for(int i =0; i<2;i++){
 			foreach (Texture item in menuItems) {
-				if (GUI.Button (new Rect (Screen.width * 0.3f, Screen.height * (0.12f + (0.22f * index)), Screen.width * 0.4f, Screen.height * 0.15f), "", style)) {
+				if (GUI.Button (new Rect (Screen.width * 0.35f, Screen.height * (0.1f + (0.22f * index)), Screen.width * 0.3f, Screen.height * 0.18f), "", style)) {
 					if (index == 0) {
 						if (menu) {
 							cam.MoveCam (3);
 							cSelect = true;
 							menu = false;
 							options = false;
-							Debug.Log ("pl1vspl2");
 						}
 					}
 					 else if (index == 1) {
@@ -86,6 +84,9 @@ public class MainMenu : MonoBehaviour {
 							menu = false;
 						}
 					} else if (index == 2) {
+						
+					}
+					else if (index == 3) {
 						Application.Quit ();
 					}
 				}
@@ -122,7 +123,7 @@ public class MainMenu : MonoBehaviour {
 				}
 			}
 			GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height),UI);
-			GUI.DrawTexture(new Rect(Screen.width*0.4f,Screen.height*0.3f,Screen.width*0.2f,Screen.width*0.113f),arenaTextures[arenaSelected]);
+			GUI.DrawTexture(new Rect(Screen.width*0.35f,Screen.height*0.24f,Screen.width*0.3f,Screen.width*0.1695f),arenaTextures[arenaSelected]);
 			if (GUI.Button (new Rect (Screen.width * 0.06f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowL,style)) {
 
 			}
@@ -135,23 +136,27 @@ public class MainMenu : MonoBehaviour {
 			if (GUI.Button (new Rect (Screen.width * 0.89f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowRR,style)) {
 
 			}
-			if (GUI.Button (new Rect (Screen.width * 0.37f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArena,style)) {
+			if (GUI.Button (new Rect (Screen.width * 0.32f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArena,style)) {
 				arenaSelected--;
 				if (arenaSelected == -1) {
 					arenaSelected = 1;
 				}
-				Debug.Log ("" + arenaSelected);
 			}
-			if (GUI.Button (new Rect (Screen.width * 0.61f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArenaR,style)) {
+			if (GUI.Button (new Rect (Screen.width * 0.66f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArenaR,style)) {
 				arenaSelected++;
 				if (arenaSelected == 2) {
 					arenaSelected = 0;
 				}
-				Debug.Log ("" + arenaSelected);
+			}
+			if (GUI.Button (new Rect (Screen.width * 0.4f, Screen.height * 0.8f, Screen.width * 0.2f, Screen.height * 0.1f), "Start")) {
+				Application.LoadLevel (arenaSelected+1);
 			}
 		}
 	}
 
+	/// <summary>
+	/// Checks the mouse position.
+	/// </summary>
 	void CheckMousePos(){
 		usingarrowL = arrowNotSelected;
 		usingarrowR = arrowNotSelectedR;
@@ -173,12 +178,14 @@ public class MainMenu : MonoBehaviour {
 				usingarrowRR = arrowSelectedR;
 			}
 		} else if (Input.mousePosition.y > Screen.height * 0.57f && Input.mousePosition.y < Screen.height * 0.62f) {
-			if (Input.mousePosition.x > Screen.width * 0.37f && Input.mousePosition.x < Screen.width * 0.39f) {
+			if (Input.mousePosition.x > Screen.width * 0.32f && Input.mousePosition.x < Screen.width * 0.34f) {
 				usingarrowArena = arrowSelected;
 			}
-			if (Input.mousePosition.x > Screen.width * 0.61f && Input.mousePosition.x < Screen.width * 0.63f) {
+			if (Input.mousePosition.x > Screen.width * 0.66f && Input.mousePosition.x < Screen.width * 0.7f) {
 				usingarrowArenaR = arrowSelectedR;
 			}
+		} else if (Input.mousePosition.y > Screen.height * 0.81f) {
+			Debug.Log ("height" + Input.mousePosition.y);
 		}
 	}
 

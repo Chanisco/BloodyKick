@@ -23,9 +23,6 @@ public class InsertCoin : MonoBehaviour {
 			gameObject.GetComponent<Renderer> ().enabled = on;
 		}
 		if (Input.anyKeyDown && !clicked) {
-			/*Destroy (GameObject.FindGameObjectWithTag ("Title"));
-			Destroy (gameObject);*/
-		//	Instantiate (nextScreen);
 			camMovement.MoveCam (1);
 			camMovement.menu = Instantiate (nextScreen).GetComponent<MainMenu> ();
 			camMovement.menu.AddOptionItems ();
