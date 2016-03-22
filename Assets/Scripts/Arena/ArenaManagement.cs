@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Controlls;
+
 namespace Arena
 {
     public class ArenaManagement : MonoBehaviour
@@ -10,38 +11,42 @@ namespace Arena
         [SerializeField] public int AmountOfPlayers;
 		[SerializeField] Esc_Menu escMenu;
 		[SerializeField] StartScreenAnimator screensAnimator;
-        [SerializeField] public Vector2 Player1Pos, Player2Pos;
 		[SerializeField] Texture[] screens;
         public List<PlayerData> Players = new List<PlayerData>();
         public List<GameObject> chosenCharacters = new List<GameObject>();
-        [SerializeField]
-        public Healthbar healthBar;
+        [SerializeField] public Healthbar healthBar;
 		[SerializeField] public bool gameRunning=true;
 		[SerializeField] public bool finalRound = false;
 
-        [SerializeField]
-        public Vector2 borderPositions;
+        [SerializeField] public Vector2 borderPositions;
 
 
         void Awake()
         {
             Instance = this;
         }
-
-        public void InsertPlayer(CharacterEnum character, PlayerBase targetplayer)
+        void Start()
         {
-            Players.Add(new PlayerData(Players.Count,character,true,targetplayer));
+            StartTheFight();
+            healthBar.Init(2);
         }
 
-        public void InsertNPC(CharacterEnum character,  PlayerBase targetplayer)
+        /*public void InsertPlayer(PlayerBase targetplayer)
         {
-            Players.Add(new PlayerData(Players.Count, character,false,targetplayer));
+            Players.Add(new PlayerData(Players.Count, true,targetplayer));
         }
+
+        public void InsertNPC(PlayerBase targetplayer)
+        {
+            Players.Add(new PlayerData(Players.Count, false,targetplayer));
+        }*/
 
 
         public void StartTheFight()
         {
-			InstantiatePlayer();
+            chosenCharacters.Add(ArenaController.Instance.PlayerObjects[0]);
+            chosenCharacters.Add(ArenaController.Instance.PlayerObjects[1]);
+            InstantiatePlayer();
 			StartCoroutine (CountDown ());
         }
 
@@ -62,11 +67,7 @@ namespace Arena
 			//escMenu.active = true;
 		}
 
-        void Start()
-        {
-            StartTheFight();
-            healthBar.Init(2);
-        }
+      
 
         void Update()
         {
@@ -121,7 +122,7 @@ namespace Arena
                         Player1.transform.parent = transform;
                         PlayerBase Player1Base = Player1.GetComponent<PlayerBase>();
                         Player1Base.playerCommands = PlayerControllBase.Player1Settings();
-                        Players.Add(new PlayerData(i, CharacterEnum.Mila, true, Player1Base));
+                        Players.Add(new PlayerData(i,true, Player1Base));
 
                     break;
 				case 1:
@@ -131,7 +132,7 @@ namespace Arena
 						Player2.transform.localScale = new Vector3 (-Player2.transform.localScale.x, Player2.transform.localScale.y, Player2.transform.localScale.z);
                         PlayerBase Player2Base = Player2.GetComponent<PlayerBase>();
                         Player2Base.playerCommands = PlayerControllBase.Player2Settings();
-                        Players.Add(new PlayerData(i, CharacterEnum.Mila, true, Player2Base));
+                        Players.Add(new PlayerData(i, true, Player2Base));
 
                         Players[0].playerInformation.opponent = Players[1].playerInformation.transform;
                         Players[1].playerInformation.opponent = Players[0].playerInformation.transform;
@@ -152,14 +153,12 @@ namespace Arena
     {
 
         public int playerNumber;
-        public CharacterEnum targetCharacter;
         public bool Controllable;
         public PlayerBase playerInformation;
 
-        public PlayerData(int PlayerNumber,CharacterEnum targetChar,bool isControllable, PlayerBase PlayerInformation)
+        public PlayerData(int PlayerNumber,bool isControllable, PlayerBase PlayerInformation)
         {
             this.playerNumber       = PlayerNumber;
-            this.targetCharacter    = targetChar;
             this.Controllable       = isControllable;
             this.playerInformation  = PlayerInformation;
         }
