@@ -48,6 +48,7 @@ namespace Arena
         /// </summary>
         public void StartTheFight()
         {
+			ArenaController.Instance.ChoosePlayer ();
             chosenCharacters.Add(ArenaController.Instance.PlayerObjects[0]);
             chosenCharacters.Add(ArenaController.Instance.PlayerObjects[1]);
             InstantiatePlayer();
@@ -135,7 +136,7 @@ namespace Arena
                 {
                     case 0:
                         GameObject Player1 = Instantiate(chosenCharacters[i], new Vector3(-5, -4, 0.15f), Quaternion.identity) as GameObject;
-                        Player1.name = chosenCharacters[i].name + i;
+                        Player1.name = chosenCharacters[i].name;
                         Player1.transform.parent = transform;
                         PlayerBase Player1Base = Player1.GetComponent<PlayerBase>();
                         Player1Base.playerCommands = PlayerControllBase.Player1Settings();
@@ -144,7 +145,7 @@ namespace Arena
                     break;
 				case 1:
 						GameObject Player2 = Instantiate (chosenCharacters [i], new Vector3 (5, -4, 0), Quaternion.identity) as GameObject;
-						Player2.name = chosenCharacters [i].name + i;
+						Player2.name = chosenCharacters [i].name;
 						Player2.transform.parent = transform;
 						Player2.transform.localScale = new Vector3 (-Player2.transform.localScale.x, Player2.transform.localScale.y, Player2.transform.localScale.z);
                         PlayerBase Player2Base = Player2.GetComponent<PlayerBase>();

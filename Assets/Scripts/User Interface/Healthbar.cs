@@ -100,9 +100,9 @@ public class Healthbar : MonoBehaviour {
 		GUI.DrawTexture (new Rect (Screen.width * 0.08f, Screen.height * 0.1195f, Screen.width * 0.84f, Screen.height*0.055f), nameHolder, ScaleMode.StretchToFill);
 		style.font = karate;
 		style.alignment = TextAnchor.MiddleLeft;
-		GUI.TextField (new Rect (Screen.width * 0.09f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.players [0].playerInformation.gameObject.name, style);
+		GUI.TextField (new Rect (Screen.width * 0.09f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.players [0].playerInformation.name, style);
 		style.alignment = TextAnchor.MiddleRight;
-		GUI.TextField (new Rect (Screen.width * 0.7f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.players [1].playerInformation.gameObject.name, style);
+		GUI.TextField (new Rect (Screen.width * 0.7f, Screen.height * 0.122f, Screen.width * 0.2f, Screen.height * 0.055f), arena.players [1].playerInformation.name, style);
 
 		GUI.DrawTexture (new Rect (Screen.width * 0.444f, Screen.height * 0.052f, Screen.width * -0.4f, Screen.height * 0.068f), healthBarBack, ScaleMode.ScaleToFit);
 		GUI.DrawTexture (new Rect (Screen.width * 0.556f, Screen.height * 0.052f, Screen.width * 0.4f, Screen.height * 0.068f), healthBarBack, ScaleMode.ScaleToFit);

@@ -29,6 +29,7 @@ public class MainMenu : MonoBehaviour {
 	private int choise1 = 0;
 	private int choise2 = 1;
 	private int count = 0;
+	private bool pl1Choosing = false;
 	[SerializeField] float random;
 	CharacterAnimation chara;
 	CharacterAnimation charb;
@@ -39,10 +40,6 @@ public class MainMenu : MonoBehaviour {
 	[SerializeField] Texture arrowSelectedR;
 	[SerializeField] Font karate;
 	int arenaSelected = 0;
-/*	Texture usingarrowL;
-	Texture usingarrowR;
-	Texture usingarrowRL;
-	Texture usingarrowRR;*/
 	Texture usingarrowArena;
 	Texture usingarrowArenaR;
 
@@ -60,8 +57,6 @@ public class MainMenu : MonoBehaviour {
 		usingarrowArenaR = arrowNotSelectedR;
 		chara = GameObject.FindGameObjectWithTag ("Chara").GetComponent<CharacterAnimation> ();
 		charb = GameObject.FindGameObjectWithTag ("Charb").GetComponent<CharacterAnimation> ();
-		//chara.PlayAnimation ("Idle");
-		//charb.PlayAnimation ("Idle");
 	}
 
 
@@ -147,18 +142,6 @@ public class MainMenu : MonoBehaviour {
 			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), UI);
 			GUI.DrawTexture (new Rect (Screen.width * 0.35f, Screen.height * 0.24f, Screen.width * 0.3f, Screen.width * 0.1695f), arenaTextures [arenaSelected]);
 			CheckMousePos ();
-		/*if (GUI.Button (new Rect (Screen.width * 0.06f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowL, style)) {
-
-			}
-			if (GUI.Button (new Rect (Screen.width * 0.3f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowR, style)) {
-
-			}
-			if (GUI.Button (new Rect (Screen.width * 0.65f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowRL, style)) {
-
-			}
-			if (GUI.Button (new Rect (Screen.width * 0.89f, Screen.height * 0.6f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowRR, style)) {
-
-			}*/
 			if (GUI.Button (new Rect (Screen.width * 0.325f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArena, style)) {
 				arenaSelected--;
 				if (arenaSelected == -1) {
@@ -173,6 +156,7 @@ public class MainMenu : MonoBehaviour {
 			}
 			GUI.DrawTexture (new Rect (Screen.width * 0.4f, Screen.height * 0.75f, Screen.width * 0.2f, Screen.height * 0.15f), startButton, ScaleMode.ScaleToFit);
 			if (GUI.Button (new Rect (Screen.width * 0.4f, Screen.height * 0.75f, Screen.width * 0.2f, Screen.height * 0.15f), "", style)) {
+				
 				Application.LoadLevel (arenaSelected + 1);
 			}
 		} else if (controls) {
@@ -191,20 +175,7 @@ public class MainMenu : MonoBehaviour {
 	void CheckMousePos(){
 		usingarrowArena = arrowNotSelected;
 		usingarrowArenaR = arrowNotSelectedR;
-		/*if (Input.mousePosition.y > Screen.height * 0.35f && Input.mousePosition.y < Screen.height * 0.4f) {
-			if (Input.mousePosition.x > Screen.width * 0.06f && Input.mousePosition.x < Screen.width * 0.08f) {
-				usingarrowL = arrowSelected;
-			}
-			if (Input.mousePosition.x > Screen.width * 0.3f && Input.mousePosition.x < Screen.width * 0.32f) {
-				usingarrowR = arrowSelectedR;
-			}
-			if (Input.mousePosition.x > Screen.width * 0.65f && Input.mousePosition.x < Screen.width * 0.67f) {
-				usingarrowRL = arrowSelected;
-			}
-			if (Input.mousePosition.x > Screen.width * 0.89f && Input.mousePosition.x < Screen.width * 0.91f) {
-				usingarrowRR = arrowSelectedR;
-			}
-		} else */if (Input.mousePosition.y > Screen.height * 0.57f && Input.mousePosition.y < Screen.height * 0.62f) {
+		if (Input.mousePosition.y > Screen.height * 0.57f && Input.mousePosition.y < Screen.height * 0.62f) {
 			if (Input.mousePosition.x > Screen.width * 0.325f && Input.mousePosition.x < Screen.width * 0.345f) {
 				usingarrowArena = arrowSelected;
 			}
@@ -213,31 +184,29 @@ public class MainMenu : MonoBehaviour {
 			}
 		} else if (Input.mousePosition.y > Screen.height * 0.81f) {
 			if (Input.mousePosition.x < Screen.width * 0.5f) {
-			//	Debug.Log (""+  ((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)));
-				/*if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.235f &&
-					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.335f ) {
-							Debug.Log ("1");
-				}else */if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.335f &&
+				if (((Input.mousePosition.x/Screen.width)-((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)> 0.335f &&
 					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.435f ) {
-							Debug.Log ("1");
+							Debug.Log ("2");
+					if (Input.GetMouseButton (0)) {
+						Debug.Log ("Click");
+					}
 					GUI.DrawTexture (new Rect (Screen.width * 0.335f, Screen.height*0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [0], ScaleMode.StretchToFill);
 				}else if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.435f &&
-					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.535f ) {
-							Debug.Log ("2");
+					((Input.mousePosition.x/Screen.width)-((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.535f ) {
+							Debug.Log ("3");
 				}
 			} else {
-				//Debug.Log (""+  ((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)));
-				if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.5f &&
-					((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.56f ) {
-							Debug.Log ("2");
+				if (((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)> 0.5f &&
+					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.56f ) {
+							Debug.Log ("4");
 				}else if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.56f &&
-					((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.66f ) {
-							Debug.Log ("3");
-				}/*else if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.66f &&
-					((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.76f ) {
+					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.66f ) {
 							Debug.Log ("5");
-				}*/
-
+				}
+				else if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.56f &&
+					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.66f ) {
+					Debug.Log ("5");
+				}
 			}
 
 		}

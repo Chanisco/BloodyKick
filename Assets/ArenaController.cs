@@ -17,14 +17,16 @@ public class ArenaController : MonoBehaviour {
     {
         DontDestroyOnLoad(gameObject);
         Instance = this;
+		Player1 = CharacterEnum.John;
+		Player2 = CharacterEnum.Cena;
     }
     
     /// <summary>
     /// Player 1 and 2 are called
     /// </summary>
-    void Start()
+    public void ChoosePlayer()
     {
-        InsertPlayers(Player1);
+		InsertPlayers(Player1);
         InsertPlayers(Player2);
     }
 
