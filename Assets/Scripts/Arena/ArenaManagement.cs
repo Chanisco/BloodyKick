@@ -8,21 +8,16 @@ namespace Arena
     {
         public static ArenaManagement Instance;
         [SerializeField] public int AmountOfPlayers;
-		public List<PlayerData> Players = new List<PlayerData>();
-		[SerializeField] List<GameObject> chosenCharacters = new List<GameObject>();
-        [SerializeField] Healthbar healthBar;
 		[SerializeField] Esc_Menu escMenu;
 		[SerializeField] StartScreenAnimator screensAnimator;
-		[SerializePrivateVariables] public bool gameRunning= true;
-		[SerializePrivateVariables] bool finalRound = false;
         [SerializeField] public Vector2 Player1Pos, Player2Pos;
 		[SerializeField] Texture[] screens;
         public List<PlayerData> Players = new List<PlayerData>();
         public List<GameObject> chosenCharacters = new List<GameObject>();
         [SerializeField]
         Healthbar healthBar;
-		[SerializeField] private bool gameRunning=true;
-		[SerializeField] private bool finalRound = false;
+		[SerializeField] public bool gameRunning=true;
+		[SerializeField] public bool finalRound = false;
 
         [SerializeField]
         public Vector2 borderPositions;
