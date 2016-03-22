@@ -9,19 +9,21 @@ public class MenuItemScript : MonoBehaviour {
 	public float insertTime;
 	public bool options = false;
 	public bool placed = false;
-	public Vector3 loc;
+	[SerializePrivateVariables] Vector3 loc;
 	[SerializePrivateVariables] Vector3 backButtonLoc;
-	public Vector3 offset;
+	[SerializePrivateVariables] Vector3 offset;
 	[SerializePrivateVariables] Vector3 drawScale;
 
 	void Start(){
 		gameObject.GetComponent<Renderer> ().material.SetTexture ("_MainTex",image);
 		if (options) {
 			loc = new Vector3 (5.96f, 2.61f, 35.43f);
+			offset = new Vector3 (0, -2.1f, 0);
 			drawScale = new Vector3 (-0.455f, -0.12f, 0.2f);
 		} else {
-			loc = new Vector3 (0, 3, 0);
-			drawScale = new Vector3 (-0.455f, 0.2f, -0.2f);
+			loc = new Vector3 (0, 2.2f, -1.77f);
+			offset = new Vector3 (0, -1.3f, 0);
+			drawScale = new Vector3 (-0.273f, 0.2f, -0.12f);
 		}
 		backButtonLoc = new Vector3 (12.4f, -4.1f, 30);
 	}
