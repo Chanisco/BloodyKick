@@ -43,6 +43,9 @@ public class CharacterAnimation : MonoBehaviour {
             case "Dodge":
                 currentAnimation = CharacterAnimationsStates.Dodge;
             break;
+            default:
+                currentAnimation = CharacterAnimationsStates.Attack;
+            break;
         }
         
     }

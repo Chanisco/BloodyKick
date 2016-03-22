@@ -16,7 +16,7 @@ namespace Arena
 		[SerializeField] private bool finalRound = false;
 
         [SerializeField]
-        public Vector2 Player1Pos, Player2Pos;
+        public Vector2 borderPositions;
         
         public void InsertPlayer(CharacterEnum character, PlayerBase targetplayer)
         {

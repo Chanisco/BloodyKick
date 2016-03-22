@@ -19,6 +19,7 @@ public class PlayerBase : MonoBehaviour
 
     public CharacterAnimation animator;
     public PositionAgainstPlayer playerDirection;
+    private Vector2 borderPos;
 
     public enum PositionAgainstPlayer
     {
@@ -37,6 +38,12 @@ public class PlayerBase : MonoBehaviour
     void Awake()
     {
         originalSize = transform.localScale;
+        borderPos = ArenaManagement.Instance.borderPositions;
+    }
+
+    void Start()
+    {
+
     }
 
     public void FindObject(FoundObject target)
@@ -84,34 +91,38 @@ public class PlayerBase : MonoBehaviour
             {
                 if (Input.GetKey(playerCommands.left))
                 {
-                    if (Input.GetKeyDown(playerCommands.left))
+                    if (transform.localPosition.x > borderPos.x)
                     {
-                        if (animator.currentAnimation != CharacterAnimationsStates.Walk)
+                        if (Input.GetKeyDown(playerCommands.left))
                         {
-                            animator.TurnAnimationOn("Movement");
+                            if (animator.currentAnimation != CharacterAnimationsStates.Walk)
+                            {
+                                animator.TurnAnimationOn("Movement");
 
+                            }
+                            else
+                            {
+                                if (playerDirection == PositionAgainstPlayer.RightOpponent)
+                                {
+                                    StartCoroutine(KnockBack(PositionAgainstPlayer.RightOpponent, 10));
+                                    animator.PlayAnimation("Dodge");
+                                }
+                            }
                         }
                         else
                         {
-                            if (playerDirection == PositionAgainstPlayer.RightOpponent)
+                            transform.Translate(-1 * speed, 0, 0);
+                            if (opponent == null)
                             {
-                                StartCoroutine(KnockBack(PositionAgainstPlayer.RightOpponent, 10));
-                                animator.PlayAnimation("Dodge");
+                                transform.localScale = new Vector2(-originalSize.x, originalSize.y);
                             }
-                        }
-                    }
-                    else
-                    {
-                        transform.Translate(-1 * speed, 0, 0);
-                        if (opponent == null)
-                        {
-                            transform.localScale = new Vector2(-originalSize.x, originalSize.y);
                         }
                     }
                 }
                 else if (Input.GetKey(playerCommands.right))
                 {
-                    if (Input.GetKey(playerCommands.right))
+                    Debug.Log(transform.localPosition.x + " " + borderPos.y);
+                    if (transform.localPosition.x < borderPos.y)
                     {
                         if (Input.GetKeyDown(playerCommands.right))
                         {
@@ -403,3 +414,9 @@ public class PlayerBase : MonoBehaviour
     
 }
 
+
+public enum Gender
+{
+    MALE,
+    FEMALE
+}
