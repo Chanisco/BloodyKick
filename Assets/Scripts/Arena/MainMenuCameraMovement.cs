@@ -13,7 +13,7 @@ public class MainMenuCameraMovement : MonoBehaviour {
 	private Quaternion targetRot;
 	public MainMenu menu;
 	private bool menuAdded = false;
-	public PlayerBase characater0;
+	public CharacterAnimation characater0;
 	private float random;
 	private float count=0;
 
@@ -30,23 +30,26 @@ public class MainMenuCameraMovement : MonoBehaviour {
 			rotation = Quaternion.Lerp (rotation, targetRot, 0.06f);
 			cam.transform.position = position;
 			cam.transform.rotation = rotation;
-			if (Vector3.Distance(cam.transform.position,targetLoc)<9 && !menuAdded/* && cam.transform.rotation == targetRot*/) {
-				menu.AddMenuItems ();
-				menu.menu = true;
-				menuAdded = true;
+			if (Vector3.Distance(cam.transform.position,targetLoc)<9  && Vector3.Distance(cam.transform.rotation.eulerAngles,targetRot.eulerAngles)<10 ||
+				Vector3.Distance(cam.transform.position,targetLoc)<9  && Vector3.Distance(cam.transform.rotation.eulerAngles,targetRot.eulerAngles)>350) {
+				if (!menuAdded) {
+					menu.AddMenuItems ();
+					menu.AddOptionItems ();
+					menuAdded = true;
+				}
 			}
-			if (Vector3.Distance(cam.transform.position,targetLoc)<0.1f/* && cam.transform.rotation == targetRot*/) {
+			if (Vector3.Distance(cam.transform.position,targetLoc)<0.1f  && Vector3.Distance(cam.transform.rotation.eulerAngles,targetRot.eulerAngles)<0.1f){
 				moving = false;
 			}
 		}
 		count++;
 		if (count>random) {
 			if (Random.Range (0, 100) > 40) {
-				characater0.animator.PlayAnimation ("Punch");
+				characater0.PlayAnimation ("Punch");
 				count = 0;
 				random = Random.Range (10, 100);
 			} else {
-				characater0.animator.PlayAnimation ("Kick");
+				characater0.PlayAnimation ("Kick");
 				count = 0;
 				random = Random.Range (10, 40);
 			}

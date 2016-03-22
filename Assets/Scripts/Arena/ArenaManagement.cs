@@ -45,7 +45,7 @@ namespace Arena
 			int index = 0;
 			foreach (Texture img in screens) {
 				if(index%2 == 0) {
-					screensAnimator.AnimateScreen (screens[index], screens[index+1]);
+					screensAnimator.AnimateScreen (img, screens[index+1]);
 					yield return new WaitForSeconds (1);
 				}
 				index++;

@@ -40,6 +40,7 @@ public class PlayerBase : MonoBehaviour
     void Awake()
     {
         originalSize = transform.localScale;
+		Debug.Log (this.gameObject);
         borderPos = ArenaManagement.Instance.borderPositions;
     }
 
