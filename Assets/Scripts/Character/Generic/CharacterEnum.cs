@@ -2,6 +2,6 @@
 
 
 public enum CharacterEnum{
-    Mila,
-    Derp
+   John,
+   Cena
 }
