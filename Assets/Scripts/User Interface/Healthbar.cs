@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Arena;
 
 public class Healthbar : MonoBehaviour {
 	
 	public List<float> playerHealth;
 	public int time = 10;
 	[SerializeField] WinLoseScreen winLose;
-	[SerializeField] public Arena.ArenaManagement arena;
+	[SerializeField] public ArenaManagement arena;
 	[SerializeField] Texture healthBarFront;
 	[SerializeField] Texture healthBarRed;
 	[SerializeField] Texture heart;
@@ -164,21 +165,54 @@ public class Healthbar : MonoBehaviour {
 		}
 	}
 
+    public void CheckWinner()
+    {
+        Debug.Log(playerHealth[0] + " " + playerHealth[1]);
+        if(playerHealth[0] == playerHealth[1])
+        {
+            StartCoroutine(NewRoundDelay());
+            add0string = "";
+        }
+        else if(playerHealth[0] > playerHealth[1])
+        {
+            if (pl1won == false)
+            {
+                pl1won = true;
+            }
+            else
+            {
+                pl1wonTwice = true;
+            }
+        }
+        else
+        {
+            if (pl2won == false)
+            {
+                pl2won = true;
+            }
+            else
+            {
+                pl2wonTwice = true;
+            }
+        }
+    }
 	void Update(){
 		AnimateHeart ();
 		if (!end) {
-			if (time > 0) {
-				time = 99 - (int)Time.time + startTime;
+			if (time > 0)
+            {
+                time = 99 - (int)Time.time + startTime;
 			} else {
 				winLose.EndGame (-1);
 				arena.players [0].playerInformation.gameRunning = false;
 				arena.players [1].playerInformation.gameRunning = false;
-				arena.players [0].playerInformation.animator.TurnAnimationOn ("Idle");
-				arena.players [1].playerInformation.animator.TurnAnimationOn ("Idle");
+                CheckWinner();
+                arena.players [0].playerInformation.animator.TurnAnimationOn ("Win");
+				arena.players [1].playerInformation.animator.TurnAnimationOn ("Win");
 			}
 			if (time < 10) {
 				add0string = "0";
-			}
+            }
 		}
 		showHealth [0] = Mathf.SmoothStep (showHealth [0], playerHealth [0], dropSpeed);
 		showHealth [1] = Mathf.SmoothStep (showHealth [1], playerHealth [1], dropSpeed);

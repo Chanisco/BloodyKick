@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 public class MainMenu : MonoBehaviour {
-
+    public static MainMenu Instance;
 	[SerializeField] Texture[] menuItems;
 	[SerializeField] Texture backButton;
 	[SerializeField] GameObject blankObject;
@@ -20,8 +20,8 @@ public class MainMenu : MonoBehaviour {
 	float offset=0.2f;
 	float musicVolume = 9;
 	float SfxVolume = 9;
-	string musicVolumeString = "9";
-	string SfxVolumeString = "9";
+	public string musicVolumeString = "9";
+	public string SfxVolumeString = "9";
 	[SerializeField] int difficulty;
 	[SerializeField] MainMenuCameraMovement cam;
 	[SerializeField] Texture UI;
@@ -42,6 +42,10 @@ public class MainMenu : MonoBehaviour {
 	Texture usingarrowArena;
 	Texture usingarrowArenaR;
 
+    void Awake()
+    {
+        Instance = this;
+    }
 	void Start(){
 		style = new GUIStyle ();
 		style.fontSize = (120 * Screen.width) / 1920;
