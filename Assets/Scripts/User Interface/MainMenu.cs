@@ -31,8 +31,8 @@ public class MainMenu : MonoBehaviour {
 	private int count = 0;
 	private bool pl1Choosing = true;
 	[SerializeField] float random;
-	CharacterAnimation chara;
-	CharacterAnimation charb;
+	//CharacterAnimation chara;
+	//CharacterAnimation charb;
 	[SerializeField] Texture arrowNotSelected;
 	[SerializeField] Texture arrowSelected;
 	[SerializeField] Texture arrowNotSelectedR;
@@ -54,8 +54,8 @@ public class MainMenu : MonoBehaviour {
 		options = false;
 		usingarrowArena = arrowNotSelected;
 		usingarrowArenaR = arrowNotSelectedR;
-		chara = GameObject.FindGameObjectWithTag ("Chara").GetComponent<CharacterAnimation> ();
-		charb = GameObject.FindGameObjectWithTag ("Charb").GetComponent<CharacterAnimation> ();
+		//chara = GameObject.FindGameObjectWithTag ("Chara").GetComponent<CharacterAnimation> ();
+		//charb = GameObject.FindGameObjectWithTag ("Charb").GetComponent<CharacterAnimation> ();
 	}
 
 
@@ -182,27 +182,32 @@ public class MainMenu : MonoBehaviour {
 					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.435f ) {
 					if (!pl1Choosing) {
 						if (Input.GetMouseButtonDown (0)) {
-							Debug.Log ("1");
 							ArenaController.Instance.Player2 = CharacterEnum.Cena;
 							Application.LoadLevel (arenaSelected + 1);
 						}
+						GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = true;
+						GameObject.FindGameObjectWithTag ("J2").GetComponent<MeshRenderer>().enabled = false;
 						GUI.DrawTexture (new Rect (Screen.width * 0.335f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [3], ScaleMode.StretchToFill);
 					} else {
 						if (Input.GetMouseButtonUp (0)) {
-							Debug.Log ("2");
 							ArenaController.Instance.Player1 = CharacterEnum.Cena;
 							pl1Choosing = false;
 						}
+						GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = true;
+						GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = false;
 						GUI.DrawTexture (new Rect (Screen.width * 0.335f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [0], ScaleMode.StretchToFill);
 					}
 				}else if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.435f &&
 					((Input.mousePosition.x/Screen.width)-((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.535f ) {
 					if (!pl1Choosing) {
 						if (Input.GetMouseButtonDown (0)) {
-							
 							if (Random.Range (0, 100) > 50) {
+								GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = true;
+								GameObject.FindGameObjectWithTag ("J2").GetComponent<MeshRenderer>().enabled = false;
 								ArenaController.Instance.Player2 = CharacterEnum.Cena;
 							} else {
+								GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = false;
+								GameObject.FindGameObjectWithTag ("J2").GetComponent<MeshRenderer>().enabled = true;
 								ArenaController.Instance.Player2= CharacterEnum.John;
 							}
 							Application.LoadLevel (arenaSelected + 1);
@@ -211,8 +216,12 @@ public class MainMenu : MonoBehaviour {
 					} else {
 						if (Input.GetMouseButtonUp (0)) {
 							if (Random.Range (0, 100) > 50) {
+								GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = true;
+								GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = false;
 								ArenaController.Instance.Player1= CharacterEnum.Cena;
 							} else {
+								GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = false;
+								GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = true;
 								ArenaController.Instance.Player1 = CharacterEnum.John;
 							}
 							pl1Choosing = false;
@@ -225,7 +234,6 @@ public class MainMenu : MonoBehaviour {
 					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.56f ) {
 					if (!pl1Choosing) {
 						if (Input.GetMouseButtonDown (0)) {
-							
 							if (Random.Range (0, 100) > 50) {
 								ArenaController.Instance.Player2 = CharacterEnum.Cena;
 							} else {
@@ -249,17 +257,19 @@ public class MainMenu : MonoBehaviour {
 					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.66f ) {
 					if (!pl1Choosing) {
 						if (Input.GetMouseButtonDown (0)) {
-							Debug.Log ("4");
 							ArenaController.Instance.Player2 = CharacterEnum.John;
 							Application.LoadLevel (arenaSelected + 1);
 						}
+						GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = false;
+						GameObject.FindGameObjectWithTag ("J2").GetComponent<MeshRenderer>().enabled = true;
 						GUI.DrawTexture (new Rect (Screen.width * 0.508f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [5], ScaleMode.StretchToFill);
 					} else {
 						if (Input.GetMouseButtonUp (0)) {
-							Debug.Log ("3");
 							ArenaController.Instance.Player1 = CharacterEnum.John;
 							pl1Choosing = false;
 						}
+						GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = false;
+						GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = true;
 						GUI.DrawTexture (new Rect (Screen.width * 0.508f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [2], ScaleMode.StretchToFill);
 					}
 				}
