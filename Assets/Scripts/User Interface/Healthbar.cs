@@ -9,7 +9,6 @@ public class Healthbar : MonoBehaviour {
 	public int time = 10;
 	[SerializeField] WinLoseScreen winLose;
 	[SerializeField] public ArenaManagement arena;
-	[SerializeField] public Arena.ArenaManagement arena;
 	[SerializeField] StartScreenAnimator screensAnimator;
 	[SerializeField] Texture healthBarFront;
 	[SerializeField] Texture healthBarRed;
@@ -193,6 +192,7 @@ public class Healthbar : MonoBehaviour {
         }
         else if(playerHealth[0] > playerHealth[1])
         {
+            AudioController.Instance.PlaySound(AnnouncerSounds.WINNER);
             if (pl1won == false)
             {
                 pl1won = true;
@@ -204,6 +204,7 @@ public class Healthbar : MonoBehaviour {
         }
         else
         {
+            AudioController.Instance.PlaySound(AnnouncerSounds.WINNER);
             if (pl2won == false)
             {
                 pl2won = true;
@@ -221,7 +222,8 @@ public class Healthbar : MonoBehaviour {
             {
                 time = 99 - (int)Time.time + startTime;
 			} else {
-				winLose.EndGame (-1);
+                AudioController.Instance.PlaySound(AnnouncerSounds.TIMEUP);
+                winLose.EndGame (-1);
 				arena.players [0].playerInformation.gameRunning = false;
 				arena.players [1].playerInformation.gameRunning = false;
                 CheckWinner();

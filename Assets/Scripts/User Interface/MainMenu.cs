@@ -74,6 +74,7 @@ public class MainMenu : MonoBehaviour {
 			//	for(int i =0; i<2;i++){
 			foreach (Texture item in menuItems) {
 				if (GUI.Button (new Rect (Screen.width * 0.4f, Screen.height * (0.13f + (0.172f * index)), Screen.width * 0.2f, Screen.height * 0.15f), "", style)) {
+                    AudioController.Instance.PlaySound(SFXSounds.BUTTON);
 					if (index == 0) {
 						if (menu) {
 						//	AudioController.Instance.PlaySound(
@@ -113,7 +114,7 @@ public class MainMenu : MonoBehaviour {
 				index++;
 			}
 		} else if (options && !cam.moving) {
-			musicVolumeString = GUI.TextField (new Rect (Screen.width * 0.485f, Screen.height * 0.12f, Screen.width * 0.05f, Screen.height * 0.05f), musicVolume.ToString (), 1, style);
+            musicVolumeString = GUI.TextField (new Rect (Screen.width * 0.485f, Screen.height * 0.12f, Screen.width * 0.05f, Screen.height * 0.05f), musicVolume.ToString (), 1, style);
 			float.TryParse (musicVolumeString, out musicVolume);
 			SfxVolumeString = GUI.TextField (new Rect (Screen.width * 0.485f, Screen.height * 0.33f, Screen.width * 0.05f, Screen.height * 0.05f), musicVolume.ToString (), 1, style);
 			float.TryParse (SfxVolumeString, out SfxVolume);
@@ -153,20 +154,23 @@ public class MainMenu : MonoBehaviour {
 			GUI.DrawTexture (new Rect (Screen.width * 0.35f, Screen.height * 0.24f, Screen.width * 0.3f, Screen.width * 0.1695f), arenaTextures [arenaSelected]);
 			CheckMousePos ();
 			if (GUI.Button (new Rect (Screen.width * 0.325f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArena, style)) {
-				arenaSelected--;
+                AudioController.Instance.PlaySound(SFXSounds.BUTTON);
+                arenaSelected--;
 				if (arenaSelected == -1) {
 					arenaSelected = 1;
 				}
 			}
 			if (GUI.Button (new Rect (Screen.width * 0.66f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArenaR, style)) {
-				arenaSelected++;
+                AudioController.Instance.PlaySound(SFXSounds.BUTTON);
+                arenaSelected++;
 				if (arenaSelected == 2) {
 					arenaSelected = 0;
 				}
 			}
 		} else if (controls) {
 			if (GUI.Button (new Rect (Screen.width * 0.65f, Screen.height * 0.8f, Screen.width * 0.24f, Screen.height * 0.18f), "",style)) {
-				cam.MoveCam (1);
+                AudioController.Instance.PlaySound(SFXSounds.BUTTON);
+                cam.MoveCam (1);
 				menu = true;
 				controls = false;
 				options = false;
@@ -191,8 +195,9 @@ public class MainMenu : MonoBehaviour {
 			if (Input.mousePosition.x < Screen.width * 0.5f) {
 				if (((Input.mousePosition.x/Screen.width)-((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)> 0.335f &&
 					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.435f ) {
-					if (!pl1Choosing) {
-						if (Input.GetMouseButtonDown (0)) {
+					if (!pl1Choosing)
+                    {
+                        if (Input.GetMouseButtonDown (0)) {
 							ArenaController.Instance.Player2 = CharacterEnum.Cena;
 							Application.LoadLevel (arenaSelected + 1);
 						}
@@ -204,8 +209,8 @@ public class MainMenu : MonoBehaviour {
 						if (Input.GetMouseButtonUp (0)) {
 							ArenaController.Instance.Player1 = CharacterEnum.Cena;
 							pl1Choosing = false;
-						}
-						name1 = "Cena";
+                        }
+                        name1 = "Cena";
 						GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = true;
 						GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = false;
 						GUI.DrawTexture (new Rect (Screen.width * 0.335f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [0], ScaleMode.StretchToFill);
@@ -213,14 +218,16 @@ public class MainMenu : MonoBehaviour {
 				}else if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.435f &&
 					((Input.mousePosition.x/Screen.width)-((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.535f ) {
 					if (!pl1Choosing) {
-						if (Input.GetMouseButtonDown (0)) {
-							if (Random.Range (0, 100) > 50) {
+						if (Input.GetMouseButtonDown (0))
+                        {
+                            if (Random.Range (0, 100) > 50) {
 								name2 = "Cena";
 								GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = true;
 								GameObject.FindGameObjectWithTag ("J2").GetComponent<MeshRenderer>().enabled = false;
 								ArenaController.Instance.Player2 = CharacterEnum.Cena;
-							} else {
-								name2 = "John";
+							} else
+                            {
+                                name2 = "John";
 								GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = false;
 								GameObject.FindGameObjectWithTag ("J2").GetComponent<MeshRenderer>().enabled = true;
 								ArenaController.Instance.Player2= CharacterEnum.John;
@@ -230,13 +237,15 @@ public class MainMenu : MonoBehaviour {
 						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [4], ScaleMode.StretchToFill);
 					} else {
 						if (Input.GetMouseButtonUp (0)) {
-							if (Random.Range (0, 100) > 50) {
-								name1 = "Cena";
+							if (Random.Range (0, 100) > 50)
+                            {
+                                name1 = "Cena";
 								GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = true;
 								GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = false;
 								ArenaController.Instance.Player1= CharacterEnum.Cena;
-							} else {
-								name1 = "John";
+							} else
+                            {
+                                name1 = "John";
 								GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = false;
 								GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = true;
 								ArenaController.Instance.Player1 = CharacterEnum.John;
@@ -252,12 +261,15 @@ public class MainMenu : MonoBehaviour {
 					if (!pl1Choosing) {
 						if (Input.GetMouseButtonDown (0)) {
 							if (Random.Range (0, 100) > 50) {
+                                AudioController.Instance.PlaySound(AnnouncerSounds.CENA);
 								name2 = "Cena";
 								GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = true;
 								GameObject.FindGameObjectWithTag ("J2").GetComponent<MeshRenderer>().enabled = false;
 								ArenaController.Instance.Player2 = CharacterEnum.Cena;
-							} else {
-								name2 = "John";
+							} else
+                            {
+                                AudioController.Instance.PlaySound(AnnouncerSounds.JOHN);
+                                name2 = "John";
 								GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = false;
 								GameObject.FindGameObjectWithTag ("J2").GetComponent<MeshRenderer>().enabled = true;
 								ArenaController.Instance.Player2= CharacterEnum.John;
@@ -267,13 +279,15 @@ public class MainMenu : MonoBehaviour {
 						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [4], ScaleMode.StretchToFill);
 					} else {
 						if (Input.GetMouseButtonUp (0)) {
-							if (Random.Range (0, 100) > 50) {
-								name1 = "Cena";
+							if (Random.Range (0, 100) > 50)
+                            {
+                                name1 = "Cena";
 								GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = true;
 								GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = false;
 								ArenaController.Instance.Player1 = CharacterEnum.Cena;
-							} else {
-								name1 = "John";
+							} else
+                            {
+                                name1 = "John";
 								GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = false;
 								GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = true;
 								ArenaController.Instance.Player1 = CharacterEnum.John;
@@ -284,18 +298,24 @@ public class MainMenu : MonoBehaviour {
 					}
 				}else if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.56f &&
 					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.66f ) {
-					if (!pl1Choosing) {
-						if (Input.GetMouseButtonDown (0)) {
-							ArenaController.Instance.Player2 = CharacterEnum.John;
+					if (!pl1Choosing)
+                    {
+                        if (Input.GetMouseButtonDown (0))
+                        {
+                            AudioController.Instance.PlaySound(AnnouncerSounds.CENA);
+                            ArenaController.Instance.Player2 = CharacterEnum.John;
 							Application.LoadLevel (arenaSelected + 1);
 						}
 						name2 = "John";
 						GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = false;
 						GameObject.FindGameObjectWithTag ("J2").GetComponent<MeshRenderer>().enabled = true;
 						GUI.DrawTexture (new Rect (Screen.width * 0.508f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [5], ScaleMode.StretchToFill);
-					} else {
-						if (Input.GetMouseButtonUp (0)) {
-							ArenaController.Instance.Player1 = CharacterEnum.John;
+					} else
+                    {
+                        if (Input.GetMouseButtonUp (0))
+                        {
+                            AudioController.Instance.PlaySound(AnnouncerSounds.JOHN);
+                            ArenaController.Instance.Player1 = CharacterEnum.John;
 							pl1Choosing = false;
 						}
 						name1 = "John";
