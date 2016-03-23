@@ -15,6 +15,9 @@ public class AudioController : MonoBehaviour
     private AudioClip currentSong;
     private AudioSource ownAudioSource;
 
+    public float SFXVolume;
+    public float OSTVolume;
+
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -28,10 +31,9 @@ public class AudioController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            PlaySound(SFXSounds.BUTTON);
-           
+        if (MainMenu.Instance != null) {
+            SFXVolume               = (float)int.Parse(MainMenu.Instance.SfxVolumeString) / 10;
+            ownAudioSource.volume   = (float)int.Parse(MainMenu.Instance.musicVolumeString) / 10;
         }
     }
 
@@ -41,7 +43,7 @@ public class AudioController : MonoBehaviour
         {
             if (maleSFXLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(maleSFXLibrary[i].track, Vector3.zero);
+                AudioSource.PlayClipAtPoint(maleSFXLibrary[i].track, Vector3.zero, SFXVolume);
             }
         }
     }
@@ -52,7 +54,7 @@ public class AudioController : MonoBehaviour
         {
             if (femaleSFXLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(femaleSFXLibrary[i].track, Vector3.zero);
+                AudioSource.PlayClipAtPoint(femaleSFXLibrary[i].track, Vector3.zero, SFXVolume);
             }
         }
     }
@@ -63,7 +65,7 @@ public class AudioController : MonoBehaviour
         {
             if (AnnouncerLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(AnnouncerLibrary[i].track, Vector3.zero);
+                AudioSource.PlayClipAtPoint(AnnouncerLibrary[i].track, Vector3.zero, SFXVolume);
             }
         }
     }
