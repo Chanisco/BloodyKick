@@ -62,15 +62,16 @@ namespace Arena
 		IEnumerator CountDown(){
 			PauseGame (true);
 			healthBar.PauseGame (true);
-			int index = 0;
-			foreach (Texture img in screens) {
-				if(index%2 == 0) {
-					screensAnimator.AnimateScreen (img, screens[index+1]);
+			if (finalRound) {
+				screensAnimator.AnimateScreen (screens[8], screens[9]);
+				yield return new WaitForSeconds (1);
+			}
+			for(int i=0;i<7;i++){
+				if(i%2 == 0) {
+					screensAnimator.AnimateScreen (screens[i], screens[i+1]);
 					yield return new WaitForSeconds (1);
 				}
-				index++;
 			}
-			index = 0;
 			PauseGame (false);
 			healthBar.PauseGame (false);
 			escMenu.active = true;

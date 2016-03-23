@@ -13,6 +13,7 @@ public class StartScreenAnimator : MonoBehaviour {
 	float startDistance;
 	float distance;
 	float speed = 0;
+	public float animateSpeed=1;
 	[SerializeField] float scale;
 
 	void Start(){
@@ -31,7 +32,7 @@ public class StartScreenAnimator : MonoBehaviour {
 			} else {
 				animating = false;
 			}
-			usingPos.x += speed;
+			usingPos.x += speed * animateSpeed;
 			GUI.DrawTexture (new Rect (Screen.width * (usingPos.x-usingScale.x/2), Screen.height * usingPos.y, Screen.width * usingScale.x, Screen.height * usingScale.y), top, ScaleMode.ScaleToFit);
 			GUI.DrawTexture (new Rect (Screen.width * (1 - (usingPos.x+usingScale.x/2)), Screen.height * (usingPos.y+usingScale.y-0.002f), Screen.width * usingScale.x, Screen.height * usingScale.y), bottom, ScaleMode.ScaleToFit);
 		}

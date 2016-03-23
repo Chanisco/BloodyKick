@@ -8,6 +8,7 @@ public class Healthbar : MonoBehaviour {
 	public int time = 10;
 	[SerializeField] WinLoseScreen winLose;
 	[SerializeField] public Arena.ArenaManagement arena;
+	[SerializeField] StartScreenAnimator screensAnimator;
 	[SerializeField] Texture healthBarFront;
 	[SerializeField] Texture healthBarRed;
 	[SerializeField] Texture heart;
@@ -16,6 +17,10 @@ public class Healthbar : MonoBehaviour {
 	[SerializeField] Texture roundNotWon;
 	[SerializeField] Texture timeDisplay;
 	[SerializeField] Texture nameHolder;
+	[SerializeField] Texture pl1winsTop;
+	[SerializeField] Texture pl1winsBottom;
+	[SerializeField] Texture pl2winsTop;
+	[SerializeField] Texture pl2winsBottom;
 	[SerializeField] List<float> showHealth;
 	[SerializeField] float dropSpeed;
 	[SerializeField] Font karate;
@@ -60,6 +65,9 @@ public class Healthbar : MonoBehaviour {
 			//Debug.Log ("Check"+player);
 			if (playerNumber == 1) {
 				if (!pl1won) {
+					if (pl2won) {
+						arena.finalRound = true;
+					}
 					pl1won = true;
 					StartCoroutine (NewRoundDelay());
 				}
@@ -70,6 +78,9 @@ public class Healthbar : MonoBehaviour {
 				}
 			} else if (playerNumber == 0) {
 				if (!pl2won) {
+					if (pl1won) {
+						arena.finalRound = true;
+					}
 					pl2won = true;
 					StartCoroutine (NewRoundDelay());
 				}
@@ -89,7 +100,13 @@ public class Healthbar : MonoBehaviour {
 	}
 
 	IEnumerator EndGame(){
-		yield return new WaitForSeconds (1);
+		screensAnimator.animateSpeed = 0.5f;
+		if (pl1wonTwice) {
+			screensAnimator.AnimateScreen (pl1winsTop, pl1winsBottom);
+		} else {
+			screensAnimator.AnimateScreen (pl2winsTop, pl2winsBottom);
+		}
+		yield return new WaitForSeconds (5);
 		Application.LoadLevel (0);
 	}
 
