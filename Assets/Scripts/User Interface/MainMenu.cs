@@ -29,11 +29,10 @@ public class MainMenu : MonoBehaviour {
 	private int choise1 = 0;
 	private int choise2 = 1;
 	private int count = 0;
-	private bool pl1Choosing = false;
+	private bool pl1Choosing = true;
 	[SerializeField] float random;
 	CharacterAnimation chara;
 	CharacterAnimation charb;
-	[SerializeField] Texture startButton;
 	[SerializeField] Texture arrowNotSelected;
 	[SerializeField] Texture arrowSelected;
 	[SerializeField] Texture arrowNotSelectedR;
@@ -45,7 +44,7 @@ public class MainMenu : MonoBehaviour {
 
 	void Start(){
 		style = new GUIStyle ();
-		style.fontSize = (24 * 1920) / Screen.width;
+		style.fontSize = (120 * Screen.width) / 1920;
 		style.font = karate;
 		cam = Camera.main.GetComponent<MainMenuCameraMovement>();
 		spawnLoc = new Vector3 (0, 11, 0);
@@ -154,11 +153,6 @@ public class MainMenu : MonoBehaviour {
 					arenaSelected = 0;
 				}
 			}
-			GUI.DrawTexture (new Rect (Screen.width * 0.4f, Screen.height * 0.75f, Screen.width * 0.2f, Screen.height * 0.15f), startButton, ScaleMode.ScaleToFit);
-			if (GUI.Button (new Rect (Screen.width * 0.4f, Screen.height * 0.75f, Screen.width * 0.2f, Screen.height * 0.15f), "", style)) {
-				
-				Application.LoadLevel (arenaSelected + 1);
-			}
 		} else if (controls) {
 			if (GUI.Button (new Rect (Screen.width * 0.65f, Screen.height * 0.8f, Screen.width * 0.24f, Screen.height * 0.18f), "",style)) {
 				cam.MoveCam (1);
@@ -186,26 +180,88 @@ public class MainMenu : MonoBehaviour {
 			if (Input.mousePosition.x < Screen.width * 0.5f) {
 				if (((Input.mousePosition.x/Screen.width)-((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)> 0.335f &&
 					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.435f ) {
+					if (!pl1Choosing) {
+						if (Input.GetMouseButtonDown (0)) {
+							Debug.Log ("1");
+							ArenaController.Instance.Player2 = CharacterEnum.Cena;
+							Application.LoadLevel (arenaSelected + 1);
+						}
+						GUI.DrawTexture (new Rect (Screen.width * 0.335f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [3], ScaleMode.StretchToFill);
+					} else {
+						if (Input.GetMouseButtonUp (0)) {
 							Debug.Log ("2");
-					if (Input.GetMouseButton (0)) {
-						Debug.Log ("Click");
+							ArenaController.Instance.Player1 = CharacterEnum.Cena;
+							pl1Choosing = false;
+						}
+						GUI.DrawTexture (new Rect (Screen.width * 0.335f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [0], ScaleMode.StretchToFill);
 					}
-					GUI.DrawTexture (new Rect (Screen.width * 0.335f, Screen.height*0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [0], ScaleMode.StretchToFill);
 				}else if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.435f &&
 					((Input.mousePosition.x/Screen.width)-((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.535f ) {
-							Debug.Log ("3");
+					if (!pl1Choosing) {
+						if (Input.GetMouseButtonDown (0)) {
+							
+							if (Random.Range (0, 100) > 50) {
+								ArenaController.Instance.Player2 = CharacterEnum.Cena;
+							} else {
+								ArenaController.Instance.Player2= CharacterEnum.John;
+							}
+							Application.LoadLevel (arenaSelected + 1);
+						}
+						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [4], ScaleMode.StretchToFill);
+					} else {
+						if (Input.GetMouseButtonUp (0)) {
+							if (Random.Range (0, 100) > 50) {
+								ArenaController.Instance.Player1= CharacterEnum.Cena;
+							} else {
+								ArenaController.Instance.Player1 = CharacterEnum.John;
+							}
+							pl1Choosing = false;
+						}
+						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [1], ScaleMode.StretchToFill);
+					}
 				}
 			} else {
 				if (((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)> 0.5f &&
 					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.56f ) {
-							Debug.Log ("4");
+					if (!pl1Choosing) {
+						if (Input.GetMouseButtonDown (0)) {
+							
+							if (Random.Range (0, 100) > 50) {
+								ArenaController.Instance.Player2 = CharacterEnum.Cena;
+							} else {
+								ArenaController.Instance.Player2= CharacterEnum.John;
+							}
+							Application.LoadLevel (arenaSelected + 1);
+						}
+						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [4], ScaleMode.StretchToFill);
+					} else {
+						if (Input.GetMouseButtonUp (0)) {
+							if (Random.Range (0, 100) > 50) {
+								ArenaController.Instance.Player1 = CharacterEnum.Cena;
+							} else {
+								ArenaController.Instance.Player1 = CharacterEnum.John;
+							}
+							pl1Choosing = false;
+						}
+						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [1], ScaleMode.StretchToFill);
+					}
 				}else if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.56f &&
 					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.66f ) {
-							Debug.Log ("5");
-				}
-				else if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.56f &&
-					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.66f ) {
-					Debug.Log ("5");
+					if (!pl1Choosing) {
+						if (Input.GetMouseButtonDown (0)) {
+							Debug.Log ("4");
+							ArenaController.Instance.Player2 = CharacterEnum.John;
+							Application.LoadLevel (arenaSelected + 1);
+						}
+						GUI.DrawTexture (new Rect (Screen.width * 0.508f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [5], ScaleMode.StretchToFill);
+					} else {
+						if (Input.GetMouseButtonUp (0)) {
+							Debug.Log ("3");
+							ArenaController.Instance.Player1 = CharacterEnum.John;
+							pl1Choosing = false;
+						}
+						GUI.DrawTexture (new Rect (Screen.width * 0.508f, Screen.height * 0.01f, Screen.width * 0.159f, Screen.height * 0.21f), characterFrames [2], ScaleMode.StretchToFill);
+					}
 				}
 			}
 

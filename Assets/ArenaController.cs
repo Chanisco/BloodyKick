@@ -17,8 +17,8 @@ public class ArenaController : MonoBehaviour {
     {
         DontDestroyOnLoad(gameObject);
         Instance = this;
-		Player1 = CharacterEnum.John;
-		Player2 = CharacterEnum.Cena;
+		//Player1 = CharacterEnum.John;
+		//Player2 = CharacterEnum.Cena;
     }
     
     /// <summary>

@@ -83,7 +83,7 @@ public class Healthbar : MonoBehaviour {
 	}
 
 	IEnumerator NewRoundDelay(){
-		yield return new WaitForSeconds (1);
+		yield return new WaitForSeconds (2);
 		NewRound ();
 		arena.NewRound();
 	}

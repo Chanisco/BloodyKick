@@ -244,7 +244,7 @@ public class PlayerBase : MonoBehaviour
         {
             if (col.transform.tag == "Damage" && gameRunning)
             {
-                animator.PlayAnimation("Hit");
+                //animator.PlayAnimation("Hit");
                 StartCoroutine(KnockBack(playerDirection, 5));
                 if (col.GetComponent<Hitbox> ().hitArea == HitPosition.BOT) {
 					if (transform.localScale.x == 0.5f) {
