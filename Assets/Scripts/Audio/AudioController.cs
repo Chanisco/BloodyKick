@@ -13,7 +13,11 @@ public class AudioController : MonoBehaviour
     public List<AudioBundle> IntroLibrary;
     public List<AudioBundle> AnnouncerLibrary;
     private AudioClip currentSong;
-	public AudioSource ownAudioSource;
+    private AudioSource ownAudioSource;
+    public AudioSource SFXAudioSource;
+
+    public float SFXVolume;
+    public float OSTVolume;
 
     void Awake()
     {
@@ -28,10 +32,9 @@ public class AudioController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            PlaySound(SFXSounds.BUTTON);
-           
+        if (MainMenu.Instance != null) {
+            SFXVolume               = float.Parse(MainMenu.Instance.SfxVolumeString) / 10;
+            ownAudioSource.volume   = float.Parse(MainMenu.Instance.musicVolumeString) / 10;
         }
     }
 
@@ -41,7 +44,7 @@ public class AudioController : MonoBehaviour
         {
             if (maleSFXLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(maleSFXLibrary[i].track, Vector3.zero);
+                SFXAudioSource.PlayOneShot(maleSFXLibrary[i].track, SFXVolume);
             }
         }
     }
@@ -52,7 +55,7 @@ public class AudioController : MonoBehaviour
         {
             if (femaleSFXLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(femaleSFXLibrary[i].track, Vector3.zero);
+                SFXAudioSource.PlayOneShot(femaleSFXLibrary[i].track, SFXVolume);
             }
         }
     }
@@ -63,7 +66,7 @@ public class AudioController : MonoBehaviour
         {
             if (AnnouncerLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(AnnouncerLibrary[i].track, Vector3.zero);
+                SFXAudioSource.PlayOneShot(AnnouncerLibrary[i].track, SFXVolume);
             }
         }
     }
@@ -86,8 +89,7 @@ public class AudioController : MonoBehaviour
         {
             if (SFXLibrary[i].nameOfTrack == targetTrack)
             {
-                ownAudioSource.clip = SFXLibrary[i].track;
-                ownAudioSource.Play();
+                SFXAudioSource.PlayOneShot(SFXLibrary[i].track, SFXVolume);
             }
         }
     }
@@ -176,6 +178,36 @@ public class AudioController : MonoBehaviour
             case AnnouncerSounds.WINNER:
                 CallAnnouncerSound("Winner");
                 break;
+            case AnnouncerSounds.TEN:
+                CallAnnouncerSound("10");
+                break;
+            case AnnouncerSounds.NINE:
+                CallAnnouncerSound("9");
+                break;
+            case AnnouncerSounds.EIGHT:
+                CallAnnouncerSound("8");
+                break;
+            case AnnouncerSounds.SEVEN:
+                CallAnnouncerSound("7");
+                break;
+            case AnnouncerSounds.SIX:
+                CallAnnouncerSound("6");
+                break;
+            case AnnouncerSounds.FIVE:
+                CallAnnouncerSound("5");
+                break;
+            case AnnouncerSounds.FOUR:
+                CallAnnouncerSound("4");
+                break;
+            case AnnouncerSounds.THREE:
+                CallAnnouncerSound("3");
+                break;
+            case AnnouncerSounds.TWO:
+                CallAnnouncerSound("2");
+                break;
+            case AnnouncerSounds.ONE:
+                CallAnnouncerSound("1");
+                break;
         }
     }
 
@@ -232,7 +264,17 @@ public enum AnnouncerSounds
     ROUND3,
     TIMEUP,
     WIN,
-    WINNER
+    WINNER,
+    TEN,
+    NINE,
+    EIGHT,
+    SEVEN,
+    SIX,
+    FIVE,
+    FOUR,
+    THREE,
+    TWO,
+    ONE
 }
 
 public enum SFXSounds

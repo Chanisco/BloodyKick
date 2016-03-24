@@ -240,33 +240,58 @@ public class PlayerBase : MonoBehaviour
     /// <param name="col"></param>
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (blocking == false)
+        HitPosition collidedHitPosition =  col.GetComponent<Hitbox>().hitArea;
+        if (collidedHitPosition == HitPosition.TOP && topState == true && blocking == true)
         {
-            if (col.transform.tag == "Damage" && gameRunning)
+            return;
+        }
+        else if (collidedHitPosition == HitPosition.BOT && topState == false && blocking == true)
+        {
+            return;
+        }
+        else
+        {
+            if(col.transform.tag == "Damage" && gameRunning)
             {
-                //animator.PlayAnimation("Hit");
-                StartCoroutine(KnockBack(playerDirection, 5));
-                if (col.GetComponent<Hitbox> ().hitArea == HitPosition.BOT) {
-					if (transform.localScale.x == 0.5f) {
-//						Debug.Log ("Bot0.5" + col.GetComponentInParent<PlayerBase>().name);
-						particleLow.transform.rotation = Quaternion.Euler (new Vector3 (0, 270, 90));
-					} else if (transform.localScale.x == -0.5f) {
-						particleLow.transform.rotation = Quaternion.Euler (new Vector3 (0, 90, 90));
-					}
-					particleLow.GetComponent<ParticleSystem>().Emit (30 + (int)((100-lifePoints)/5));
-				} else if (col.GetComponent<Hitbox> ().hitArea == HitPosition.TOP) {
-					if (transform.localScale.x == 0.5f) {
-				//		Debug.Log ("High0.5"+col.gameObject.transform.name);
-						particleHigh.transform.rotation = Quaternion.Euler (new Vector3 (0, 270, 90));
-					} else if (transform.localScale.x == -0.5f) {
-				//		Debug.Log ("High-0.5"+col.gameObject.transform.name);
-						particleHigh.transform.rotation = Quaternion.Euler (new Vector3 (0, 90, 90));
-					}
-					particleHigh.GetComponent<ParticleSystem>().Emit (30 + (int)((100-lifePoints)/5));
-				}
-                CameraManagement.Instance.shakeDuration = 0.04f;
+                Gethit(collidedHitPosition);
                 lifePoints = lifePoints - col.gameObject.GetComponent<Hitbox>().damage;
             }
+        }
+    }
+
+    private void Gethit(HitPosition targetHitPosition)
+    {
+        CameraManagement.Instance.shakeDuration = 0.04f;
+        animator.PlayAnimation("Hit");
+        StartCoroutine(KnockBack(playerDirection, 5));
+        switch (targetHitPosition)
+        {
+            case HitPosition.TOP:
+                if (playerDirection == PositionAgainstPlayer.RightOpponent)
+                {
+                    //		Debug.Log ("High0.5"+col.gameObject.transform.name);
+                    particleHigh.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 90));
+                }
+                else if (playerDirection == PositionAgainstPlayer.LeftOpponent)
+                {
+                    //		Debug.Log ("High-0.5"+col.gameObject.transform.name);
+                    particleHigh.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 90));
+                }
+                particleHigh.GetComponent<ParticleSystem>().Emit(30 + (int)((100 - lifePoints) / 5));
+                break;
+            case HitPosition.BOT:
+
+                if (playerDirection == PositionAgainstPlayer.RightOpponent)
+                {
+                    //						Debug.Log ("Bot0.5" + col.GetComponentInParent<PlayerBase>().name);
+                    particleLow.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 90));
+                }
+                else if (playerDirection == PositionAgainstPlayer.LeftOpponent)
+                {
+                    particleLow.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 90));
+                }
+                particleLow.GetComponent<ParticleSystem>().Emit(30 + (int)((100 - lifePoints) / 5));
+                break;
         }
     }
 

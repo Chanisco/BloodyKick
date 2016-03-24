@@ -2,7 +2,11 @@
 using System.Collections;
 
 public class WinLoseScreen : MonoBehaviour {
-
+    private Healthbar healthbar;
+    void Start()
+    {
+        healthbar = GetComponent<Healthbar>();
+    }
     /// <summary>
     /// After the game is finished the loser gets picked and the manager start a new game
     /// </summary>
@@ -10,16 +14,16 @@ public class WinLoseScreen : MonoBehaviour {
 	public void EndGame(int loser){
 		if (loser == -1) {
 		} else if (loser == 0) {
-			if (GetComponent<Healthbar> ().pl2won == false) {
-				GetComponent<Healthbar> ().pl2won = true;
+			if (healthbar.pl2won == false) {
+                healthbar.pl2won = true;
 			} else {
-				GetComponent<Healthbar> ().pl2wonTwice = true;
+                healthbar.pl2wonTwice = true;
 			}
 		} else if (loser == 1) {
-			if (GetComponent<Healthbar> ().pl1won == false) {
-				GetComponent<Healthbar> ().pl1won = true;
+			if (healthbar.pl1won == false) {
+                healthbar.pl1won = true;
 			} else {
-				GetComponent<Healthbar> ().pl1wonTwice = true;
+                healthbar.pl1wonTwice = true;
 			}
 		}
 	}
