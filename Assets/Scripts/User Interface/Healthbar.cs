@@ -221,6 +221,7 @@ public class Healthbar : MonoBehaviour {
 			if (time > 0)
             {
                 time = 99 - (int)Time.time + startTime;
+                Debug.Log(time);
 			} else {
                 AudioController.Instance.PlaySound(AnnouncerSounds.TIMEUP);
                 winLose.EndGame (-1);
@@ -232,6 +233,39 @@ public class Healthbar : MonoBehaviour {
 			}
 			if (time < 10) {
 				add0string = "0";
+                switch (time)
+                {
+                    case 10:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.TEN);
+                        break;
+                    case 9:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.NINE);
+                        break;
+                    case 8:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.EIGHT);
+                        break;
+                    case 7:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.SEVEN);
+                        break;
+                    case 6:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.SIX);
+                        break;
+                    case 5:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.FIVE);
+                        break;
+                    case 4:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.FOUR);
+                        break;
+                    case 3:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.THREE);
+                        break;
+                    case 2:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.TWO);
+                        break;
+                    case 1:
+                        AudioController.Instance.PlaySound(AnnouncerSounds.ONE);
+                        break;
+                }
             }
 		}
 		showHealth [0] = Mathf.SmoothStep (showHealth [0], playerHealth [0], dropSpeed);

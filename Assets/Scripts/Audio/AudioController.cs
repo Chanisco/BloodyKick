@@ -178,6 +178,36 @@ public class AudioController : MonoBehaviour
             case AnnouncerSounds.WINNER:
                 CallAnnouncerSound("Winner");
                 break;
+            case AnnouncerSounds.TEN:
+                CallAnnouncerSound("10");
+                break;
+            case AnnouncerSounds.NINE:
+                CallAnnouncerSound("9");
+                break;
+            case AnnouncerSounds.EIGHT:
+                CallAnnouncerSound("8");
+                break;
+            case AnnouncerSounds.SEVEN:
+                CallAnnouncerSound("7");
+                break;
+            case AnnouncerSounds.SIX:
+                CallAnnouncerSound("6");
+                break;
+            case AnnouncerSounds.FIVE:
+                CallAnnouncerSound("5");
+                break;
+            case AnnouncerSounds.FOUR:
+                CallAnnouncerSound("4");
+                break;
+            case AnnouncerSounds.THREE:
+                CallAnnouncerSound("3");
+                break;
+            case AnnouncerSounds.TWO:
+                CallAnnouncerSound("2");
+                break;
+            case AnnouncerSounds.ONE:
+                CallAnnouncerSound("1");
+                break;
         }
     }
 
@@ -234,7 +264,17 @@ public enum AnnouncerSounds
     ROUND3,
     TIMEUP,
     WIN,
-    WINNER
+    WINNER,
+    TEN,
+    NINE,
+    EIGHT,
+    SEVEN,
+    SIX,
+    FIVE,
+    FOUR,
+    THREE,
+    TWO,
+    ONE
 }
 
 public enum SFXSounds
