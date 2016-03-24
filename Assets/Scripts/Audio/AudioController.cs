@@ -14,6 +14,7 @@ public class AudioController : MonoBehaviour
     public List<AudioBundle> AnnouncerLibrary;
     private AudioClip currentSong;
     private AudioSource ownAudioSource;
+    public AudioSource SFXAudioSource;
 
     public float SFXVolume;
     public float OSTVolume;
@@ -43,7 +44,7 @@ public class AudioController : MonoBehaviour
         {
             if (maleSFXLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(maleSFXLibrary[i].track, Vector3.zero, SFXVolume);
+                SFXAudioSource.PlayOneShot(maleSFXLibrary[i].track, SFXVolume);
             }
         }
     }
@@ -54,7 +55,7 @@ public class AudioController : MonoBehaviour
         {
             if (femaleSFXLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(femaleSFXLibrary[i].track, Vector3.zero, SFXVolume);
+                SFXAudioSource.PlayOneShot(femaleSFXLibrary[i].track, SFXVolume);
             }
         }
     }
@@ -65,7 +66,7 @@ public class AudioController : MonoBehaviour
         {
             if (AnnouncerLibrary[i].nameOfTrack == targetTrack)
             {
-                AudioSource.PlayClipAtPoint(AnnouncerLibrary[i].track, Vector3.zero, SFXVolume);
+                SFXAudioSource.PlayOneShot(AnnouncerLibrary[i].track, SFXVolume);
             }
         }
     }
@@ -88,8 +89,7 @@ public class AudioController : MonoBehaviour
         {
             if (SFXLibrary[i].nameOfTrack == targetTrack)
             {
-                ownAudioSource.clip = SFXLibrary[i].track;
-                ownAudioSource.Play();
+                SFXAudioSource.PlayOneShot(SFXLibrary[i].track, SFXVolume);
             }
         }
     }
