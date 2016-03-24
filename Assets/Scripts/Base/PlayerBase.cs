@@ -239,8 +239,11 @@ public class PlayerBase : MonoBehaviour
     /// </summary>
     /// <param name="col"></param>
     private void OnTriggerEnter2D(Collider2D col)
-    {
-        HitPosition collidedHitPosition =  col.GetComponent<Hitbox>().hitArea;
+	{
+		if (col.transform.tag != "Damage") {
+			return;
+		}
+		HitPosition collidedHitPosition =  col.GetComponent<Hitbox>().hitArea;
         if (collidedHitPosition == HitPosition.TOP && topState == true && blocking == true)
         {
             return;

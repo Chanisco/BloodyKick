@@ -33,7 +33,7 @@ public class AudioController : MonoBehaviour
     void Update()
     {
         if (MainMenu.Instance != null) {
-            SFXVolume               = float.Parse(MainMenu.Instance.SfxVolumeString) / 10;
+			SFXVolume               = float.Parse(MainMenu.Instance.SfxVolumeString) / 10;
             ownAudioSource.volume   = float.Parse(MainMenu.Instance.musicVolumeString) / 10;
         }
     }

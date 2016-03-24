@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 public class MainMenu : MonoBehaviour {
-
+	public static MainMenu Instance;
 	[SerializeField] Texture[] menuItems;
 	[SerializeField] Texture backButton;
 	[SerializeField] GameObject blankObject;
@@ -20,8 +20,8 @@ public class MainMenu : MonoBehaviour {
 	float offset=0.2f;
 	float musicVolume = 9;
 	float SfxVolume = 9;
-	string musicVolumeString = "9";
-	string SfxVolumeString = "9";
+	public string musicVolumeString = "9";
+	public string SfxVolumeString = "9";
 	[SerializeField] int difficulty;
 	[SerializeField] MainMenuCameraMovement cam;
 	[SerializeField] Texture UI;
@@ -41,7 +41,9 @@ public class MainMenu : MonoBehaviour {
 	int arenaSelected = 0;
 	Texture usingarrowArena;
 	Texture usingarrowArenaR;
-
+	void Awake(){
+		Instance = this;
+	}
 	void Start(){
 		style = new GUIStyle ();
 		style.fontSize = (120 * Screen.width) / 1920;
@@ -112,7 +114,7 @@ public class MainMenu : MonoBehaviour {
 			}
 		} else if (options && !cam.moving) {
 			musicVolumeString = GUI.TextField (new Rect (Screen.width * 0.485f, Screen.height * 0.12f, Screen.width * 0.05f, Screen.height * 0.05f), musicVolume.ToString (), 1, style);
-			AudioController.Instance.ownAudioSource.volume = musicVolume/9;
+
 			float.TryParse (musicVolumeString, out musicVolume);
 			SfxVolumeString = GUI.TextField (new Rect (Screen.width * 0.485f, Screen.height * 0.33f, Screen.width * 0.05f, Screen.height * 0.05f), musicVolume.ToString (), 1, style);
 			float.TryParse (SfxVolumeString, out SfxVolume);
