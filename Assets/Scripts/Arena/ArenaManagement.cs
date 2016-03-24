@@ -55,6 +55,18 @@ namespace Arena
 			StartCoroutine (CountDown());
         }
 
+		/// <summary>
+		/// Plays the background music
+		/// </summary>
+		/// <param name="level">Level.</param>
+		public void PlayBackgroundMusic(int level){
+			if (level == 0) {
+				AudioController.Instance.ChangeBackgroundMusic("BattleSong 1");
+			} else if (level == 1) {
+				AudioController.Instance.ChangeBackgroundMusic("BattleSong 2");
+			}
+		}
+
         /// <summary>
         /// Short Countdown that starts the match
         /// </summary>

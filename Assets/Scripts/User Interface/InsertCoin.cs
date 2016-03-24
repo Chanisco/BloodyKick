@@ -12,6 +12,7 @@ public class InsertCoin : MonoBehaviour {
 
 	void Start(){
 		gameObject.GetComponent<Renderer> ().enabled = false;
+		AudioController.Instance.ChangeBackgroundMusic("Main Menu");
 	}
 	
 	// Update is called once per frame

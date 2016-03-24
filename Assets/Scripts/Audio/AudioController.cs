@@ -13,7 +13,7 @@ public class AudioController : MonoBehaviour
     public List<AudioBundle> IntroLibrary;
     public List<AudioBundle> AnnouncerLibrary;
     private AudioClip currentSong;
-    private AudioSource ownAudioSource;
+	public AudioSource ownAudioSource;
 
     void Awake()
     {
