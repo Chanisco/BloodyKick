@@ -14,38 +14,46 @@ public class StartScreenAnimator : MonoBehaviour {
 	float distance;
 	float speed = 0;
 	public float animateSpeed=1;
-	[SerializeField] float scale;
-
-	void Start(){
-		scale = (scale*Screen.width)/1920;
-	}
+	[SerializeField] float scale = 0.5f;
 
 	void OnGUI(){
 		if (animating) {
+			usingPos.x += speed * animateSpeed;
 			distance = EndPos.x - usingPos.x;
-			if (distance > startDistance * 0.599f) {
-				speed = 0.05f * (startDistance*2);
-			} else if (distance > startDistance * 0.48f) {
-				speed = 0.0003f * (startDistance*2);
-			} else if (distance > 0) {
-				speed = 0.05f * (startDistance*2);
-			} else {
+			Debug.Log ("" + distance);
+			if (distance > 0.54f) {
+				speed = 0.05f;
+			} 
+			if (distance > 0.48f &&
+				distance <= 0.54f) {
+				speed = 0.00028f;
+			} 
+			if (distance > 0 &&
+				distance <= 0.48f) {
+				speed = 0.05f;
+			} 
+			if (distance <= 0 ){
 				animating = false;
 			}
-			usingPos.x += speed * animateSpeed;
-			GUI.DrawTexture (new Rect (Screen.width * (usingPos.x-usingScale.x/2), Screen.height * usingPos.y, Screen.width * usingScale.x, Screen.height * usingScale.y), top, ScaleMode.ScaleToFit);
-			GUI.DrawTexture (new Rect (Screen.width * (1 - (usingPos.x+usingScale.x/2)), Screen.height * (usingPos.y+usingScale.y-0.002f), Screen.width * usingScale.x, Screen.height * usingScale.y), bottom, ScaleMode.ScaleToFit);
+			GUI.DrawTexture (new Rect (Screen.width * (usingPos.x - (usingScale.x/2)), Screen.height * usingPos.y, Screen.width* usingScale.x, Screen.height*usingScale.y), top, ScaleMode.ScaleToFit);
+			GUI.DrawTexture (new Rect (Screen.width * (1 - (usingPos.x + (usingScale.x/2))), Screen.height * (usingPos.y+usingScale.y-0.002f), Screen.width * usingScale.x, Screen.height * usingScale.y), bottom, ScaleMode.ScaleToFit);
 		}
 	}
 
 	public void AnimateScreen(Texture topPart, Texture bottomPart){
+		scale = 0.5f;
 		animating = true;
 		top = topPart;
 		bottom = bottomPart;
-		usingScale = new Vector2(((float)topPart.width/(float)Screen.width)*scale,((float)topPart.height/(float)Screen.height)*scale);
-		startPos = new Vector2 (-((float)topPart.width*scale/(float)Screen.width*scale)+0.04f, 0.5f - ((float)topPart.height*scale/(float)Screen.height*scale));
-		EndPos = new Vector2 (1 - startPos.x-0.04f, startPos.y);
+		usingScale = new Vector2((topPart.width/(float)Screen.width)*scale,(topPart.height/(float)Screen.height)*scale);
+		startPos = new Vector2 (-usingScale.x, 0.5f-usingScale.y);
+		EndPos = new Vector2 (1, startPos.y);
 		startDistance = EndPos.x - startPos.x;
 		usingPos = startPos;
 	}
 }
+
+//usingscale = %width,%height
+//startpos = %-width, %0.5-usingscale.y
+//endpos = %1+usingscale.x, startpos.y
+//usingpos = startpos + adjustment

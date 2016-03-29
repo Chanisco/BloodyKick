@@ -1,13 +1,19 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class MainMenu : MonoBehaviour {
 	public static MainMenu Instance;
 	[SerializeField] Texture[] menuItems;
 	[SerializeField] Texture backButton;
+	[SerializeField] Texture backButtonGUI;
+	[SerializeField] Texture startButton;
+	[SerializeField] Texture overlay;
+	[SerializeField] Texture overlayChar;
 	[SerializeField] GameObject blankObject;
 	[SerializeField] Texture[] characterFrames;
+	[SerializeField] GUIStyle slider1;
+	[SerializeField] GUIStyle slider2;
+	[SerializeField] GUISkin sliderSkin;
 	int index = 0;
 	Vector3 spawnLoc;
 	Vector3 optionsSpawnLoc;
@@ -30,6 +36,7 @@ public class MainMenu : MonoBehaviour {
 	private int choise2 = 1;
 	private int count = 0;
 	private bool pl1Choosing = true;
+	private bool pl2Choosing = false;
 	private string name1 = "Cena";
 	private string name2= "John";
 	[SerializeField] float random;
@@ -41,6 +48,7 @@ public class MainMenu : MonoBehaviour {
 	int arenaSelected = 0;
 	Texture usingarrowArena;
 	Texture usingarrowArenaR;
+
 	void Awake(){
 		Instance = this;
 	}
@@ -56,18 +64,17 @@ public class MainMenu : MonoBehaviour {
 		options = false;
 		usingarrowArena = arrowNotSelected;
 		usingarrowArenaR = arrowNotSelectedR;
-		//chara = GameObject.FindGameObjectWithTag ("Chara").GetComponent<CharacterAnimation> ();
-		//charb = GameObject.FindGameObjectWithTag ("Charb").GetComponent<CharacterAnimation> ();
 	}
 
 
 	void OnGUI(){
+		GUI.skin.horizontalSlider = slider1;
+		GUI.skin.horizontalSliderThumb = slider2;
 		index = 0;
 		if (menu) {
 			///<summary>
 			/// makes a button for each menu texture you add to Texture[] menuItems, with index for spacing
 			///</summary>
-			//	for(int i =0; i<2;i++){
 			foreach (Texture item in menuItems) {
 				if (GUI.Button (new Rect (Screen.width * 0.4f, Screen.height * (0.13f + (0.172f * index)), Screen.width * 0.2f, Screen.height * 0.15f), "", style)) {
 					if (index == 0) {
@@ -113,13 +120,11 @@ public class MainMenu : MonoBehaviour {
 				index++;
 			}
 		} else if (options && !cam.moving) {
-			musicVolumeString = GUI.TextField (new Rect (Screen.width * 0.485f, Screen.height * 0.12f, Screen.width * 0.05f, Screen.height * 0.05f), musicVolume.ToString (), 1, style);
-
-			float.TryParse (musicVolumeString, out musicVolume);
-			SfxVolumeString = GUI.TextField (new Rect (Screen.width * 0.485f, Screen.height * 0.33f, Screen.width * 0.05f, Screen.height * 0.05f), musicVolume.ToString (), 1, style);
-			float.TryParse (SfxVolumeString, out SfxVolume);
+			musicVolume = GUI.HorizontalSlider (new Rect (Screen.width * 0.6f, Screen.height * 0.17f, Screen.width * 0.3f, Screen.height * 0.15f), musicVolume, 0f, 9f);
+			SfxVolume = GUI.HorizontalSlider (new Rect (Screen.width * 0.6f, Screen.height * 0.37f, Screen.width * 0.3f, Screen.height * 0.15f), SfxVolume, 0f, 9f);
+			GUI.TextField (new Rect (Screen.width * 0.49f, Screen.height * 0.13f, Screen.width * 0.05f, Screen.height * 0.05f), musicVolume.ToString (), 1, style);
+			GUI.TextField (new Rect (Screen.width * 0.49f, Screen.height * 0.34f, Screen.width * 0.05f, Screen.height * 0.05f), SfxVolume.ToString (), 1, style);
 			if (GUI.Button (new Rect (Screen.width * 0.7f, Screen.height * 0.8f, Screen.width * 0.165f, Screen.height * 0.15f), "", style)) {
-				//AudioController.Instance.get
 				AudioController.Instance.CallSFXSound("Button");
 				cam.MoveCam (1);
 				menu = true;
@@ -131,41 +136,57 @@ public class MainMenu : MonoBehaviour {
 			if (count > random) {
 				if (Random.Range (0, 100) > 40) {
 					if (Random.Range (0, 100) > 50) {
-						//chara.PlayAnimation ("Punch");
 					} else {
-						//charb.PlayAnimation ("Punch");
 					}
 					count = 0;
 					random = Random.Range (200, 400);
 				} else {
 					if (Random.Range (0, 100) > 50) {
-						//chara.PlayAnimation ("Kick");
 					} else {
-						//charb.PlayAnimation ("Kick");
 					}
 					count = 0;
 					random = Random.Range (200, 400);
 				}
 			}
-			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), UI);
+			GUI.DrawTexture (new Rect (Screen.width * 0.35f, Screen.height * 0.24f, Screen.width * 0.3f, Screen.width * 0.1695f), arenaTextures [arenaSelected]);
+			style.alignment = TextAnchor.MiddleCenter;
+			if (!pl1Choosing && !pl2Choosing) {
+				GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), overlayChar);
+				if(GUI.Button(new Rect(Screen.width*0.35f,Screen.height*0.65f,Screen.width*0.3f,Screen.height*0.15f),startButton,style)){
+					AudioController.Instance.CallSFXSound("Button");
+					Application.LoadLevel (arenaSelected + 1);
+				}
+			} else {
+				GUI.DrawTexture (new Rect (Screen.width * 0.35f, Screen.height * 0.24f, Screen.width * 0.3f, Screen.width * 0.1695f), overlay);
+				GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), UI);
+			}
+			if(GUI.Button(new Rect(Screen.width*0.4f,Screen.height*0.85f,Screen.width*0.2f,Screen.height*0.1f),backButtonGUI,style)){
+				pl1Choosing = true;
+				pl2Choosing = false;
+				AudioController.Instance.CallSFXSound("Button");
+				cam.MoveCam (1);
+				cSelect = false;
+				menu = true;
+			}
 			style.alignment = TextAnchor.MiddleLeft;
 			GUI.TextField (new Rect (Screen.width * 0.02f, Screen.height * 0.195f, Screen.width * 0.4f, Screen.height * 0.1f), name1, style);
 			style.alignment = TextAnchor.MiddleRight;
 			GUI.TextField (new Rect (Screen.width * 0.7f, Screen.height * 0.195f, Screen.width * 0.28f, Screen.height * 0.1f), name2, style);
-			GUI.DrawTexture (new Rect (Screen.width * 0.35f, Screen.height * 0.24f, Screen.width * 0.3f, Screen.width * 0.1695f), arenaTextures [arenaSelected]);
 			CheckMousePos ();
-			if (GUI.Button (new Rect (Screen.width * 0.325f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArena, style)) {
-				arenaSelected--;
-				AudioController.Instance.CallSFXSound("Button");
-				if (arenaSelected == -1) {
-					arenaSelected = 1;
+			if (!pl1Choosing && !pl2Choosing) {
+				if (GUI.Button (new Rect (Screen.width * 0.315f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArena, style)) {
+					arenaSelected--;
+					AudioController.Instance.CallSFXSound ("Button");
+					if (arenaSelected == -1) {
+						arenaSelected = 1;
+					}
 				}
-			}
-			if (GUI.Button (new Rect (Screen.width * 0.66f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArenaR, style)) {
-				arenaSelected++;
-				AudioController.Instance.CallSFXSound("Button");
-				if (arenaSelected == 2) {
-					arenaSelected = 0;
+				if (GUI.Button (new Rect (Screen.width * 0.66f, Screen.height * 0.38f, Screen.width * 0.02f, Screen.height * 0.0428f), usingarrowArenaR, style)) {
+					arenaSelected++;
+					AudioController.Instance.CallSFXSound ("Button");
+					if (arenaSelected == 2) {
+						arenaSelected = 0;
+					}
 				}
 			}
 		} else if (controls) {
@@ -185,8 +206,9 @@ public class MainMenu : MonoBehaviour {
 	void CheckMousePos(){
 		usingarrowArena = arrowNotSelected;
 		usingarrowArenaR = arrowNotSelectedR;
-		if (Input.mousePosition.y > Screen.height * 0.57f && Input.mousePosition.y < Screen.height * 0.62f) {
-			if (Input.mousePosition.x > Screen.width * 0.325f && Input.mousePosition.x < Screen.width * 0.345f) {
+		if (Input.mousePosition.y > Screen.height * 0.57f && Input.mousePosition.y < Screen.height * 0.62f &&
+			!pl1Choosing && !pl2Choosing) {
+			if (Input.mousePosition.x > Screen.width * 0.315f && Input.mousePosition.x < Screen.width * 0.345f) {
 				usingarrowArena = arrowSelected;
 			}
 			if (Input.mousePosition.x > Screen.width * 0.66f && Input.mousePosition.x < Screen.width * 0.7f) {
@@ -196,18 +218,20 @@ public class MainMenu : MonoBehaviour {
 			if (Input.mousePosition.x < Screen.width * 0.5f) {
 				if (((Input.mousePosition.x/Screen.width)-((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)> 0.335f &&
 					((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))< 0.435f ) {
-					if (!pl1Choosing) {
+					if (!pl1Choosing && !pl2Choosing) {
+
+					}
+					else if (!pl1Choosing && pl2Choosing) {
 						if (Input.GetMouseButtonDown (0)) {
 							AudioController.Instance.CallSFXSound("Button");
 							ArenaController.Instance.Player2 = CharacterEnum.Cena;
-						//	AudioController.Instance.ChangeBackgroundMusic("Main Menu");
 							if (arenaSelected == 0) {
 								AudioController.Instance.ChangeBackgroundMusic ("The Ring");
 							} else {
 								AudioController.Instance.ChangeBackgroundMusic ("The Docs");
 							}
-
-							Application.LoadLevel (arenaSelected + 1);
+							pl1Choosing = false;
+							pl2Choosing = false;
 						}
 						name2 = "Cena";
 						GameObject.FindGameObjectWithTag ("C2").GetComponent<MeshRenderer>().enabled = true;
@@ -218,6 +242,7 @@ public class MainMenu : MonoBehaviour {
 							AudioController.Instance.CallSFXSound("Button");
 							ArenaController.Instance.Player1 = CharacterEnum.Cena;
 							pl1Choosing = false;
+							pl2Choosing = true;
 						}
 						name1 = "Cena";
 						GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = true;
@@ -226,7 +251,10 @@ public class MainMenu : MonoBehaviour {
 					}
 				}else if (((Input.mousePosition.x/Screen.width)-(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.435f &&
 					((Input.mousePosition.x/Screen.width)-((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.535f ) {
-					if (!pl1Choosing) {
+					if (!pl1Choosing && !pl2Choosing) {
+
+					}
+					else if (!pl1Choosing && pl2Choosing) {
 						if (Input.GetMouseButtonDown (0)) {
 							AudioController.Instance.CallSFXSound("Button");
 							if (Random.Range (0, 100) > 50) {
@@ -246,7 +274,9 @@ public class MainMenu : MonoBehaviour {
 							} else {
 								AudioController.Instance.ChangeBackgroundMusic ("The Docs");
 							}
-							Application.LoadLevel (arenaSelected + 1);
+							pl1Choosing = false;
+							pl2Choosing = false;
+							//Application.LoadLevel (arenaSelected + 1);
 						}
 						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [4], ScaleMode.StretchToFill);
 					} else {
@@ -264,6 +294,7 @@ public class MainMenu : MonoBehaviour {
 								ArenaController.Instance.Player1 = CharacterEnum.John;
 							}
 							pl1Choosing = false;
+							pl2Choosing = true;
 						}
 						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [1], ScaleMode.StretchToFill);
 					}
@@ -271,7 +302,10 @@ public class MainMenu : MonoBehaviour {
 			} else {
 				if (((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)> 0.5f &&
 					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.56f ) {
-					if (!pl1Choosing) {
+					if (!pl1Choosing && !pl2Choosing) {
+
+					}
+					else if (!pl1Choosing && pl2Choosing) {
 						if (Input.GetMouseButtonDown (0)) {
 							AudioController.Instance.CallSFXSound("Button");
 							if (Random.Range (0, 100) > 50) {
@@ -291,6 +325,8 @@ public class MainMenu : MonoBehaviour {
 							} else {
 								AudioController.Instance.ChangeBackgroundMusic ("The Docs");
 							}
+							pl1Choosing = false;
+							pl2Choosing = false;
 							Application.LoadLevel (arenaSelected + 1);
 						}
 						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [4], ScaleMode.StretchToFill);
@@ -308,13 +344,17 @@ public class MainMenu : MonoBehaviour {
 								GameObject.FindGameObjectWithTag ("J1").GetComponent<MeshRenderer>().enabled = true;
 								ArenaController.Instance.Player1 = CharacterEnum.John;
 							}
+							pl2Choosing = true;
 							pl1Choosing = false;
 						}
 						GUI.DrawTexture (new Rect (Screen.width * 0.438f, Screen.height * 0.01f, Screen.width * 0.123f, Screen.height * 0.21f), characterFrames [1], ScaleMode.StretchToFill);
 					}
 				}else if (((Input.mousePosition.x/Screen.width)+(((Input.mousePosition.y/Screen.height)-0.81f)*0.33f))> 0.56f &&
 					((Input.mousePosition.x/Screen.width)+((Input.mousePosition.y/Screen.height)-0.81f)*0.33f)< 0.66f ) {
-					if (!pl1Choosing) {
+					if (!pl1Choosing && !pl2Choosing) {
+
+					}
+					else if (!pl1Choosing && pl2Choosing) {
 						if (Input.GetMouseButtonDown (0)) {
 							AudioController.Instance.CallSFXSound("Button");
 							ArenaController.Instance.Player2 = CharacterEnum.John;
@@ -324,7 +364,7 @@ public class MainMenu : MonoBehaviour {
 							} else {
 								AudioController.Instance.ChangeBackgroundMusic ("The Docs");
 							}
-							Application.LoadLevel (arenaSelected + 1);
+							pl2Choosing = false;
 
 						}
 						name2 = "John";
@@ -336,6 +376,7 @@ public class MainMenu : MonoBehaviour {
 							AudioController.Instance.CallSFXSound("Button");
 							ArenaController.Instance.Player1 = CharacterEnum.John;
 							pl1Choosing = false;
+							pl2Choosing = true;
 						}
 						name1 = "John";
 						GameObject.FindGameObjectWithTag ("C1").GetComponent<MeshRenderer>().enabled = false;

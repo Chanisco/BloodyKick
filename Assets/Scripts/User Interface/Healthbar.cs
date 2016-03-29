@@ -221,7 +221,6 @@ public class Healthbar : MonoBehaviour {
 			if (time > 0)
             {
                 time = 99 - (int)Time.time + startTime;
-                Debug.Log(time);
 			} else {
                 AudioController.Instance.PlaySound(AnnouncerSounds.TIMEUP);
                 winLose.EndGame (-1);
